@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bâtiment — Tunicarbone</title>
+<style>
+body{margin:0;background:#f8f7f3;color:#29362f;font-family:"DM Sans",Arial,sans-serif}
+main{max-width:850px;margin:auto;padding:60px 25px}
+h1,h2{font-family:Georgia,serif;font-weight:500}
+h1{font-size:52px} h2{font-size:40px}
+.eyebrow{color:#2c8062;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase}
+.question{display:none}.question.active{display:block}
+input,button{font:inherit}
+input[type=number]{width:100%;max-width:620px;height:56px;padding:0 16px;border:1px solid #cfd0ca;border-radius:4px;background:#fffefa}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice input{display:none}.choice label{display:block;padding:18px;border:1px solid #d4d3cd;background:#fffefa;border-radius:4px;cursor:pointer}
+.choice input:checked+label{border-color:#2c8062;background:#f1f6f2}
+.nav{margin-top:45px;border-top:1px solid #dedcd5;padding-top:22px;display:flex;justify-content:space-between}
+button{padding:13px 20px;border-radius:4px;border:1px solid #cfd0ca;background:transparent;cursor:pointer}
+.next{background:#2c8062;color:#fff;border-color:#2c8062}
+@media(max-width:650px){.grid{grid-template-columns:1fr}h1{font-size:42px}h2{font-size:32px}}
+</style>
+</head>
+<body>
+<main>
+<div class="eyebrow">Bilan carbone · Bâtiment</div>
+<h1>Analysons votre bâtiment.</h1>
+
+<div class="question active" data-q="G1">
+<p class="eyebrow">Informations générales</p>
+<h2>Quelle est la <span style="color:#2c8062">surface totale</span> du bâtiment ?</h2>
+<input id="surface" type="number" min="0.01" step="0.01" placeholder="0">
+<p>m²</p>
+</div>
+
+<div class="question" data-q="G2">
+<p class="eyebrow">Informations générales</p>
+<h2>Quelle est la <span style="color:#2c8062">fonction principale</span> du bâtiment ?</h2>
+<div class="grid">
+<div class="choice"><input type="radio" name="type" id="res" value="residentiel"><label for="res">Résidentiel</label></div>
+<div class="choice"><input type="radio" name="type" id="bur" value="bureaux"><label for="bur">Bureaux / administratif</label></div>
+<div class="choice"><input type="radio" name="type" id="com" value="commerce"><label for="com">Commerce</label></div>
+<div class="choice"><input type="radio" name="type" id="eco" value="ecole"><label for="eco">Établissement scolaire</label></div>
+<div class="choice"><input type="radio" name="type" id="san" value="sante"><label for="san">Établissement de santé</label></div>
+<div class="choice"><input type="radio" name="type" id="hot" value="hotel"><label for="hot">Hôtel</label></div>
+<div class="choice"><input type="radio" name="type" id="ind" value="industriel"><label for="ind">Bâtiment industriel</label></div>
+<div class="choice"><input type="radio" name="type" id="aut" value="autre"><label for="aut">Autre</label></div>
+</div>
+</div>
+
+<div class="nav">
+<button id="back" onclick="prev()">Retour</button>
+<button class="next" id="next" onclick="next()">Continuer →</button>
+</div>
+</main>
+
+<script>
+let i=0; const order=["G1","G2"]; const answers={};
+function show(){document.querySelectorAll(".question").forEach(x=>x.classList.remove("active"));document.querySelector(`[data-q="${order[i]}"]`).classList.add("active");document.getElementById("back").style.visibility=i===0?"hidden":"visible";document.getElementById("next").textContent=i===order.length-1?"Commencer le Scope 1 →":"Continuer →"}
+function valid(){
+if(i===0){const v=document.getElementById("surface").value;if(!v||Number(v)<=0){alert("Veuillez renseigner la surface du bâtiment.");return false}answers.surface_batiment=Number(v)}
+if(i===1){const v=document.querySelector('input[name="type"]:checked');if(!v){alert("Veuillez sélectionner la fonction du bâtiment.");return false}answers.type_batiment=v.value}
+return true}
+function next(){if(!valid())return;if(i===order.length-1){localStorage.setItem("carbono_batiment",JSON.stringify(answers));location.href="/scope1_batiment";return}i++;show()}
+function prev(){if(i>0){i--;show()}}
+show();
+</script>
+</body>
+</html> 

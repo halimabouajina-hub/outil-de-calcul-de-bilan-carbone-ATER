@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scope 1 — Entreprise | Tunicarbone</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body class="carbon-page">
+
+<nav class="carbon-nav">
+    <a href="/entreprise" class="carbon-logo"><span class="logo-dot"></span>Tunicarbone</a>
+    <div class="nav-right">
+        <span>Entreprise · Scope 1</span><span class="nav-separator">·</span>
+        <span id="questionCounter">01 / 12</span>
+    </div>
+</nav>
+
+<main class="carbon-main">
+<div class="progress-area"><div class="progress-line"><div class="progress-active" id="progressActive"></div></div></div>
+
+<div class="question-layout">
+<section class="question-side">
+
+<div class="question-screen active" data-question="S1-E01">
+<div class="question-category">SCOPE 1 · VÉHICULES</div>
+<h1>L’entreprise possède-t-elle ou exploite-t-elle des <span>véhicules</span> ?</h1>
+<div class="answers">
+<button type="button" class="answer" onclick="selectChoice('vehicules_entreprise','oui',this)"><span class="answer-letter">A</span><span class="answer-text"><strong>Oui</strong><small>Des véhicules sont utilisés par l’entreprise</small></span><span class="answer-arrow">→</span></button>
+<button type="button" class="answer" onclick="selectChoice('vehicules_entreprise','non',this)"><span class="answer-letter">B</span><span class="answer-text"><strong>Non</strong><small>Aucun véhicule de l’entreprise</small></span><span class="answer-arrow">→</span></button>
+</div></div>
+
+<div class="question-screen" data-question="S1-E02">
+<div class="question-category">SCOPE 1 · VÉHICULES · ESSENCE</div>
+<h1>Quelle quantité annuelle de <span>carburant essence</span> est consommée ?</h1>
+<div class="number-question"><div class="big-input"><input type="number" id="essence_litres" min="0" step="0.1" placeholder="0"><span>litres / an</span></div></div>
+</div>
+
+<div class="question-screen" data-question="S1-E03">
+<div class="question-category">SCOPE 1 · VÉHICULES · DIESEL</div>
+<h1>Quelle quantité annuelle de <span>diesel</span> est consommée ?</h1>
+<div class="number-question"><div class="big-input"><input type="number" id="diesel_litres" min="0" step="0.1" placeholder="0"><span>litres / an</span></div></div>
+</div>
+
+<div class="question-screen" data-question="S1-E04">
+<div class="question-category">SCOPE 1 · VÉHICULES · GPL</div>
+<h1>Quelle quantité annuelle de <span>GPL</span> est consommée ?</h1>
+<div class="number-question"><div class="big-input"><input type="number" id="gpl_litres" min="0" step="0.1" placeholder="0"><span>litres / an</span></div></div>
+</div>
+
+<div class="question-screen" data-question="S1-E05">
+<div class="question-category">SCOPE 1 · GAZ NATUREL</div>
+<h1>Quelle quantité de <span>gaz naturel</span> est consommée par l’entreprise ?</h1>
+<div class="number-question"><div class="big-input"><input type="number" id="gaz_naturel_m3" min="0" step="0.1" placeholder="0"><span>m³ / an</span></div></div>
+</div>
+
+<div class="question-screen" data-question="S1-E06">
+<div class="question-category">SCOPE 1 · GPL SUR SITE</div>
+<h1>Quelle quantité de <span>GPL</span> est utilisée sur le site ?</h1>
+<div class="number-question"><div class="big-input"><input type="number" id="gpl_site_kg" min="0" step="0.1" placeholder="0"><span>kg / an</span></div></div>
+</div>
+
+<div class="question-screen" data-question="S1-E07">
+<div class="question-category">SCOPE 1 · FIOUL</div>
+<h1>Quelle quantité de <span>fioul</span> est consommée ?</h1>
+<div class="number-question"><div class="big-input"><input type="number" id="fioul_litres" min="0" step="0.1" placeholder="0"><span>litres / an</span></div></div>
+</div>
+
+<div class="question-screen" data-question="S1-E08">
+<div class="question-category">SCOPE 1 · DIESEL SUR SITE</div>
+<h1>Quelle quantité de <span>diesel utilisé sur site</span> est consommée ?</h1>
+<div class="number-question"><div class="big-input"><input type="number" id="diesel_site_litres" min="0" step="0.1" placeholder="0"><span>litres / an</span></div></div>
+</div>
+
+<div class="question-screen" data-question="S1-E09">
+<div class="question-category">SCOPE 1 · RÉFRIGÉRANTS</div>
+<h1>L’entreprise a-t-elle des <span>fuites de réfrigérants</span> à déclarer ?</h1>
+<div class="answers">
+<button type="button" class="answer" onclick="selectChoice('refrigerant','oui',this)"><span class="answer-letter">A</span><span class="answer-text"><strong>Oui</strong><small>Une fuite ou un appoint connu est disponible</small></span><span class="answer-arrow">→</span></button>
+<button type="button" class="answer" onclick="selectChoice('refrigerant','non',this)"><span class="answer-letter">B</span><span class="answer-text"><strong>Non</strong><small>Aucune quantité connue à déclarer</small></span><span class="answer-arrow">→</span></button>
+</div></div>
+
+<div class="question-screen" data-question="S1-E10">
+<div class="question-category">SCOPE 1 · RÉFRIGÉRANTS</div>
+<h1>Quel est le <span>type de réfrigérant</span> utilisé ?</h1>
+<div class="answers">
+<button type="button" class="answer" onclick="selectChoice('type_refrigerant','R134a',this)"><span class="answer-letter">A</span><span class="answer-text"><strong>R134a</strong><small>Réfrigérant courant</small></span><span class="answer-arrow">→</span></button>
+<button type="button" class="answer" onclick="selectChoice('type_refrigerant','R410A',this)"><span class="answer-letter">B</span><span class="answer-text"><strong>R410A</strong><small>Réfrigérant courant</small></span><span class="answer-arrow">→</span></button>
+<button type="button" class="answer" onclick="selectChoice('type_refrigerant','R32',this)"><span class="answer-letter">C</span><span class="answer-text"><strong>R32</strong><small>Réfrigérant courant</small></span><span class="answer-arrow">→</span></button>
+</div></div>
+
+<div class="question-screen" data-question="S1-E11">
+<div class="question-category">SCOPE 1 · RÉFRIGÉRANTS</div>
+<h1>Quelle quantité de <span>réfrigérant</span> a été émise ?</h1>
+<div class="number-question"><div class="big-input"><input type="number" id="quantite_refrigerant" min="0" step="0.01" placeholder="0"><span>kg / an</span></div></div>
+</div>
+
+<div class="question-screen" data-question="S1-E12">
+<div class="question-category">SCOPE 1 · ENTREPRISE</div>
+<h1>Terminer le <span>calcul du Scope 1</span>.</h1>
+<p class="question-description">Les données saisies seront envoyées au backend Flask.</p>
+<div class="answers">
+<button type="button" class="answer" onclick="finishScope1Entreprise()"><span class="answer-letter">✓</span><span class="answer-text"><strong>Calculer le Scope 1</strong><small>Envoyer les données</small></span><span class="answer-arrow">→</span></button>
+</div></div>
+
+</section>
+
+<aside class="carbon-panel">
+<div class="panel-label">VOTRE BILAN</div>
+<div class="carbon-value"><strong id="carbonValue">—</strong><span>kg CO₂e</span></div>
+<div class="panel-message" id="panelMessage">Votre bilan se construit progressivement.</div>
+<div class="panel-divider"></div>
+<div class="panel-item"><span>Catégorie</span><strong id="categoryStatus">Véhicules</strong></div>
+<div class="panel-divider"></div>
+<div class="panel-small">Les émissions seront calculées à partir des données fournies et des facteurs d’émission de l’application.</div>
+</aside>
+</div>
+
+<div class="question-navigation">
+<button type="button" id="backButton" class="back-button" onclick="previousQuestion()">← Retour</button>
+<div class="navigation-counter" id="navigationCounter">01 / 12</div>
+<button type="button" id="continueButton" class="continue-button" onclick="nextQuestion()" disabled>Continuer <span>→</span></button>
+</div>
+</main>
+
+<script>
+const answers = {};
+const questionOrder = ["S1-E01","S1-E02","S1-E03","S1-E04","S1-E05","S1-E06","S1-E07","S1-E08","S1-E09","S1-E10","S1-E11","S1-E12"];
+let currentIndex = 0;
+
+const screens = document.querySelectorAll(".question-screen");
+const continueButton = document.getElementById("continueButton");
+const backButton = document.getElementById("backButton");
+const questionCounter = document.getElementById("questionCounter");
+const navigationCounter = document.getElementById("navigationCounter");
+const progressActive = document.getElementById("progressActive");
+
+const inputIds = [
+    "essence_litres","diesel_litres","gpl_litres","gaz_naturel_m3",
+    "gpl_site_kg","fioul_litres","diesel_site_litres","quantite_refrigerant"
+];
+
+inputIds.forEach(id => {
+    const input = document.getElementById(id);
+    input.addEventListener("input", function () {
+        answers[id] = this.value === "" ? null : Number(this.value);
+        updateContinueButton();
+    });
+});
+
+function showQuestion(index) {
+    currentIndex = index;
+    screens.forEach(s => s.classList.remove("active"));
+    const id = questionOrder[currentIndex];
+    const screen = document.querySelector(`[data-question="${id}"]`);
+    if (screen) screen.classList.add("active");
+
+    const n = String(currentIndex + 1).padStart(2, "0");
+    questionCounter.textContent = `${n} / 12`;
+    navigationCounter.textContent = `${n} / 12`;
+    progressActive.style.width = `${((currentIndex + 1) / questionOrder.length) * 100}%`;
+    backButton.disabled = currentIndex === 0;
+    updateCategory();
+    updateContinueButton();
+}
+
+function selectChoice(variable, value, button) {
+    answers[variable] = value;
+    const parent = button.closest(".answers");
+    if (parent) parent.querySelectorAll(".answer").forEach(b => b.classList.remove("selected"));
+    button.classList.add("selected");
+    updateContinueButton();
+}
+
+function isValid() {
+    const q = questionOrder[currentIndex];
+    const required = {
+        "S1-E01":"vehicules_entreprise",
+        "S1-E02":"essence_litres",
+        "S1-E03":"diesel_litres",
+        "S1-E04":"gpl_litres",
+        "S1-E05":"gaz_naturel_m3",
+        "S1-E06":"gpl_site_kg",
+        "S1-E07":"fioul_litres",
+        "S1-E08":"diesel_site_litres",
+        "S1-E09":"refrigerant",
+        "S1-E10":"type_refrigerant",
+        "S1-E11":"quantite_refrigerant"
+    };
+    const variable = required[q];
+    if (!variable) return true;
+    return answers[variable] !== undefined && answers[variable] !== null && answers[variable] !== "";
+}
+
+function updateContinueButton() {
+    if (questionOrder[currentIndex] === "S1-E12") {
+        continueButton.style.visibility = "hidden";
+        return;
+    }
+    continueButton.style.visibility = "visible";
+    continueButton.disabled = !isValid();
+}
+
+function updateCategory() {
+    const q = questionOrder[currentIndex];
+    const category = document.getElementById("categoryStatus");
+    const message = document.getElementById("panelMessage");
+
+    if (q <= "S1-E04") {
+        category.textContent = "Véhicules";
+        message.textContent = "Les carburants des véhicules de l’entreprise sont pris en compte.";
+    } else if (q <= "S1-E08") {
+        category.textContent = "Combustibles";
+        message.textContent = "Les combustibles consommés directement par l’entreprise sont intégrés.";
+    } else {
+        category.textContent = "Réfrigérants";
+        message.textContent = "Les émissions liées aux fuites de réfrigérants sont intégrées.";
+    }
+}
+
+function nextQuestion() {
+    if (!isValid()) return;
+    const q = questionOrder[currentIndex];
+
+    if (q === "S1-E01") {
+        showQuestion(answers.vehicules_entreprise === "oui" ? 1 : 4);
+        return;
+    }
+
+    if (q === "S1-E09") {
+        if (answers.refrigerant === "oui") showQuestion(9);
+        else finishScope1Entreprise();
+        return;
+    }
+
+    if (q === "S1-E11") {
+        finishScope1Entreprise();
+        return;
+    }
+
+    if (currentIndex < questionOrder.length - 1) showQuestion(currentIndex + 1);
+}
+
+function previousQuestion() {
+    if (currentIndex === 0) {
+        window.location.href = "/entreprise";
+        return;
+    }
+    if (questionOrder[currentIndex] === "S1-E05") {
+        showQuestion(0);
+        return;
+    }
+    if (questionOrder[currentIndex] === "S1-E09") {
+        showQuestion(7);
+        return;
+    }
+    showQuestion(currentIndex - 1);
+}
+
+function finishScope1Entreprise() {
+    localStorage.setItem("carbono_entreprise_scope1", JSON.stringify(answers));
+
+    fetch("/calcul-scope1-entreprise", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(answers)
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("Erreur HTTP " + response.status);
+        return response.json();
+    })
+    .then(data => {
+        localStorage.setItem("resultat_scope1_entreprise", JSON.stringify(data.resultat || {}));
+        window.location.href = "/scope2_entreprise";
+    })
+    .catch(error => {
+        console.error("Erreur calcul Scope 1 Entreprise :", error);
+        alert("Une erreur est survenue lors du calcul du Scope 1.");
+    });
+}
+
+showQuestion(0);
+</script>
+</body>
+</html>

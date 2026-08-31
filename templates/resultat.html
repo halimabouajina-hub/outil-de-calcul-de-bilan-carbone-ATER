@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Votre bilan — Tunicarbone</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap"
+          rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #f8f7f3;
+            color: #25312c;
+            font-family: "DM Sans", sans-serif;
+            min-height: 100vh;
+        }
+
+        .carbon-nav {
+            height: 76px;
+            padding: 0 6vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e4e2dc;
+            background: rgba(248,247,243,.96);
+        }
+
+        .carbon-logo {
+            text-decoration: none;
+            color: #25312c;
+            font-weight: 600;
+            font-size: 19px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .logo-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #2c8062;
+            display: inline-block;
+        }
+
+        .nav-right {
+            color: #68736d;
+            font-size: 14px;
+        }
+
+        .nav-separator {
+            margin: 0 9px;
+            color: #b7bbb6;
+        }
+
+        .carbon-main {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 58px 28px 70px;
+        }
+
+        .intro {
+            max-width: 760px;
+            margin-bottom: 48px;
+        }
+
+        .eyebrow {
+            color: #2c8062;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 1.04;
+            font-weight: 500;
+            color: #26342e;
+            margin-bottom: 18px;
+        }
+
+        .intro p {
+            color: #69746f;
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 620px;
+        }
+
+        .main-result {
+            border-top: 1px solid #dcdad3;
+            border-bottom: 1px solid #dcdad3;
+            padding: 30px 0 34px;
+            margin-bottom: 38px;
+        }
+
+        .result-label {
+            color: #747d78;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .result-number {
+            display: flex;
+            align-items: baseline;
+            gap: 13px;
+            flex-wrap: wrap;
+        }
+
+        .result-number strong {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(48px, 7vw, 76px);
+            font-weight: 500;
+            line-height: 1;
+            color: #236a51;
+        }
+
+        .result-number span {
+            color: #69746f;
+            font-size: 16px;
+        }
+
+        .scope-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-bottom: 1px solid #dcdad3;
+            margin-bottom: 52px;
+        }
+
+        .scope-item {
+            padding: 24px 25px 27px 0;
+            border-right: 1px solid #e1dfd8;
+        }
+
+        .scope-item:not(:first-child) {
+            padding-left: 25px;
+        }
+
+        .scope-item:last-child {
+            border-right: none;
+        }
+
+        .scope-name {
+            color: #69746f;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .scope-value {
+            color: #25312c;
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+        .section {
+            margin-bottom: 52px;
+        }
+
+        .section-header {
+            margin-bottom: 24px;
+        }
+
+        .section-header h2 {
+            font-family: "Playfair Display", serif;
+            font-weight: 500;
+            font-size: 31px;
+            color: #29362f;
+            margin-bottom: 6px;
+        }
+
+        .section-header p {
+            color: #78817d;
+            font-size: 14px;
+        }
+
+        .charts {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 44px;
+            align-items: center;
+        }
+
+        .chart-box {
+            min-height: 330px;
+            position: relative;
+        }
+
+        .chart-box canvas {
+            width: 100% !important;
+            height: 320px !important;
+        }
+
+        .detail-list {
+            border-top: 1px solid #dedcd5;
+        }
+
+        .detail-row {
+            min-height: 62px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid #dedcd5;
+        }
+
+        .detail-name {
+            color: #4d5a54;
+            font-size: 15px;
+        }
+
+        .detail-value {
+            color: #26342e;
+            font-size: 15px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .actions {
+            border-top: 1px solid #dcdad3;
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .actions p {
+            color: #78817d;
+            font-size: 13px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .primary-button,
+        .secondary-button {
+            padding: 13px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .primary-button {
+            background: #2c8062;
+            color: white;
+            border: 1px solid #2c8062;
+        }
+
+        .primary-button:hover {
+            background: #246d53;
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: #4f5b55;
+            border: 1px solid #cfd0ca;
+        }
+
+        .secondary-button:hover {
+            background: #efeee9;
+        }
+
+        .footer {
+            margin-top: 70px;
+            padding-top: 22px;
+            border-top: 1px solid #e1dfd8;
+            color: #929893;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        @media (max-width: 780px) {
+            .carbon-nav {
+                padding: 0 22px;
+            }
+
+            .carbon-main {
+                padding: 42px 22px 55px;
+            }
+
+            .scope-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .scope-item,
+            .scope-item:not(:first-child) {
+                padding: 19px 0;
+                border-right: none;
+                border-bottom: 1px solid #e1dfd8;
+            }
+
+            .scope-item:last-child {
+                border-bottom: none;
+            }
+
+            .charts {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .chart-box {
+                min-height: 280px;
+            }
+
+            .chart-box canvas {
+                height: 280px !important;
+            }
+
+            .actions {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .carbon-nav {
+                background: white;
+            }
+
+            .actions {
+                display: none;
+            }
+
+            .carbon-main {
+                padding-top: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="carbon-nav">
+    <a href="/individu" class="carbon-logo">
+        <span class="logo-dot"></span>
+        Tunicarbone
+    </a>
+
+    <div class="nav-right">
+        Votre bilan
+        <span class="nav-separator">·</span>
+        Résultats
+    </div>
+</nav>
+
+
+<main class="carbon-main">
+
+    <section class="intro">
+        <div class="eyebrow">Bilan carbone individuel</div>
+
+        <h1>Votre empreinte carbone</h1>
+
+        <p>
+            Voici une synthèse des émissions estimées à partir
+            des réponses que vous avez fournies.
+        </p>
+    </section>
+
+
+    <section class="main-result">
+
+        <div class="result-label">
+            Empreinte carbone totale
+        </div>
+
+        <div class="result-number">
+            <strong id="total">—</strong>
+            <span>kg CO₂e</span>
+        </div>
+
+    </section>
+
+
+    <section class="scope-summary">
+
+        <div class="scope-item">
+            <div class="scope-name">Scope 1</div>
+            <div class="scope-value" id="scope1">—</div>
+        </div>
+
+        <div class="scope-item">
+            <div class="scope-name">Scope 2</div>
+            <div class="scope-value" id="scope2">—</div>
+        </div>
+
+        <div class="scope-item">
+            <div class="scope-name">Scope 3</div>
+            <div class="scope-value" id="scope3">—</div>
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <div class="section-header">
+            <h2>Répartition des émissions</h2>
+            <p>Contribution de chacun des trois scopes à votre bilan.</p>
+        </div>
+
+        <div class="charts">
+
+            <div class="chart-box">
+                <canvas id="scopeChart"></canvas>
+            </div>
+
+            <div class="chart-box">
+                <canvas id="scope3Chart"></canvas>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <div class="section-header">
+            <h2>Le Scope 3 en détail</h2>
+            <p>Les principaux postes d'émissions indirectes.</p>
+        </div>
+
+        <div class="detail-list">
+
+            <div class="detail-row">
+                <span class="detail-name">Alimentation</span>
+                <span class="detail-value" id="alimentation">—</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-name">Transport</span>
+                <span class="detail-value" id="transport">—</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-name">Achats</span>
+                <span class="detail-value" id="achats">—</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-name">Eau</span>
+                <span class="detail-value" id="eau">—</span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-name">Déchets</span>
+                <span class="detail-value" id="dechets">—</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="actions">
+
+        <p>
+            Vous pouvez conserver une copie de votre bilan.
+        </p>
+
+        <div class="buttons">
+
+            <button
+                type="button"
+                class="secondary-button"
+                onclick="window.print()">
+                Imprimer
+            </button>
+
+            <button
+                type="button"
+                class="primary-button"
+                onclick="telechargerPDF()">
+                Télécharger le bilan PDF
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <footer class="footer">
+        Tunicarbone · Bilan carbone individuel
+    </footer>
+
+</main>
+
+
+<script>
+
+function valeur(nombre) {
+    return Number(nombre || 0);
+}
+
+function afficher(nombre) {
+    return valeur(nombre).toFixed(2);
+}
+
+
+/* ===============================
+   RÉSULTATS
+================================ */
+
+const resultatScope1 =
+    JSON.parse(
+        localStorage.getItem("resultat_scope1")
+    ) || {};
+
+const resultatScope2 =
+    JSON.parse(
+        localStorage.getItem("resultat_scope2")
+    ) || {};
+
+const resultatScope3 =
+    JSON.parse(
+        localStorage.getItem("resultat_scope3")
+    ) || {};
+
+
+const scope1 =
+    valeur(
+        resultatScope1.total_scope1 ??
+        resultatScope1.scope1 ??
+        resultatScope1.total
+    );
+
+const scope2 =
+    valeur(
+        resultatScope2.total_scope2 ??
+        resultatScope2.scope2 ??
+        resultatScope2.total
+    );
+
+const scope3 =
+    valeur(
+        resultatScope3.total_scope3 ??
+        resultatScope3.scope3 ??
+        resultatScope3.total
+    );
+
+
+const alimentation =
+    valeur(resultatScope3.alimentation);
+
+const transport =
+    valeur(resultatScope3.transport);
+
+const achats =
+    valeur(resultatScope3.achats);
+
+const eau =
+    valeur(resultatScope3.eau);
+
+const dechets =
+    valeur(resultatScope3.dechets);
+
+
+const total =
+    scope1 + scope2 + scope3;
+
+
+/* ===============================
+   AFFICHAGE
+================================ */
+
+document.getElementById("scope1").textContent =
+    afficher(scope1) + " kg";
+
+document.getElementById("scope2").textContent =
+    afficher(scope2) + " kg";
+
+document.getElementById("scope3").textContent =
+    afficher(scope3) + " kg";
+
+document.getElementById("total").textContent =
+    afficher(total);
+
+
+document.getElementById("alimentation").textContent =
+    afficher(alimentation) + " kg CO₂e";
+
+document.getElementById("transport").textContent =
+    afficher(transport) + " kg CO₂e";
+
+document.getElementById("achats").textContent =
+    afficher(achats) + " kg CO₂e";
+
+document.getElementById("eau").textContent =
+    afficher(eau) + " kg CO₂e";
+
+document.getElementById("dechets").textContent =
+    afficher(dechets) + " kg CO₂e";
+
+
+/* ===============================
+   GRAPHIQUE DES SCOPES
+================================ */
+
+new Chart(
+    document.getElementById("scopeChart"),
+    {
+        type: "doughnut",
+
+        data: {
+            labels: [
+                "Scope 1",
+                "Scope 2",
+                "Scope 3"
+            ],
+
+            datasets: [{
+                data: [
+                    scope1,
+                    scope2,
+                    scope3
+                ],
+
+                backgroundColor: [
+                    "#c98752",
+                    "#7896ad",
+                    "#5d9278"
+                ],
+
+                borderWidth: 0
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    position: "bottom",
+                    labels: {
+                        padding: 18,
+                        usePointStyle: true,
+                        font: {
+                            family: "DM Sans"
+                        }
+                    }
+                }
+            }
+        }
+    }
+);
+
+
+/* ===============================
+   GRAPHIQUE SCOPE 3
+================================ */
+
+new Chart(
+    document.getElementById("scope3Chart"),
+    {
+        type: "bar",
+
+        data: {
+            labels: [
+                "Alimentation",
+                "Transport",
+                "Achats",
+                "Eau",
+                "Déchets"
+            ],
+
+            datasets: [{
+                data: [
+                    alimentation,
+                    transport,
+                    achats,
+                    eau,
+                    dechets
+                ],
+
+                backgroundColor: "#5d9278",
+                borderRadius: 3,
+                borderWidth: 0
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: "#e5e3dc"
+                    },
+                    ticks: {
+                        font: {
+                            family: "DM Sans"
+                        }
+                    }
+                },
+
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        font: {
+                            family: "DM Sans"
+                        }
+                    }
+                }
+            }
+        }
+    }
+);
+
+
+/* ===============================
+   PDF / IMPRESSION
+================================ */
+
+function telechargerPDF() {
+    window.print();
+}
+
+</script>
+
+</body>
+</html>

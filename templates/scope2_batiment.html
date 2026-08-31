@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Scope 2 — Bâtiment | Tunicarbone</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap"
+      rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    background:#f8f7f3;
+    color:#29362f;
+    font-family:"DM Sans",sans-serif;
+    min-height:100vh;
+}
+
+nav{
+    height:76px;
+    padding:0 6vw;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid #e4e2dc;
+}
+
+.logo{
+    color:#29362f;
+    text-decoration:none;
+    font-weight:600;
+    font-size:19px;
+    display:flex;
+    gap:9px;
+    align-items:center;
+}
+
+.dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:#2c8062;
+}
+
+.navinfo{
+    font-size:13px;
+    color:#737c77;
+}
+
+main{
+    max-width:860px;
+    margin:auto;
+    padding:60px 28px 80px;
+}
+
+.eyebrow{
+    color:#2c8062;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:1.4px;
+    text-transform:uppercase;
+    margin-bottom:14px;
+}
+
+h1,h2{
+    font-family:"Playfair Display",serif;
+    font-weight:500;
+    color:#29362f;
+}
+
+h1{
+    font-size:clamp(40px,6vw,58px);
+    margin-bottom:12px;
+}
+
+.intro p{
+    color:#737c77;
+    line-height:1.7;
+    font-size:15px;
+    margin-bottom:48px;
+}
+
+.question{
+    display:none;
+}
+
+.question.active{
+    display:block;
+}
+
+.question h2{
+    font-size:clamp(30px,5vw,44px);
+    line-height:1.18;
+    margin-bottom:32px;
+}
+
+.question h2 span{
+    color:#2c8062;
+}
+
+.field{
+    max-width:650px;
+    margin-bottom:22px;
+}
+
+.field-label{
+    display:block;
+    color:#68736d;
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+input[type="number"]{
+    width:100%;
+    height:56px;
+    padding:0 16px;
+    border:1px solid #cfd0ca;
+    border-radius:4px;
+    background:#fffefa;
+    color:#29362f;
+    font:inherit;
+    font-size:16px;
+    outline:none;
+}
+
+input[type="number"]:focus{
+    border-color:#2c8062;
+}
+
+.unit{
+    font-size:12px;
+    color:#8b938f;
+    margin-top:8px;
+}
+
+.choices{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    max-width:720px;
+}
+
+.choice{
+    position:relative;
+}
+
+.choice input{
+    position:absolute;
+    opacity:0;
+    width:0;
+    height:0;
+}
+
+.choice label{
+    display:flex;
+    align-items:center;
+    min-height:58px;
+    padding:15px 18px;
+    border:1px solid #d4d3cd;
+    border-radius:4px;
+    background:#fffefa;
+    cursor:pointer;
+    color:#4e5b55;
+}
+
+.choice input:checked + label{
+    border-color:#2c8062;
+    background:#f1f6f2;
+    color:#236a51;
+}
+
+.note{
+    margin-top:10px;
+    font-size:12px;
+    color:#8b938f;
+    line-height:1.5;
+}
+
+.nav{
+    margin-top:48px;
+    padding-top:22px;
+    border-top:1px solid #dedcd5;
+    display:flex;
+    justify-content:space-between;
+}
+
+button{
+    font:inherit;
+    font-size:14px;
+    font-weight:600;
+    border-radius:4px;
+    padding:13px 20px;
+    cursor:pointer;
+}
+
+.back{
+    background:transparent;
+    border:1px solid #cfd0ca;
+    color:#59645f;
+}
+
+.next{
+    background:#2c8062;
+    border:1px solid #2c8062;
+    color:white;
+}
+
+.back:hover{
+    background:#efeee9;
+}
+
+.next:hover{
+    background:#246d53;
+}
+
+.footer{
+    margin-top:45px;
+    padding-top:22px;
+    border-top:1px solid #e1dfd8;
+    text-align:center;
+    color:#949b97;
+    font-size:12px;
+}
+
+@media(max-width:650px){
+    nav{padding:0 22px}
+    main{padding:42px 22px 60px}
+    .choices{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<a href="/batiment" class="logo">
+<span class="dot"></span>
+Tunicarbone
+</a>
+
+<div class="navinfo">
+Bâtiment · Scope 2
+<span id="counter">01 / 05</span>
+</div>
+
+</nav>
+
+
+<main>
+
+<div class="eyebrow">
+Bilan carbone · Scope 2
+</div>
+
+<h1>
+Électricité achetée.
+</h1>
+
+<div class="intro">
+<p>
+Renseignez les données annuelles d'électricité du bâtiment.
+La production photovoltaïque est renseignée séparément afin
+d'éviter tout double comptage.
+</p>
+</div>
+
+
+<!-- =========================
+     S2-B01
+========================== -->
+
+<div class="question active" data-q="S2-B01">
+
+<div class="eyebrow">
+Scope 2 · Électricité
+</div>
+
+<h2>
+Quelle est la quantité annuelle
+d'<span>électricité achetée au réseau</span>
+?
+</h2>
+
+<div class="field">
+
+<input
+id="electricite_achetee"
+type="number"
+min="0"
+step="0.01"
+placeholder="0">
+
+<div class="unit">
+kWh/an
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     S2-B02
+========================== -->
+
+<div class="question" data-q="S2-B02">
+
+<div class="eyebrow">
+Scope 2 · Photovoltaïque
+</div>
+
+<h2>
+Le bâtiment dispose-t-il d'une
+<span>installation photovoltaïque</span>
+?
+</h2>
+
+<div class="choices">
+
+<div class="choice">
+
+<input
+type="radio"
+name="photovoltaique"
+id="pv_oui"
+value="oui">
+
+<label for="pv_oui">
+Oui
+</label>
+
+</div>
+
+
+<div class="choice">
+
+<input
+type="radio"
+name="photovoltaique"
+id="pv_non"
+value="non">
+
+<label for="pv_non">
+Non
+</label>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     S2-B03
+========================== -->
+
+<div class="question" data-q="S2-B03">
+
+<div class="eyebrow">
+Scope 2 · Photovoltaïque
+</div>
+
+<h2>
+Quelle est la quantité annuelle
+d'<span>électricité produite</span>
+par l'installation photovoltaïque ?
+</h2>
+
+<div class="field">
+
+<input
+id="production_photovoltaique"
+type="number"
+min="0"
+step="0.01"
+placeholder="0">
+
+<div class="unit">
+kWh/an
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     S2-B04
+========================== -->
+
+<div class="question" data-q="S2-B04">
+
+<div class="eyebrow">
+Scope 2 · Photovoltaïque
+</div>
+
+<h2>
+Quelle quantité d'électricité produite est
+<span>autoconsommée</span>
+par le bâtiment ?
+</h2>
+
+<div class="field">
+
+<input
+id="autoconsommation_photovoltaique"
+type="number"
+min="0"
+step="0.01"
+placeholder="0">
+
+<div class="unit">
+kWh/an
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     S2-B05
+========================== -->
+
+<div class="question" data-q="S2-B05">
+
+<div class="eyebrow">
+Scope 2 · Photovoltaïque
+</div>
+
+<h2>
+Quelle quantité d'électricité est
+<span>injectée dans le réseau</span>
+?
+</h2>
+
+<div class="field">
+
+<input
+id="electricite_injectee"
+type="number"
+min="0"
+step="0.01"
+placeholder="0">
+
+<div class="unit">
+kWh/an
+</div>
+
+</div>
+
+<div class="note">
+La somme autoconsommation + injection doit être cohérente
+avec la production photovoltaïque annuelle.
+</div>
+
+</div>
+
+
+<div class="nav">
+
+<button
+type="button"
+class="back"
+id="back"
+onclick="previousQuestion()">
+
+Retour
+
+</button>
+
+
+<button
+type="button"
+class="next"
+id="next"
+onclick="nextQuestion()">
+
+Continuer →
+
+</button>
+
+</div>
+
+
+<div class="footer">
+Tunicarbone · Bilan carbone d'un bâtiment existant
+</div>
+
+</main>
+
+
+<script>
+
+const order = [
+    "S2-B01",
+    "S2-B02",
+    "S2-B03",
+    "S2-B04",
+    "S2-B05"
+];
+
+let index = 0;
+
+const answers =
+    JSON.parse(
+        localStorage.getItem(
+            "carbono_batiment_scope2"
+        ) || "{}"
+    );
+
+
+function showQuestion(i) {
+
+    index = i;
+
+    document
+        .querySelectorAll(".question")
+        .forEach(q => q.classList.remove("active"));
+
+
+    document
+        .querySelector(
+            `[data-q="${order[index]}"]`
+        )
+        .classList.add("active");
+
+
+    document.getElementById(
+        "counter"
+    ).textContent =
+        `${String(index + 1).padStart(2,"0")} / ${String(order.length).padStart(2,"0")}`;
+
+
+    document.getElementById(
+        "back"
+    ).style.visibility =
+        index === 0
+            ? "hidden"
+            : "visible";
+
+
+    document.getElementById(
+        "next"
+    ).textContent =
+        index === order.length - 1
+            ? "Terminer le Scope 2 →"
+            : "Continuer →";
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+function saveCurrent() {
+
+    const id = order[index];
+
+
+    if (id === "S2-B01") {
+
+        answers.electricite_achetee =
+            Number(
+                document.getElementById(
+                    "electricite_achetee"
+                ).value || 0
+            );
+
+    }
+
+
+    if (id === "S2-B02") {
+
+        const selected =
+            document.querySelector(
+                'input[name="photovoltaique"]:checked'
+            );
+
+
+        if (!selected) {
+
+            alert(
+                "Veuillez indiquer si le bâtiment dispose d'une installation photovoltaïque."
+            );
+
+            return false;
+        }
+
+
+        answers.photovoltaique =
+            selected.value;
+
+    }
+
+
+    if (id === "S2-B03") {
+
+        answers.production_photovoltaique =
+            Number(
+                document.getElementById(
+                    "production_photovoltaique"
+                ).value || 0
+            );
+
+    }
+
+
+    if (id === "S2-B04") {
+
+        answers.autoconsommation_photovoltaique =
+            Number(
+                document.getElementById(
+                    "autoconsommation_photovoltaique"
+                ).value || 0
+            );
+
+    }
+
+
+    if (id === "S2-B05") {
+
+        answers.electricite_injectee =
+            Number(
+                document.getElementById(
+                    "electricite_injectee"
+                ).value || 0
+            );
+
+
+        if (
+            answers.photovoltaique === "oui" &&
+            answers.production_photovoltaique !== undefined
+        ) {
+
+            const production =
+                Number(
+                    answers.production_photovoltaique || 0
+                );
+
+            const auto =
+                Number(
+                    answers.autoconsommation_photovoltaique || 0
+                );
+
+            const injection =
+                Number(
+                    answers.electricite_injectee || 0
+                );
+
+
+            if (
+                auto + injection > production + 0.0001
+            ) {
+
+                alert(
+                    "La somme de l'autoconsommation et de l'électricité injectée ne peut pas dépasser la production photovoltaïque."
+                );
+
+                return false;
+            }
+
+        }
+
+    }
+
+
+    localStorage.setItem(
+        "carbono_batiment_scope2",
+        JSON.stringify(answers)
+    );
+
+    return true;
+
+}
+
+
+function calculerScope2EtContinuer() {
+
+    localStorage.setItem(
+        "carbono_batiment_scope2",
+        JSON.stringify(answers)
+    );
+
+    fetch("/calcul-scope2-batiment", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(answers)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Erreur HTTP " + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+
+        console.log(
+            "Résultat Scope 2 Bâtiment :",
+            data
+        );
+
+        localStorage.setItem(
+            "resultat_scope2_batiment",
+            JSON.stringify(data.resultat || {})
+        );
+
+        window.location.href="/scope3_batiment";
+    })
+    .catch(error => {
+
+        console.error(
+            "Erreur calcul Scope 2 Bâtiment :",
+            error
+        );
+
+        alert(
+            "Erreur lors du calcul du Scope 2 du bâtiment."
+        );
+    });
+}
+
+
+function nextQuestion() {
+
+    if (!saveCurrent()) {
+        return;
+    }
+
+
+    const current =
+        order[index];
+
+
+    /*
+       Pas de photovoltaïque :
+       on termine directement le Scope 2.
+    */
+
+    if (
+        current === "S2-B02" &&
+        answers.photovoltaique === "non"
+    ) {
+
+        localStorage.setItem(
+            "carbono_batiment_scope2",
+            JSON.stringify(answers)
+        );
+
+
+        calculerScope2EtContinuer();
+        return;
+
+    }
+
+
+    if (
+        index === order.length - 1
+    ) {
+
+        localStorage.setItem(
+            "carbono_batiment_scope2",
+            JSON.stringify(answers)
+        );
+
+
+        calculerScope2EtContinuer();
+        return;
+
+    }
+
+
+    showQuestion(
+        index + 1
+    );
+
+}
+
+
+function previousQuestion() {
+
+    if (index > 0) {
+
+        showQuestion(
+            index - 1
+        );
+
+    } else {
+
+        window.location.href =
+            "/scope1_batiment";
+
+    }
+
+}
+
+
+/*
+   Restaurer les champs
+*/
+
+document.getElementById(
+    "electricite_achetee"
+).value =
+    answers.electricite_achetee ?? "";
+
+
+document.getElementById(
+    "production_photovoltaique"
+).value =
+    answers.production_photovoltaique ?? "";
+
+
+document.getElementById(
+    "autoconsommation_photovoltaique"
+).value =
+    answers.autoconsommation_photovoltaique ?? "";
+
+
+document.getElementById(
+    "electricite_injectee"
+).value =
+    answers.electricite_injectee ?? "";
+
+
+if (
+    answers.photovoltaique === "oui"
+) {
+
+    document.getElementById(
+        "pv_oui"
+    ).checked = true;
+
+} else if (
+    answers.photovoltaique === "non"
+) {
+
+    document.getElementById(
+        "pv_non"
+    ).checked = true;
+
+}
+
+
+showQuestion(0);
+
+</script>
+
+</body>
+</html> 

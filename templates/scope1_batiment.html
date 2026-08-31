@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scope 1 — Bâtiment | Tunicarbone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f8f7f3;color:#29362f;font-family:"DM Sans",sans-serif;min-height:100vh}
+nav{height:76px;padding:0 6vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e4e2dc}
+.logo{color:#29362f;text-decoration:none;font-weight:600;font-size:19px;display:flex;gap:9px;align-items:center}
+.dot{width:9px;height:9px;border-radius:50%;background:#2c8062}
+.navinfo{font-size:13px;color:#737c77}
+main{max-width:860px;margin:auto;padding:60px 28px 80px}
+.eyebrow{color:#2c8062;font-size:12px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:14px}
+h1,h2{font-family:"Playfair Display",serif;font-weight:500;color:#29362f}
+h1{font-size:clamp(40px,6vw,58px);margin-bottom:12px}
+.intro p{color:#737c77;line-height:1.7;font-size:15px;margin-bottom:48px}
+.question{display:none}.question.active{display:block}
+.question h2{font-size:clamp(30px,5vw,44px);line-height:1.18;margin-bottom:32px}
+.question h2 span{color:#2c8062}
+.field{max-width:650px;margin-bottom:22px}
+label.field-label{display:block;color:#68736d;font-size:13px;margin-bottom:8px}
+input,select{width:100%;height:56px;padding:0 16px;border:1px solid #cfd0ca;border-radius:4px;background:#fffefa;color:#29362f;font:inherit;font-size:16px;outline:none}
+input:focus,select:focus{border-color:#2c8062}
+.unit{font-size:12px;color:#8b938f;margin-top:8px}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:720px}
+.choice{position:relative}.choice input{position:absolute;opacity:0;width:0;height:0}
+.choice label{display:flex;align-items:center;min-height:58px;padding:15px 18px;border:1px solid #d4d3cd;border-radius:4px;background:#fffefa;cursor:pointer;color:#4e5b55}
+.choice input:checked+label{border-color:#2c8062;background:#f1f6f2;color:#236a51}
+.note{font-size:12px;color:#8b938f;margin-top:10px;line-height:1.5}
+.nav{margin-top:48px;padding-top:22px;border-top:1px solid #dedcd5;display:flex;justify-content:space-between}
+button{font:inherit;font-size:14px;font-weight:600;border-radius:4px;padding:13px 20px;cursor:pointer}
+.back{background:transparent;border:1px solid #cfd0ca;color:#59645f}
+.next{background:#2c8062;border:1px solid #2c8062;color:#fff}
+.footer{margin-top:45px;padding-top:22px;border-top:1px solid #e1dfd8;text-align:center;color:#949b97;font-size:12px}
+@media(max-width:650px){nav{padding:0 22px}main{padding:42px 22px 60px}.choices{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+<nav>
+<a href="/batiment" class="logo"><span class="dot"></span>Tunicarbone</a>
+<div class="navinfo">Bâtiment · Scope 1 <span id="counter">01 / 06</span></div>
+</nav>
+
+<main>
+<div class="eyebrow">Bilan carbone · Scope 1</div>
+<h1>Émissions directes du bâtiment.</h1>
+<div class="intro">
+<p>Renseignez les consommations annuelles réelles du bâtiment. Les données sont saisies directement dans les unités techniques correspondantes.</p>
+</div>
+
+<div class="question active" data-q="S1-B01">
+<div class="eyebrow">Scope 1 · Gaz naturel</div>
+<h2>Quelle est la consommation annuelle de <span>gaz naturel</span> ?</h2>
+<div class="field"><input id="gaz_naturel_m3" type="number" min="0" step="0.01" placeholder="0"><div class="unit">m³/an</div></div>
+</div>
+
+<div class="question" data-q="S1-B02">
+<div class="eyebrow">Scope 1 · GPL</div>
+<h2>Quelle est la consommation annuelle de <span>GPL</span> ?</h2>
+<div class="field"><input id="gpl_kg" type="number" min="0" step="0.01" placeholder="0"><div class="unit">kg/an</div></div>
+</div>
+
+<div class="question" data-q="S1-B03">
+<div class="eyebrow">Scope 1 · Fioul</div>
+<h2>Quelle est la consommation annuelle de <span>fioul</span> ?</h2>
+<div class="field"><input id="fioul_litres" type="number" min="0" step="0.01" placeholder="0"><div class="unit">L/an</div></div>
+</div>
+
+<div class="question" data-q="S1-B04">
+<div class="eyebrow">Scope 1 · Diesel</div>
+<h2>Quelle est la consommation annuelle de <span>diesel</span> ?</h2>
+<div class="field"><input id="diesel_litres" type="number" min="0" step="0.01" placeholder="0"><div class="unit">L/an</div></div>
+</div>
+
+<div class="question" data-q="S1-B05">
+<div class="eyebrow">Scope 1 · Autre combustible</div>
+<h2>Le bâtiment utilise-t-il un <span>autre combustible</span> ?</h2>
+<div class="choices">
+<div class="choice"><input type="radio" name="autre_combustible" id="autre_oui" value="oui"><label for="autre_oui">Oui</label></div>
+<div class="choice"><input type="radio" name="autre_combustible" id="autre_non" value="non"><label for="autre_non">Non</label></div>
+</div>
+
+<div id="autre_fields" style="display:none;margin-top:24px">
+<div class="field">
+<label class="field-label" for="type_autre">Type de combustible</label>
+<select id="type_autre">
+<option value="">Sélectionner</option>
+<option value="bois">Bois</option>
+<option value="charbon">Charbon</option>
+<option value="biomasse">Biomasse</option>
+</select>
+</div>
+<div class="field">
+<label class="field-label" for="quantite_autre">Quantité annuelle</label>
+<input id="quantite_autre" type="number" min="0" step="0.01" placeholder="0">
+<div class="unit">kg/an</div>
+</div>
+</div>
+
+<div class="note">Seuls les combustibles dont le facteur d'émission est défini dans l'application seront proposés.</div>
+</div>
+
+<div class="question" data-q="S1-B06">
+<div class="eyebrow">Scope 1 · Fluides frigorigènes</div>
+<h2>Des <span>fluides frigorigènes</span> ont-ils été rechargés durant l'année ?</h2>
+
+<div class="choices">
+<div class="choice"><input type="radio" name="refrigerant" id="refrig_oui" value="oui"><label for="refrig_oui">Oui</label></div>
+<div class="choice"><input type="radio" name="refrigerant" id="refrig_non" value="non"><label for="refrig_non">Non</label></div>
+</div>
+
+<div id="refrig_fields" style="display:none;margin-top:24px">
+<div class="field">
+<label class="field-label" for="type_refrigerant">Type de fluide frigorigène</label>
+<select id="type_refrigerant">
+<option value="">Sélectionner</option>
+<option value="R22">R-22</option>
+<option value="R134A">R-134a</option>
+<option value="R404A">R-404A</option>
+<option value="R407C">R-407C</option>
+<option value="R410A">R-410A</option>
+<option value="R32">R-32</option>
+</select>
+</div>
+
+<div class="field">
+<label class="field-label" for="quantite_refrigerant">Quantité totale rechargée</label>
+<input id="quantite_refrigerant" type="number" min="0" step="0.001" placeholder="0">
+<div class="unit">kg/an</div>
+</div>
+</div>
+
+<div class="note">Les émissions seront calculées selon le type de fluide sélectionné et sa quantité rechargée.</div>
+</div>
+
+<div class="nav">
+<button class="back" id="back" type="button" onclick="previousQuestion()">Retour</button>
+<button class="next" type="button" onclick="nextQuestion()" id="next">Continuer →</button>
+</div>
+
+<div class="footer">Tunicarbone · Bilan carbone d'un bâtiment existant</div>
+</main>
+
+<script>
+const order=["S1-B01","S1-B02","S1-B03","S1-B04","S1-B05","S1-B06"];
+let index=0;
+const answers=JSON.parse(localStorage.getItem("carbono_batiment_scope1")||"{}");
+
+function syncInputs(){
+    document.getElementById("gaz_naturel_m3").value=answers.gaz_naturel_m3??"";
+    document.getElementById("gpl_kg").value=answers.gpl_kg??"";
+    document.getElementById("fioul_litres").value=answers.fioul_litres??"";
+    document.getElementById("diesel_litres").value=answers.diesel_litres??"";
+}
+function showQuestion(i){
+    index=i;
+    document.querySelectorAll(".question").forEach(q=>q.classList.remove("active"));
+    document.querySelector(`[data-q="${order[index]}"]`).classList.add("active");
+    document.getElementById("counter").textContent=`${String(index+1).padStart(2,"0")} / ${String(order.length).padStart(2,"0")}`;
+    document.getElementById("back").style.visibility=index===0?"hidden":"visible";
+    document.getElementById("next").textContent=index===order.length-1?"Terminer le Scope 1 →":"Continuer →";
+    window.scrollTo({top:0,behavior:"smooth"});
+}
+function validateAndSave(){
+    const id=order[index];
+
+    if(id==="S1-B01") answers.gaz_naturel_m3=Number(document.getElementById("gaz_naturel_m3").value||0);
+    if(id==="S1-B02") answers.gpl_kg=Number(document.getElementById("gpl_kg").value||0);
+    if(id==="S1-B03") answers.fioul_litres=Number(document.getElementById("fioul_litres").value||0);
+    if(id==="S1-B04") answers.diesel_litres=Number(document.getElementById("diesel_litres").value||0);
+
+    if(id==="S1-B05"){
+        const selected=document.querySelector('input[name="autre_combustible"]:checked');
+        if(!selected){alert("Veuillez indiquer si un autre combustible est utilisé.");return false}
+        answers.autre_combustible=selected.value;
+
+        if(selected.value==="oui"){
+            const type=document.getElementById("type_autre").value;
+            const q=document.getElementById("quantite_autre").value;
+            if(!type||q===""||Number(q)<0){alert("Veuillez renseigner le type et la quantité.");return false}
+            answers.type_autre_combustible=type;
+            answers.quantite_autre_combustible=Number(q);
+        }else{
+            delete answers.type_autre_combustible;
+            delete answers.quantite_autre_combustible;
+        }
+    }
+
+    if(id==="S1-B06"){
+        const selected=document.querySelector('input[name="refrigerant"]:checked');
+        if(!selected){alert("Veuillez indiquer si un fluide frigorigène a été rechargé.");return false}
+        answers.refrigerant=selected.value;
+
+        if(selected.value==="oui"){
+            const type=document.getElementById("type_refrigerant").value;
+            const q=document.getElementById("quantite_refrigerant").value;
+            if(!type||q===""||Number(q)<0){alert("Veuillez renseigner le fluide et la quantité rechargée.");return false}
+            answers.type_refrigerant=type;
+            answers.quantite_refrigerant=Number(q);
+        }else{
+            delete answers.type_refrigerant;
+            delete answers.quantite_refrigerant;
+        }
+    }
+
+    localStorage.setItem("carbono_batiment_scope1",JSON.stringify(answers));
+    return true;
+}
+function nextQuestion(){
+    if(!validateAndSave())return;
+
+    if(index===order.length-1){
+
+        localStorage.setItem(
+            "carbono_batiment_scope1",
+            JSON.stringify(answers)
+        );
+
+        fetch("/calcul-scope1-batiment", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(answers)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Erreur HTTP " + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            console.log(
+                "Résultat Scope 1 Bâtiment :",
+                data
+            );
+
+            localStorage.setItem(
+                "resultat_scope1_batiment",
+                JSON.stringify(data.resultat || {})
+            );
+
+            window.location.href="/scope2_batiment";
+        })
+        .catch(error => {
+
+            console.error(
+                "Erreur calcul Scope 1 Bâtiment :",
+                error
+            );
+
+            alert(
+                "Erreur lors du calcul du Scope 1 du bâtiment."
+            );
+        });
+
+        return;
+    }
+
+    showQuestion(index+1);
+}
+function previousQuestion(){
+    if(index>0)showQuestion(index-1);
+}
+
+document.getElementById("autre_oui").addEventListener("change",()=>{
+    document.getElementById("autre_fields").style.display="block";
+});
+document.getElementById("autre_non").addEventListener("change",()=>{
+    document.getElementById("autre_fields").style.display="none";
+});
+document.getElementById("refrig_oui").addEventListener("change",()=>{
+    document.getElementById("refrig_fields").style.display="block";
+});
+document.getElementById("refrig_non").addEventListener("change",()=>{
+    document.getElementById("refrig_fields").style.display="none";
+});
+
+syncInputs();
+showQuestion(0);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scope 3 — Entreprise | Tunicarbone</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap"
+          rel="stylesheet">
+</head>
+
+<body class="carbon-page">
+
+<nav class="carbon-nav">
+    <a href="/entreprise" class="carbon-logo">
+        <span class="logo-dot"></span>
+        Tunicarbone
+    </a>
+
+    <div class="nav-right">
+        <span>Entreprise · Scope 3</span>
+        <span class="nav-separator">·</span>
+        <span id="questionCounter">01 / 09</span>
+    </div>
+</nav>
+
+<main class="carbon-main">
+
+    <div class="progress-area">
+        <div class="progress-line">
+            <div class="progress-active" id="progressActive"></div>
+        </div>
+    </div>
+
+    <div class="question-layout">
+
+        <section class="question-side">
+
+<div class="question-screen active" data-question="S3-E01">
+<div class="question-category">SCOPE 3 · VÊTEMENTS & EPI</div>
+<h1>Quels vêtements et équipements de travail <span>l’entreprise achète-t-elle</span> ?</h1>
+<p class="question-description">Sélectionnez les articles achetés par l’entreprise.</p>
+<div class="multi-choice-grid">
+<label class="choice-check"><input type="checkbox" value="polo" onchange="updateSelections()"><span>Polo / T-shirt de travail</span></label>
+<label class="choice-check"><input type="checkbox" value="pantalon" onchange="updateSelections()"><span>Pantalon de travail</span></label>
+<label class="choice-check"><input type="checkbox" value="veste" onchange="updateSelections()"><span>Veste / blouson</span></label>
+<label class="choice-check"><input type="checkbox" value="combinaison" onchange="updateSelections()"><span>Combinaison de travail</span></label>
+<label class="choice-check"><input type="checkbox" value="chaussures_securite" onchange="updateSelections()"><span>Chaussures de sécurité</span></label>
+<label class="choice-check"><input type="checkbox" value="bottes_securite" onchange="updateSelections()"><span>Bottes de sécurité</span></label>
+<label class="choice-check"><input type="checkbox" value="gants" onchange="updateSelections()"><span>Gants de travail</span></label>
+<label class="choice-check"><input type="checkbox" value="casque" onchange="updateSelections()"><span>Casque de sécurité</span></label>
+</div>
+</div>
+
+<div class="question-screen" data-question="S3-E02">
+<div class="question-category">SCOPE 3 · VÊTEMENTS & EPI</div>
+<h1>Combien d’unités de chaque article sont achetées <span>par an</span> ?</h1>
+<div id="clothingQuantities" class="dynamic-fields"></div>
+</div>
+
+<div class="question-screen" data-question="S3-E03">
+<div class="question-category">SCOPE 3 · ÉQUIPEMENTS</div>
+<h1>Quels équipements ou immobilisations <span>l’entreprise a-t-elle achetés</span> durant l’année ?</h1>
+<p class="question-description">Sélectionnez les équipements concernés.</p>
+<div class="multi-choice-grid">
+<label class="choice-check"><input type="checkbox" value="ordinateur_portable" onchange="updateSelections()"><span>Ordinateur portable</span></label>
+<label class="choice-check"><input type="checkbox" value="ordinateur_bureau" onchange="updateSelections()"><span>Ordinateur de bureau</span></label>
+<label class="choice-check"><input type="checkbox" value="ecran" onchange="updateSelections()"><span>Écran</span></label>
+<label class="choice-check"><input type="checkbox" value="smartphone" onchange="updateSelections()"><span>Smartphone professionnel</span></label>
+<label class="choice-check"><input type="checkbox" value="imprimante" onchange="updateSelections()"><span>Imprimante</span></label>
+<label class="choice-check"><input type="checkbox" value="television" onchange="updateSelections()"><span>Télévision</span></label>
+<label class="choice-check"><input type="checkbox" value="scanner" onchange="updateSelections()"><span>Scanner</span></label>
+<label class="choice-check"><input type="checkbox" value="videoprojecteur" onchange="updateSelections()"><span>Vidéoprojecteur</span></label>
+<label class="choice-check"><input type="checkbox" value="mobilier" onchange="updateSelections()"><span>Mobilier de bureau</span></label>
+</div>
+</div>
+
+<div class="question-screen" data-question="S3-E04">
+<div class="question-category">SCOPE 3 · ÉQUIPEMENTS</div>
+<h1>Combien d’unités de chaque équipement ont été achetées <span>cette année</span> ?</h1>
+<div id="equipmentQuantities" class="dynamic-fields"></div>
+</div>
+
+<div class="question-screen" data-question="S3-E05">
+<div class="question-category">SCOPE 3 · TRANSPORT</div>
+<h1>Quelles sont les distances totales parcourues pour les <span>déplacements liés à l’entreprise</span> ?</h1>
+<div class="transport-block"><h3>Domicile → travail</h3>
+<div class="field-row"><label>Taxi / voiture</label><input type="number" id="domicile_voiture_km" min="0" step="1" placeholder="0"><span>km/an</span></div>
+<div class="field-row"><label>Bus</label><input type="number" id="domicile_bus_km" min="0" step="1" placeholder="0"><span>km/an</span></div>
+<div class="field-row"><label>Train</label><input type="number" id="domicile_train_km" min="0" step="1" placeholder="0"><span>km/an</span></div></div>
+<div class="transport-block"><h3>Déplacements professionnels</h3>
+<div class="field-row"><label>Taxi / voiture</label><input type="number" id="pro_voiture_km" min="0" step="1" placeholder="0"><span>km/an</span></div>
+<div class="field-row"><label>Bus</label><input type="number" id="pro_bus_km" min="0" step="1" placeholder="0"><span>km/an</span></div>
+<div class="field-row"><label>Train</label><input type="number" id="pro_train_km" min="0" step="1" placeholder="0"><span>km/an</span></div>
+<div class="field-row"><label>Avion</label><input type="number" id="pro_avion_km" min="0" step="1" placeholder="0"><span>passager-km/an</span></div></div>
+</div>
+
+<div class="question-screen" data-question="S3-E06">
+<div class="question-category">SCOPE 3 · MARCHANDISES</div>
+<h1>Quelle distance totale est parcourue pour transporter les <span>marchandises de l’entreprise</span> ?</h1>
+<div class="transport-block"><h3>Transport amont</h3><p class="question-description">Fournisseurs → entreprise</p>
+<div class="field-row"><label>Distance totale</label><input type="number" id="transport_amont_km" min="0" step="1" placeholder="0"><span>km/an</span></div></div>
+<div class="transport-block"><h3>Transport aval</h3><p class="question-description">Entreprise → clients</p>
+<div class="field-row"><label>Distance totale</label><input type="number" id="transport_aval_km" min="0" step="1" placeholder="0"><span>km/an</span></div></div>
+</div>
+
+<div class="question-screen" data-question="S3-E07">
+<div class="question-category">SCOPE 3 · DÉCHETS</div>
+<h1>Indiquez les quantités annuelles de <span>déchets générés par l’entreprise</span>.</h1>
+<div class="waste-grid">
+<div class="field-row"><label>Papier / carton</label><input type="number" id="dechets_papier" min="0" step="0.001" placeholder="0"><span>tonnes/an</span></div>
+<div class="field-row"><label>Plastique</label><input type="number" id="dechets_plastique" min="0" step="0.001" placeholder="0"><span>tonnes/an</span></div>
+<div class="field-row"><label>Verre</label><input type="number" id="dechets_verre" min="0" step="0.001" placeholder="0"><span>tonnes/an</span></div>
+<div class="field-row"><label>Métaux</label><input type="number" id="dechets_metaux" min="0" step="0.001" placeholder="0"><span>tonnes/an</span></div>
+<div class="field-row"><label>Déchets organiques</label><input type="number" id="dechets_organiques" min="0" step="0.001" placeholder="0"><span>tonnes/an</span></div>
+<div class="field-row"><label>Déchets résiduels</label><input type="number" id="dechets_residuels" min="0" step="0.001" placeholder="0"><span>tonnes/an</span></div>
+</div>
+</div>
+
+<div class="question-screen" data-question="S3-E08">
+<div class="question-category">SCOPE 3 · DÉCHETS · RECYCLAGE</div>
+<h1>Quelle quantité de chaque déchet est <span>recyclée</span> ?</h1>
+<div class="waste-grid">
+<div class="field-row"><label>Papier / carton recyclé</label><input type="number" id="recycles_papier" min="0" step="0.001" placeholder="0"><span>tonnes/an</span></div>
+<div class="field-row"><label>Plastique recyclé</label><input type="number" id="recycles_plastique" min="0" step="0.001" placeholder="0"><span>tonnes/an</span></div>
+<div class="field-row"><label>Verre recyclé</label><input type="number" id="recycles_verre" min="0" step="0.001" placeholder="0"><span>tonnes/an</span></div>
+<div class="field-row"><label>Métaux recyclés</label><input type="number" id="recycles_metaux" min="0" step="0.001" placeholder="0"><span>tonnes/an</span></div>
+<div class="field-row"><label>Organiques valorisés / recyclés</label><input type="number" id="recycles_organiques" min="0" step="0.001" placeholder="0"><span>tonnes/an</span></div>
+<div class="field-row"><label>Résiduels recyclés</label><input type="number" id="recycles_residuels" min="0" step="0.001" placeholder="0"><span>tonnes/an</span></div>
+</div>
+</div>
+
+<div class="question-screen" data-question="S3-E09">
+<div class="question-category">SCOPE 3 · EAU</div>
+<h1>Quelle est la <span>consommation annuelle d’eau</span> de l’entreprise ?</h1>
+<div class="number-question"><div class="big-input"><input type="number" id="consommation_eau" min="0" step="0.1" placeholder="0"><span>m³ / an</span></div></div>
+</div>
+
+
+</section>
+
+
+        <aside class="carbon-panel">
+
+            <div class="panel-label">
+                VOTRE BILAN
+            </div>
+
+            <div class="carbon-value">
+                <strong id="carbonValue">—</strong>
+                <span>kg CO₂e</span>
+            </div>
+
+            <div class="panel-message"
+                 id="panelMessage">
+                Votre bilan se construit progressivement.
+            </div>
+
+            <div class="panel-divider"></div>
+
+            <div class="panel-item">
+                <span>Catégorie</span>
+                <strong id="categoryStatus">Achats</strong>
+            </div>
+
+            <div class="panel-divider"></div>
+
+            <div class="panel-small">
+                Les émissions indirectes de l’entreprise seront
+                calculées à partir des données fournies et des
+                facteurs d’émission retenus par l’application.
+            </div>
+
+        </aside>
+
+    </div>
+
+
+    <div class="question-navigation">
+
+        <button type="button"
+                id="backButton"
+                class="back-button"
+                onclick="previousQuestion()">
+            ← Retour
+        </button>
+
+        <div class="navigation-counter"
+             id="navigationCounter">
+            01 / 09
+        </div>
+
+        <button type="button"
+                id="continueButton"
+                class="continue-button"
+                onclick="nextQuestion()"
+                disabled>
+            Continuer <span>→</span>
+        </button>
+
+    </div>
+
+</main>
+
+
+<script>
+const answers = {};
+const questionOrder = ["S3-E01","S3-E02","S3-E03","S3-E04","S3-E05","S3-E06","S3-E07","S3-E08","S3-E09"];
+let currentIndex = 0;
+
+const screens = document.querySelectorAll(".question-screen");
+const continueButton = document.getElementById("continueButton");
+const backButton = document.getElementById("backButton");
+const questionCounter = document.getElementById("questionCounter");
+const navigationCounter = document.getElementById("navigationCounter");
+const progressActive = document.getElementById("progressActive");
+
+const clothingLabels = {
+    polo:"Polo / T-shirt de travail", pantalon:"Pantalon de travail",
+    veste:"Veste / blouson", combinaison:"Combinaison de travail",
+    chaussures_securite:"Chaussures de sécurité", bottes_securite:"Bottes de sécurité",
+    gants:"Gants de travail", casque:"Casque de sécurité"
+};
+
+const equipmentLabels = {
+    ordinateur_portable:"Ordinateur portable", ordinateur_bureau:"Ordinateur de bureau",
+    ecran:"Écran", smartphone:"Smartphone professionnel", imprimante:"Imprimante",
+    television:"Télévision", scanner:"Scanner", videoprojecteur:"Vidéoprojecteur",
+    mobilier:"Mobilier de bureau"
+};
+
+function selected(questionId) {
+    const box = document.querySelector(`[data-question="${questionId}"]`);
+    return box ? [...box.querySelectorAll('input[type="checkbox"]:checked')].map(x=>x.value) : [];
+}
+
+function updateSelections() {
+    document.querySelectorAll(".choice-check").forEach(label => {
+        const checkbox = label.querySelector("input[type='checkbox']");
+        if (checkbox) {
+            label.classList.toggle("selected", checkbox.checked);
+        }
+    });
+    updateContinueButton();
+}
+
+function renderQuantities(type) {
+    const source = type === "clothing" ? "S3-E01" : "S3-E03";
+    const target = document.getElementById(type === "clothing" ? "clothingQuantities" : "equipmentQuantities");
+    const labels = type === "clothing" ? clothingLabels : equipmentLabels;
+    const prefix = type === "clothing" ? "vetement_" : "equipement_";
+    if (!target) return;
+
+    target.innerHTML = "";
+    selected(source).forEach(item => {
+        const key = prefix + item;
+        target.insertAdjacentHTML("beforeend", `
+            <div class="field-row">
+                <label>${labels[item]}</label>
+                <input type="number" min="0" step="1" value="${answers[key] ?? ""}" data-key="${key}" placeholder="0">
+                <span>unités/an</span>
+            </div>`);
+    });
+
+    target.querySelectorAll("[data-key]").forEach(input => {
+        input.addEventListener("input", () => {
+            answers[input.dataset.key] = input.value === "" ? null : Number(input.value);
+            updateContinueButton();
+        });
+    });
+}
+
+document.querySelectorAll("input[type='number']").forEach(input => {
+    input.addEventListener("input", () => {
+        answers[input.id] = input.value === "" ? null : Number(input.value);
+        updateContinueButton();
+    });
+});
+
+function valid() {
+    const q = questionOrder[currentIndex];
+
+    if (q === "S3-E01") return selected(q).length > 0;
+    if (q === "S3-E02") return selected("S3-E01").every(x => answers["vetement_"+x] != null);
+    if (q === "S3-E03") return selected(q).length > 0;
+    if (q === "S3-E04") return selected("S3-E03").every(x => answers["equipement_"+x] != null);
+
+    const groups = {
+        "S3-E05":["domicile_voiture_km","domicile_bus_km","domicile_train_km","pro_voiture_km","pro_bus_km","pro_train_km","pro_avion_km"],
+        "S3-E06":["transport_amont_km","transport_aval_km"],
+        "S3-E07":["dechets_papier","dechets_plastique","dechets_verre","dechets_metaux","dechets_organiques","dechets_residuels"],
+        "S3-E08":["recycles_papier","recycles_plastique","recycles_verre","recycles_metaux","recycles_organiques","recycles_residuels"],
+        "S3-E09":["consommation_eau"],
+        "S3-E10":[""]
+    };
+
+    return (groups[q] || []).every(x => answers[x] != null);
+}
+
+function updateContinueButton() {
+    continueButton.disabled = !valid();
+}
+
+function updateCategory() {
+    const q = questionOrder[currentIndex];
+    const c = document.getElementById("categoryStatus");
+    const m = document.getElementById("panelMessage");
+
+    if (q==="S3-E01" || q==="S3-E02") {
+        c.textContent="Vêtements & EPI";
+        m.textContent="Les vêtements et équipements de travail sont calculés par unité achetée.";
+    } else if (q==="S3-E03" || q==="S3-E04") {
+        c.textContent="Équipements";
+        m.textContent="Les équipements sont calculés par quantité achetée.";
+    } else if (q==="S3-E05") {
+        c.textContent="Transport";
+        m.textContent="Les déplacements domicile-travail et professionnels sont séparés.";
+    } else if (q==="S3-E06") {
+        c.textContent="Marchandises";
+        m.textContent="Les distances de transport amont et aval sont prises en compte.";
+    } else if (q==="S3-E07" || q==="S3-E08") {
+        c.textContent="Déchets";
+        m.textContent="Les déchets recyclés et non recyclés sont distingués.";
+    } else if (q==="S3-E09") {
+        c.textContent="Eau";
+        m.textContent="La consommation annuelle d’eau est intégrée.";
+    } else {
+        c.textContent="Déplacements professionnels";
+        m.textContent="Les voyages professionnels en avion sont intégrés.";
+    }
+}
+
+function showQuestion(index) {
+    currentIndex = index;
+    screens.forEach(x=>x.classList.remove("active"));
+    const screen = document.querySelector(`[data-question="${questionOrder[currentIndex]}"]`);
+    if (screen) screen.classList.add("active");
+
+    const n = String(currentIndex+1).padStart(2,"0");
+    questionCounter.textContent = `${n} / 09`;
+    navigationCounter.textContent = `${n} / 09`;
+    progressActive.style.width = `${((currentIndex+1)/9)*100}%`;
+    backButton.disabled = currentIndex === 0;
+
+    if (questionOrder[currentIndex] === "S3-E02") renderQuantities("clothing");
+    if (questionOrder[currentIndex] === "S3-E04") renderQuantities("equipment");
+
+    updateCategory();
+    updateContinueButton();
+}
+
+function nextQuestion() {
+    if (!valid()) return;
+    if (currentIndex < questionOrder.length - 1) {
+        showQuestion(currentIndex + 1);
+    } else {
+        finishScope3Entreprise();
+    }
+}
+
+function previousQuestion() {
+    if (currentIndex === 0) {
+        window.location.href = "/scope2_entreprise";
+        return;
+    }
+    showQuestion(currentIndex-1);
+}
+
+function finishScope3Entreprise() {
+    localStorage.setItem("carbono_entreprise_scope3", JSON.stringify(answers));
+
+    fetch("/calcul-scope3-entreprise", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(answers)
+    })
+    .then(r => {
+        if (!r.ok) throw new Error("Erreur HTTP " + r.status);
+        return r.json();
+    })
+    .then(data => {
+        localStorage.setItem("resultat_scope3_entreprise", JSON.stringify(data.resultat || {}));
+        window.location.href = "/resultat_entreprise";
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Une erreur est survenue lors du calcul du Scope 3.");
+    });
+}
+
+updateSelections();
+showQuestion(0);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Résultat bâtiment — Tunicarbone</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f8f7f3;color:#29362f;font-family:"DM Sans",sans-serif;min-height:100vh}
+nav{height:76px;padding:0 6vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e4e2dc;background:#f8f7f3}
+.logo{text-decoration:none;color:#29362f;font-weight:600;font-size:19px;display:flex;align-items:center;gap:9px}
+.dot{width:9px;height:9px;border-radius:50%;background:#2c8062}
+.navinfo{font-size:13px;color:#747d78}
+main{max-width:1080px;margin:auto;padding:58px 28px 75px}
+.eyebrow{color:#2c8062;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}
+h1,h2{font-family:"Playfair Display",serif;font-weight:500;color:#29362f}
+h1{font-size:clamp(42px,6vw,64px);line-height:1.05;margin-bottom:14px}
+.intro{max-width:690px;margin-bottom:42px}
+.intro p,.sub{color:#737c77;font-size:15px;line-height:1.7}
+.total{padding:30px 0 34px;border-top:1px solid #dedcd5;border-bottom:1px solid #dedcd5;margin-bottom:36px}
+.total-label{font-size:13px;color:#747d78;margin-bottom:8px}
+.total-line{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.total-value{font-family:"Playfair Display",serif;font-size:clamp(48px,7vw,78px);color:#236a51;font-weight:500;line-height:1}
+.total-unit{font-size:16px;color:#69746f}
+.per-m2{margin-top:12px;color:#6e7872;font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid #dedcd5;margin-bottom:52px}
+.card{padding:24px 25px 28px 0;border-right:1px solid #e1dfd8}
+.card:not(:first-child){padding-left:25px}
+.card:last-child{border-right:none}
+.card-label{color:#737c77;font-size:13px;margin-bottom:7px}
+.card-value{font-size:25px;font-weight:600;color:#29362f}
+.section{margin-bottom:52px}
+.section-head{margin-bottom:22px}
+.section-head h2{font-size:31px;margin-bottom:6px}
+.chart-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:40px;align-items:center}
+.chart-box{height:330px}
+.chart-box canvas{width:100%!important;height:100%!important}
+.detail-list{border-top:1px solid #dedcd5}
+.row{min-height:62px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #dedcd5;gap:20px}
+.row span:first-child{color:#4d5a54}
+.row strong{font-size:15px}
+.actions{border-top:1px solid #dedcd5;padding-top:25px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.actions p{font-size:13px;color:#78817d}
+.buttons{display:flex;gap:10px}
+button{font-family:inherit;font-size:14px;font-weight:600;border-radius:4px;padding:13px 20px;cursor:pointer}
+.secondary{background:transparent;border:1px solid #cfd0ca;color:#59645f}
+.primary{background:#2c8062;border:1px solid #2c8062;color:#fff}
+.secondary:hover{background:#efeee9}.primary:hover{background:#246d53}
+.footer{margin-top:65px;padding-top:22px;border-top:1px solid #e1dfd8;color:#949b97;font-size:12px;text-align:center}
+@media(max-width:780px){nav{padding:0 22px}main{padding:42px 22px 55px}.cards{grid-template-columns:1fr}.card,.card:not(:first-child){padding:20px 0;border-right:none;border-bottom:1px solid #e1dfd8}.card:last-child{border-bottom:none}.chart-grid{grid-template-columns:1fr;gap:25px}.chart-box{height:290px}}
+@media print{body{background:#fff}.actions{display:none}.chart-box{break-inside:avoid}}
+</style>
+</head>
+
+<body>
+
+<nav>
+<a href="/batiment" class="logo"><span class="dot"></span>Tunicarbone</a>
+<div class="navinfo">Bâtiment · Résultats</div>
+</nav>
+
+<main>
+
+<section class="intro">
+<div class="eyebrow">Bilan carbone · Bâtiment</div>
+<h1>Votre bilan carbone</h1>
+<p>Une synthèse des émissions estimées pour la période étudiée, avec une lecture par scope et par poste.</p>
+</section>
+
+<section class="total">
+<div class="total-label">Empreinte carbone annuelle totale</div>
+<div class="total-line">
+<div class="total-value" id="total">0,00</div>
+<div class="total-unit">kg CO₂e / an</div>
+</div>
+<div class="per-m2">
+Indicateur d'intensité : <strong id="parM2">0,00 kg CO₂e/m²/an</strong>
+</div>
+</section>
+
+<section class="cards">
+<div class="card">
+<div class="card-label">Scope 1 · émissions directes</div>
+<div class="card-value" id="scope1">0,00 kg</div>
+</div>
+<div class="card">
+<div class="card-label">Scope 2 · électricité</div>
+<div class="card-value" id="scope2">0,00 kg</div>
+</div>
+<div class="card">
+<div class="card-label">Scope 3 · émissions indirectes</div>
+<div class="card-value" id="scope3">0,00 kg</div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-head">
+<h2>Répartition des émissions</h2>
+<p class="sub">Lecture globale des trois scopes.</p>
+</div>
+
+<div class="chart-grid">
+<div class="chart-box"><canvas id="scopeChart"></canvas></div>
+<div class="chart-box"><canvas id="scope3Chart"></canvas></div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-head">
+<h2>Détail du Scope 3</h2>
+<p class="sub">Les principaux postes indirects pris en compte dans le questionnaire bâtiment.</p>
+</div>
+
+<div class="detail-list">
+<div class="row"><span>Eau</span><strong id="eau">0,00 kg CO₂e</strong></div>
+<div class="row"><span>Déchets</span><strong id="dechets">0,00 kg CO₂e</strong></div>
+<div class="row"><span>Déplacements</span><strong id="deplacements">0,00 kg CO₂e</strong></div>
+<div class="row"><span>Achats / mobilier / informatique</span><strong id="achats">0,00 kg CO₂e</strong></div>
+<div class="row"><span>Travaux / rénovation / matériaux</span><strong id="travaux">0,00 kg CO₂e</strong></div>
+</div>
+</section>
+
+<section class="actions">
+<p>Vous pouvez conserver ou imprimer une copie de ce bilan.</p>
+<div class="buttons">
+<button class="secondary" type="button" onclick="window.print()">Imprimer</button>
+<button class="primary" type="button" onclick="telechargerPDF()">Télécharger le bilan PDF</button>
+</div>
+</section>
+
+<div class="footer">Tunicarbone · Bilan carbone d'un bâtiment existant</div>
+
+</main>
+
+<script>
+function n(v){return Number(v||0)}
+function fmt(v){return n(v).toLocaleString("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2})}
+
+const general = JSON.parse(localStorage.getItem("carbono_batiment")||"{}");
+const scope1 = JSON.parse(localStorage.getItem("resultat_scope1_batiment")||"{}");
+const scope2 = JSON.parse(localStorage.getItem("resultat_scope2_batiment")||"{}");
+const scope3 = JSON.parse(localStorage.getItem("resultat_scope3_batiment")||"{}");
+
+const v1=n(scope1.total_scope1 ?? scope1.scope1 ?? scope1.total);
+const v2=n(scope2.total_scope2 ?? scope2.scope2 ?? scope2.total);
+const v3=n(scope3.total_scope3 ?? scope3.scope3 ?? scope3.total);
+
+const total=v1+v2+v3;
+const surface=n(general.surface_batiment);
+
+document.getElementById("scope1").textContent=fmt(v1)+" kg";
+document.getElementById("scope2").textContent=fmt(v2)+" kg";
+document.getElementById("scope3").textContent=fmt(v3)+" kg";
+document.getElementById("total").textContent=fmt(total);
+
+document.getElementById("parM2").textContent =
+    surface>0
+    ? fmt(total/surface)+" kg CO₂e/m²/an"
+    : "Surface non disponible";
+
+const eau=n(scope3.eau);
+const dechets=n(scope3.dechets);
+const deplacements=n(
+    scope3.deplacements ??
+    scope3.transport ??
+    scope3.deplacements_total
+);
+const achats=n(scope3.achats);
+const travaux=n(
+    scope3.travaux ??
+    scope3.renovation ??
+    scope3.materiaux ??
+    scope3.construction
+);
+
+document.getElementById("eau").textContent=fmt(eau)+" kg CO₂e";
+document.getElementById("dechets").textContent=fmt(dechets)+" kg CO₂e";
+document.getElementById("deplacements").textContent=fmt(deplacements)+" kg CO₂e";
+document.getElementById("achats").textContent=fmt(achats)+" kg CO₂e";
+document.getElementById("travaux").textContent=fmt(travaux)+" kg CO₂e";
+
+new Chart(document.getElementById("scopeChart"),{
+    type:"doughnut",
+    data:{
+        labels:["Scope 1","Scope 2","Scope 3"],
+        datasets:[{
+            data:[v1,v2,v3],
+            backgroundColor:["#c98752","#7896ad","#5d9278"],
+            borderWidth:0
+        }]
+    },
+    options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins:{
+            legend:{
+                position:"bottom",
+                labels:{usePointStyle:true,padding:18}
+            }
+        }
+    }
+});
+
+new Chart(document.getElementById("scope3Chart"),{
+    type:"bar",
+    data:{
+        labels:["Eau","Déchets","Déplacements","Achats","Travaux"],
+        datasets:[{
+            label:"kg CO₂e",
+            data:[eau,dechets,deplacements,achats,travaux],
+            backgroundColor:"#5d9278",
+            borderRadius:3,
+            borderWidth:0
+        }]
+    },
+    options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins:{
+            legend:{display:false}
+        },
+        scales:{
+            y:{beginAtZero:true},
+            x:{grid:{display:false}}
+        }
+    }
+});
+
+function telechargerPDF(){
+    window.print();
+}
+</script>
+
+</body>
+</html>
+ 

@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scope 2 — Individu | Tunicarbone </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap"
+          rel="stylesheet">
+</head>
+
+
+<body class="carbon-page">
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="carbon-nav">
+
+    <a href="/individu" class="carbon-logo">
+        <span class="logo-dot"></span>
+        Tunicarbone 
+    </a>
+
+    <div class="nav-right">
+        <span>Scope 2</span>
+        <span class="nav-separator">·</span>
+        <span id="questionCounter">01 / 04</span>
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     CONTENU
+===================================================== -->
+
+<main class="carbon-main">
+
+
+    <!-- PROGRESSION -->
+
+    <div class="progress-area">
+
+        <div class="progress-line">
+
+            <div class="progress-active"
+                 id="progressActive">
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="question-layout">
+
+
+        <!-- =================================================
+             QUESTIONS
+        ================================================= -->
+
+        <section class="question-side">
+
+
+            <!-- =============================================
+                 S2-01
+            ============================================== -->
+
+            <div class="question-screen active"
+                 data-question="S2-01">
+
+                <div class="question-category">
+                    LOGEMENT · ÉLECTRICITÉ
+                </div>
+
+                <h1>
+                    Connaissez-vous votre
+                    <span>consommation mensuelle</span>
+                    d'électricité ?
+                </h1>
+
+                <p class="question-description">
+                    Vous pouvez retrouver cette information
+                    sur votre facture STEG.
+                </p>
+
+
+                <div class="answers">
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectAnswer('connait_electricite', 'oui', this)">
+
+                        <span class="answer-letter">
+                            A
+                        </span>
+
+                        <span class="answer-text">
+
+                            <strong>Oui</strong>
+
+                            <small>
+                                Je connais ma consommation en kWh
+                            </small>
+
+                        </span>
+
+                        <span class="answer-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectAnswer('connait_electricite', 'non', this)">
+
+                        <span class="answer-letter">
+                            B
+                        </span>
+
+                        <span class="answer-text">
+
+                            <strong>Non</strong>
+
+                            <small>
+                                Je ne connais pas ma consommation
+                            </small>
+
+                        </span>
+
+                        <span class="answer-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 S2-02
+            ============================================== -->
+
+            <div class="question-screen"
+                 data-question="S2-02">
+
+                <div class="question-category">
+                    LOGEMENT · ÉLECTRICITÉ
+                </div>
+
+                <h1>
+                    Quelle est votre
+                    <span>consommation mensuelle</span>
+                    d'électricité ?
+                </h1>
+
+                <p class="question-description">
+                    Indiquez la consommation moyenne de votre
+                    logement en kilowattheures.
+                </p>
+
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="electriciteInput"
+                               min="0"
+                               step="1"
+                               placeholder="250">
+
+                        <span>kWh / mois</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 S2-03
+            ============================================== -->
+
+            <div class="question-screen"
+                 data-question="S2-03">
+
+                <div class="question-category">
+                    LOGEMENT · STEG
+                </div>
+
+                <h1>
+                    Quel est le montant moyen de votre
+                    <span>facture STEG</span>
+                    par mois ?
+                </h1>
+
+                <p class="question-description">
+                    Indiquez le montant moyen payé chaque mois
+                    pour votre consommation d'électricité.
+                </p>
+
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="factureElectriciteInput"
+                               min="0"
+                               step="0.01"
+                               placeholder="80">
+
+                        <span>TND / mois</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 S2-04
+            ============================================== -->
+
+            <div class="question-screen calculation-screen"
+                 data-question="S2-04">
+
+                <div class="question-category">
+                    SCOPE 2 · RÉSULTAT
+                </div>
+
+                <h1>
+                    Vos données
+                    <span>d'électricité</span>
+                    sont enregistrées.
+                </h1>
+
+                <p class="question-description">
+                    Les émissions liées à votre consommation
+                    d'électricité seront calculées à partir du
+                    facteur d'émission approprié.
+                </p>
+
+
+                <div class="calculation-preview">
+
+                    <span>
+                        DONNÉE UTILISÉE
+                    </span>
+
+
+                    <div class="preview-row">
+
+                        <span>
+                            Source
+                        </span>
+
+                        <strong id="previewSource">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="preview-row">
+
+                        <span>
+                            Consommation
+                        </span>
+
+                        <strong id="previewElectricite">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="preview-row">
+
+                        <span>
+                            Facture
+                        </span>
+
+                        <strong id="previewFactureElectricite">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             PANNEAU DROIT
+        ================================================= -->
+
+        <aside class="carbon-panel">
+
+            <div class="panel-label">
+                VOTRE BILAN
+            </div>
+
+
+            <div class="carbon-value">
+
+                <strong id="carbonValue">
+                    —
+                </strong>
+
+                <span>
+                    kg CO₂e
+                </span>
+
+            </div>
+
+
+            <div class="panel-message"
+                 id="panelMessage">
+
+                Votre bilan se construit
+                progressivement.
+
+            </div>
+
+
+            <div class="panel-divider"></div>
+
+
+            <div class="panel-item">
+
+                <span>
+                    Électricité
+                </span>
+
+                <strong id="electricityStatus">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="panel-divider"></div>
+
+
+            <div class="panel-small">
+
+                Les émissions seront calculées à partir
+                du facteur d'émission de l'électricité
+                utilisé par l'application.
+
+            </div>
+
+        </aside>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         NAVIGATION
+    ================================================= -->
+
+    <div class="question-navigation">
+
+
+        <button type="button"
+                id="backButton"
+                class="back-button"
+                onclick="previousQuestion()">
+
+            ← Retour
+
+        </button>
+
+
+        <div class="navigation-counter"
+             id="navigationCounter">
+
+            01 / 04
+
+        </div>
+
+
+        <button type="button"
+                id="continueButton"
+                class="continue-button"
+                onclick="nextQuestion()"
+                disabled>
+
+            Continuer
+
+            <span>
+                →
+            </span>
+
+        </button>
+
+    </div>
+
+
+</main>
+
+
+
+<script>
+
+/* =====================================================
+   DONNÉES
+===================================================== */
+
+const answers = {
+
+    connait_electricite: null,
+
+    consommation_electricite: null,
+
+    facture_electricite: null
+
+};
+
+
+/* =====================================================
+   ORDRE DES QUESTIONS
+===================================================== */
+
+const questionOrder = [
+
+    "S2-01",
+    "S2-02",
+    "S2-03",
+    "S2-04"
+
+];
+
+
+let currentIndex = 0;
+
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const screens =
+    document.querySelectorAll(".question-screen");
+
+const continueButton =
+    document.getElementById("continueButton");
+
+const backButton =
+    document.getElementById("backButton");
+
+const questionCounter =
+    document.getElementById("questionCounter");
+
+const navigationCounter =
+    document.getElementById("navigationCounter");
+
+const progressActive =
+    document.getElementById("progressActive");
+
+
+
+/* =====================================================
+   AFFICHER QUESTION
+===================================================== */
+
+function showQuestion(index) {
+
+    currentIndex = index;
+
+
+    screens.forEach(screen => {
+
+        screen.classList.remove("active");
+
+    });
+
+
+    const currentId =
+        questionOrder[currentIndex];
+
+
+    const currentScreen =
+        document.querySelector(
+            `[data-question="${currentId}"]`
+        );
+
+
+    if (currentScreen) {
+
+        currentScreen.classList.add("active");
+
+    }
+
+
+    const number =
+        String(currentIndex + 1).padStart(2, "0");
+
+
+    questionCounter.textContent =
+        `${number} / 04`;
+
+
+    navigationCounter.textContent =
+        `${number} / 04`;
+
+
+    const progress =
+        ((currentIndex + 1) /
+        questionOrder.length) * 100;
+
+
+    progressActive.style.width =
+        `${progress}%`;
+
+
+    backButton.disabled =
+        currentIndex === 0;
+
+
+    updateContinueButton();
+
+    updatePanel();
+
+    updatePreview();
+
+}
+
+
+
+/* =====================================================
+   REPONSE OUI / NON
+===================================================== */
+
+function selectAnswer(variable, value, button) {
+
+    answers[variable] = value;
+
+
+    const parent =
+        button.closest(".answers");
+
+
+    if (parent) {
+
+        parent
+            .querySelectorAll(".answer")
+            .forEach(btn => {
+
+                btn.classList.remove("selected");
+
+            });
+
+    }
+
+
+    button.classList.add("selected");
+
+
+    updatePanel();
+
+    updateContinueButton();
+
+}
+
+
+
+/* =====================================================
+   INPUT ELECTRICITE
+===================================================== */
+
+const electriciteInput =
+    document.getElementById(
+        "electriciteInput"
+    );
+
+
+electriciteInput.addEventListener(
+    "input",
+    function() {
+
+        if (this.value === "") {
+
+            answers.consommation_electricite =
+                null;
+
+        } else {
+
+            answers.consommation_electricite =
+                Number(this.value);
+
+        }
+
+
+        updateContinueButton();
+
+    }
+);
+
+
+
+/* =====================================================
+   INPUT FACTURE
+===================================================== */
+
+const factureInput =
+    document.getElementById(
+        "factureElectriciteInput"
+    );
+
+
+factureInput.addEventListener(
+    "input",
+    function() {
+
+        if (this.value === "") {
+
+            answers.facture_electricite =
+                null;
+
+        } else {
+
+            answers.facture_electricite =
+                Number(this.value);
+
+        }
+
+
+        updateContinueButton();
+
+    }
+);
+
+
+
+/* =====================================================
+   VALIDATION
+===================================================== */
+
+function isCurrentQuestionValid() {
+
+    const question =
+        questionOrder[currentIndex];
+
+
+    switch (question) {
+
+
+        case "S2-01":
+
+            return (
+                answers.connait_electricite !== null
+            );
+
+
+        case "S2-02":
+
+            return (
+                answers.consommation_electricite !== null &&
+                answers.consommation_electricite >= 0
+            );
+
+
+        case "S2-03":
+
+            return (
+                answers.facture_electricite !== null &&
+                answers.facture_electricite >= 0
+            );
+
+
+        case "S2-04":
+
+            return true;
+
+
+        default:
+
+            return false;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   BOUTON CONTINUER
+===================================================== */
+
+function updateContinueButton() {
+
+    continueButton.disabled =
+        !isCurrentQuestionValid();
+
+}
+
+
+
+/* =====================================================
+   QUESTION SUIVANTE
+===================================================== */
+
+function nextQuestion() {
+
+    if (!isCurrentQuestionValid()) {
+        return;
+    }
+
+    const currentQuestion =
+        questionOrder[currentIndex];
+
+
+    // S2-01 : choix de la méthode
+    if (currentQuestion === "S2-01") {
+
+        if (answers.connait_electricite === "oui") {
+
+            showQuestion(
+                questionOrder.indexOf("S2-02")
+            );
+
+        } else {
+
+            showQuestion(
+                questionOrder.indexOf("S2-03")
+            );
+
+        }
+
+        return;
+    }
+
+
+    // S2-02 → S2-04
+    if (currentQuestion === "S2-02") {
+
+        showQuestion(
+            questionOrder.indexOf("S2-04")
+        );
+
+        return;
+    }
+
+
+    // S2-03 → S2-04
+    if (currentQuestion === "S2-03") {
+
+        showQuestion(
+            questionOrder.indexOf("S2-04")
+        );
+
+        return;
+    }
+
+
+    // S2-04 → SCOPE 3
+    if (currentQuestion === "S2-04") {
+
+        finishScope2();
+
+        return;
+    }
+}
+
+
+/* =====================================================
+   QUESTION PRECEDENTE
+===================================================== */
+
+function previousQuestion() {
+
+    if (currentIndex === 0) {
+
+        return;
+
+    }
+
+
+    /*
+       Retour intelligent :
+       depuis S2-04, revenir vers la question
+       réellement suivie.
+    */
+
+    if (
+        questionOrder[currentIndex] === "S2-04"
+    ) {
+
+        if (
+            answers.connait_electricite === "oui"
+        ) {
+
+            currentIndex =
+                questionOrder.indexOf("S2-02");
+
+        } else {
+
+            currentIndex =
+                questionOrder.indexOf("S2-03");
+
+        }
+
+
+        showQuestion(currentIndex);
+
+        return;
+
+    }
+
+
+    showQuestion(
+        currentIndex - 1
+    );
+
+}
+
+
+
+/* =====================================================
+   PANNEAU DROIT
+===================================================== */
+
+function updatePanel() {
+
+    const status =
+        document.getElementById(
+            "electricityStatus"
+        );
+
+
+    const message =
+        document.getElementById(
+            "panelMessage"
+        );
+
+
+    if (
+        answers.connait_electricite === "oui"
+    ) {
+
+        status.textContent =
+            "Consommation connue";
+
+        status.classList.add(
+            "active"
+        );
+
+        message.textContent =
+            "Vous avez indiqué connaître votre consommation d'électricité.";
+
+    }
+
+
+    else if (
+        answers.connait_electricite === "non"
+    ) {
+
+        status.textContent =
+            "Facture utilisée";
+
+        status.classList.add(
+            "active"
+        );
+
+        message.textContent =
+            "Nous utiliserons votre facture STEG pour l'estimation.";
+
+    }
+
+
+    else {
+
+        status.textContent =
+            "—";
+
+        message.textContent =
+            "Votre bilan se construit progressivement.";
+
+    }
+
+}
+
+
+
+/* =====================================================
+   APERCU
+===================================================== */
+
+function updatePreview() {
+
+    const source =
+        document.getElementById(
+            "previewSource"
+        );
+
+
+    const consommation =
+        document.getElementById(
+            "previewElectricite"
+        );
+
+
+    const facture =
+        document.getElementById(
+            "previewFactureElectricite"
+        );
+
+
+    if (
+        answers.connait_electricite === "oui"
+    ) {
+
+        source.textContent =
+            "Consommation";
+
+    }
+
+    else if (
+        answers.connait_electricite === "non"
+    ) {
+
+        source.textContent =
+            "Facture STEG";
+
+    }
+
+
+    if (
+        answers.consommation_electricite !== null
+    ) {
+
+        consommation.textContent =
+            `${answers.consommation_electricite} kWh/mois`;
+
+    }
+
+
+    if (
+        answers.facture_electricite !== null
+    ) {
+
+        facture.textContent =
+            `${answers.facture_electricite} TND/mois`;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CLAVIER
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter" &&
+            !continueButton.disabled
+        ) {
+
+            if (
+                event.target.tagName !== "INPUT"
+            ) {
+
+                nextQuestion();
+
+            }
+
+        }
+
+
+        if (event.key === "Escape") {
+
+            previousQuestion();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   FIN DU SCOPE 2
+===================================================== */
+
+function finishScope2() {
+
+    fetch("/calcul-scope2", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(answers)
+
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        console.log(
+            "Résultat Scope 2 :",
+            data
+        );
+
+        // Sauvegarder les réponses
+        localStorage.setItem(
+            "carbono_scope2",
+            JSON.stringify(answers)
+        );
+
+        // Sauvegarder le résultat calculé
+        localStorage.setItem(
+            "resultat_scope2",
+            JSON.stringify(data.resultat)
+        );
+
+        // Aller au Scope 3
+        window.location.href =
+            "/scope3individu";
+
+    })
+
+    .catch(error => {
+
+        console.error(
+            "Erreur lors de l'envoi du Scope 2 :",
+            error
+        );
+
+        alert(
+            "Une erreur est survenue lors de l'envoi du Scope 2."
+        );
+
+    });
+
+}
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+showQuestion(0);
+
+</script>
+
+
+</body>
+</html> 

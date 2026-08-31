@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scope 3 — Bâtiment | Tunicarbone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f8f7f3;color:#29362f;font-family:"DM Sans",sans-serif;min-height:100vh}
+nav{height:76px;padding:0 6vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e4e2dc}
+.logo{color:#29362f;text-decoration:none;font-weight:600;font-size:19px;display:flex;align-items:center;gap:9px}
+.dot{width:9px;height:9px;border-radius:50%;background:#2c8062}
+.navinfo{color:#737c77;font-size:13px}
+main{max-width:900px;margin:auto;padding:60px 28px 80px}
+.eyebrow{color:#2c8062;font-size:12px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:14px}
+h1,h2{font-family:"Playfair Display",serif;font-weight:500;color:#29362f}
+h1{font-size:clamp(40px,6vw,58px);margin-bottom:12px}
+.intro p{color:#737c77;line-height:1.7;font-size:15px;margin-bottom:48px;max-width:720px}
+.question{display:none}.question.active{display:block}
+.question h2{font-size:clamp(30px,5vw,44px);line-height:1.18;margin-bottom:32px;max-width:800px}
+.question h2 span{color:#2c8062}
+.field{max-width:650px;margin-bottom:22px}
+.field-label{display:block;color:#68736d;font-size:13px;margin-bottom:8px}
+input[type=number],select{width:100%;height:56px;padding:0 16px;border:1px solid #cfd0ca;border-radius:4px;background:#fffefa;color:#29362f;font:inherit;font-size:16px;outline:none}
+input:focus,select:focus{border-color:#2c8062}
+.unit{font-size:12px;color:#8b938f;margin-top:8px}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:760px}
+.choice{position:relative}.choice input{position:absolute;opacity:0;width:0;height:0}
+.choice label{display:flex;align-items:center;min-height:58px;padding:15px 18px;border:1px solid #d4d3cd;border-radius:4px;background:#fffefa;color:#4e5b55;cursor:pointer}
+.choice input:checked+label{border-color:#2c8062;background:#f1f6f2;color:#236a51}
+.check-list{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:780px}
+.check-item{border:1px solid #d4d3cd;border-radius:4px;background:#fffefa;padding:14px 16px;color:#4e5b55}
+.check-item label{display:flex;gap:10px;align-items:center;cursor:pointer}
+.check-item input{accent-color:#2c8062}
+.note{font-size:12px;color:#8b938f;line-height:1.5;margin-top:10px}
+.nav{margin-top:48px;padding-top:22px;border-top:1px solid #dedcd5;display:flex;justify-content:space-between}
+button{font:inherit;font-size:14px;font-weight:600;border-radius:4px;padding:13px 20px;cursor:pointer}
+.back{background:transparent;border:1px solid #cfd0ca;color:#59645f}
+.next{background:#2c8062;border:1px solid #2c8062;color:#fff}
+.footer{margin-top:45px;padding-top:22px;border-top:1px solid #e1dfd8;text-align:center;color:#949b97;font-size:12px}
+@media(max-width:680px){nav{padding:0 22px}main{padding:42px 22px 60px}.choices,.check-list{grid-template-columns:1fr}}
+</style>
+</head>
+
+<body>
+
+<nav>
+<a href="/batiment" class="logo"><span class="dot"></span>Tunicarbone</a>
+<div class="navinfo">Bâtiment · Scope 3 <span id="counter">01 / 16</span></div>
+</nav>
+
+<main>
+
+<div class="eyebrow">Bilan carbone · Scope 3</div>
+<h1>Émissions indirectes du bâtiment.</h1>
+<div class="intro">
+<p>Renseignez les données annuelles techniques disponibles pour l'eau, les déchets, les déplacements, les achats et les travaux de rénovation.</p>
+</div>
+
+<!-- S3-B01 Eau -->
+<div class="question active" data-q="S3-B01">
+<div class="eyebrow">Scope 3 · Eau</div>
+<h2>Quelle est la <span>consommation annuelle d'eau</span> du bâtiment ?</h2>
+<div class="field">
+<input id="consommation_eau" type="number" min="0" step="0.01" placeholder="0">
+<div class="unit">m³/an</div>
+</div>
+</div>
+
+<!-- S3-B02 Déchets totaux -->
+<div class="question" data-q="S3-B02">
+<div class="eyebrow">Scope 3 · Déchets</div>
+<h2>Quelle est la <span>quantité totale annuelle de déchets</span> produite par le bâtiment ?</h2>
+<div class="field">
+<input id="dechets_total" type="number" min="0" step="0.01" placeholder="0">
+<div class="unit">tonnes/an</div>
+</div>
+</div>
+
+<!-- S3-B03 Déchets par catégorie -->
+<div class="question" data-q="S3-B03">
+<div class="eyebrow">Scope 3 · Déchets</div>
+<h2>Indiquez les <span>quantités annuelles par type de déchet</span>.</h2>
+
+<div class="field"><label class="field-label" for="dechets_menagers">Déchets ménagers</label><input id="dechets_menagers" type="number" min="0" step="0.001"><div class="unit">tonnes/an</div></div>
+<div class="field"><label class="field-label" for="dechets_papier">Papier / carton</label><input id="dechets_papier" type="number" min="0" step="0.001"><div class="unit">tonnes/an</div></div>
+<div class="field"><label class="field-label" for="dechets_plastique">Plastique</label><input id="dechets_plastique" type="number" min="0" step="0.001"><div class="unit">tonnes/an</div></div>
+<div class="field"><label class="field-label" for="dechets_verre">Verre</label><input id="dechets_verre" type="number" min="0" step="0.001"><div class="unit">tonnes/an</div></div>
+<div class="field"><label class="field-label" for="dechets_metaux">Métaux</label><input id="dechets_metaux" type="number" min="0" step="0.001"><div class="unit">tonnes/an</div></div>
+<div class="field"><label class="field-label" for="dechets_organiques">Déchets organiques</label><input id="dechets_organiques" type="number" min="0" step="0.001"><div class="unit">tonnes/an</div></div>
+<div class="note">La somme des catégories doit rester cohérente avec la quantité totale déclarée.</div>
+</div>
+
+<!-- S3-B04 Domicile-travail -->
+<div class="question" data-q="S3-B04">
+<div class="eyebrow">Scope 3 · Déplacements</div>
+<h2>Quelle distance annuelle est parcourue pour les <span>déplacements domicile-travail</span> ?</h2>
+<div class="field"><label class="field-label">Voiture</label><input id="domicile_voiture" type="number" min="0" step="0.1"><div class="unit">km/an</div></div>
+<div class="field"><label class="field-label">Bus</label><input id="domicile_bus" type="number" min="0" step="0.1"><div class="unit">km/an</div></div>
+<div class="field"><label class="field-label">Train</label><input id="domicile_train" type="number" min="0" step="0.1"><div class="unit">km/an</div></div>
+</div>
+
+<!-- S3-B05 Déplacements professionnels -->
+<div class="question" data-q="S3-B05">
+<div class="eyebrow">Scope 3 · Déplacements</div>
+<h2>Quelle distance annuelle est parcourue pour les <span>déplacements professionnels</span> ?</h2>
+<div class="field"><label class="field-label">Voiture</label><input id="pro_voiture" type="number" min="0" step="0.1"><div class="unit">km/an</div></div>
+<div class="field"><label class="field-label">Train</label><input id="pro_train" type="number" min="0" step="0.1"><div class="unit">km/an</div></div>
+<div class="field"><label class="field-label">Avion</label><input id="pro_avion" type="number" min="0" step="0.1"><div class="unit">km/an</div></div>
+</div>
+
+<!-- S3-B06 Mobilier -->
+<div class="question" data-q="S3-B06">
+<div class="eyebrow">Scope 3 · Achats</div>
+<h2>Quelle quantité de <span>mobilier</span> a été achetée pendant l'année ?</h2>
+<div class="field">
+<input id="mobilier" type="number" min="0" step="0.01" placeholder="0">
+<div class="unit">kg/an</div>
+</div>
+</div>
+
+<!-- S3-B07 Informatique -->
+<div class="question" data-q="S3-B07">
+<div class="eyebrow">Scope 3 · Informatique</div>
+<h2>Quels <span>équipements informatiques</span> ont été achetés ?</h2>
+<div class="field"><label class="field-label">Ordinateurs</label><input id="ordinateurs" type="number" min="0" step="1"><div class="unit">unités/an</div></div>
+<div class="field"><label class="field-label">Écrans</label><input id="ecrans" type="number" min="0" step="1"><div class="unit">unités/an</div></div>
+<div class="field"><label class="field-label">Imprimantes</label><input id="imprimantes" type="number" min="0" step="1"><div class="unit">unités/an</div></div>
+</div>
+
+<!-- S3-B08 Autres équipements -->
+<div class="question" data-q="S3-B08">
+<div class="eyebrow">Scope 3 · Équipements</div>
+<h2>Sélectionnez les <span>autres équipements</span> achetés pendant l'année.</h2>
+<div class="check-list">
+<div class="check-item"><label><input type="checkbox" value="photocopieur"> Photocopieur</label></div>
+<div class="check-item"><label><input type="checkbox" value="videoprojecteur"> Vidéoprojecteur</label></div>
+<div class="check-item"><label><input type="checkbox" value="reseau"> Équipement réseau / routeur</label></div>
+<div class="check-item"><label><input type="checkbox" value="climatiseur"> Climatiseur</label></div>
+<div class="check-item"><label><input type="checkbox" value="refrigerateur"> Réfrigérateur</label></div>
+<div class="check-item"><label><input type="checkbox" value="television"> Téléviseur</label></div>
+<div class="check-item"><label><input type="checkbox" value="eclairage"> Éclairage / luminaires</label></div>
+<div class="check-item"><label><input type="checkbox" value="equipement_electrique"> Équipement électrique</label></div>
+<div class="check-item"><label><input type="checkbox" value="batterie_onduleur"> Batterie / onduleur</label></div>
+</div>
+<div class="note">Les équipements sélectionnés pourront recevoir leur quantité à l'étape suivante.</div>
+</div>
+
+<!-- S3-B08A Quantités -->
+<div class="question" data-q="S3-B08A">
+<div class="eyebrow">Scope 3 · Équipements</div>
+<h2>Indiquez la <span>quantité achetée</span> pour chaque équipement sélectionné.</h2>
+<div id="equipement_quantites"></div>
+</div>
+
+<!-- S3-B09 Travaux -->
+<div class="question" data-q="S3-B09">
+<div class="eyebrow">Scope 3 · Travaux</div>
+<h2>Le bâtiment a-t-il fait l'objet de <span>travaux ou d'une rénovation</span> durant l'année ?</h2>
+<div class="choices">
+<div class="choice"><input type="radio" name="travaux" id="travaux_oui" value="oui"><label for="travaux_oui">Oui</label></div>
+<div class="choice"><input type="radio" name="travaux" id="travaux_non" value="non"><label for="travaux_non">Non</label></div>
+</div>
+</div>
+
+<!-- S3-B10 Beton -->
+<div class="question" data-q="S3-B10">
+<div class="eyebrow">Scope 3 · Matériaux</div>
+<h2>Quelle quantité de <span>béton</span> a été utilisée pendant les travaux ?</h2>
+<div class="field"><input id="beton" type="number" min="0" step="0.01" placeholder="0"><div class="unit">kg</div></div>
+</div>
+
+<!-- S3-B11 Ciment -->
+<div class="question" data-q="S3-B11">
+<div class="eyebrow">Scope 3 · Matériaux</div>
+<h2>Quelle quantité de <span>ciment</span> a été utilisée ?</h2>
+<div class="field">
+<label class="field-label" for="type_ciment">Type de ciment</label>
+<select id="type_ciment">
+<option value="">Sélectionner</option>
+<option value="gris">Ciment gris</option>
+<option value="blanc">Ciment blanc</option>
+</select>
+</div>
+<div class="field"><input id="ciment" type="number" min="0" step="0.01" placeholder="0"><div class="unit">kg</div></div>
+</div>
+
+<!-- S3-B12 Acier -->
+<div class="question" data-q="S3-B12">
+<div class="eyebrow">Scope 3 · Matériaux</div>
+<h2>Quelle quantité <span>d'acier</span> a été utilisée ?</h2>
+<div class="field"><input id="acier" type="number" min="0" step="0.01" placeholder="0"><div class="unit">kg</div></div>
+</div>
+
+<!-- S3-B13 Briques -->
+<div class="question" data-q="S3-B13">
+<div class="eyebrow">Scope 3 · Matériaux</div>
+<h2>Quelle quantité de <span>briques</span> a été utilisée ?</h2>
+<div class="field"><input id="briques" type="number" min="0" step="0.01" placeholder="0"><div class="unit">kg</div></div>
+</div>
+
+<!-- S3-B14 Verre -->
+<div class="question" data-q="S3-B14">
+<div class="eyebrow">Scope 3 · Matériaux</div>
+<h2>Quelle quantité de <span>verre</span> a été utilisée ?</h2>
+<div class="field">
+<label class="field-label" for="type_verre">Type de verre</label>
+<select id="type_verre">
+<option value="">Sélectionner</option>
+<option value="plat">Verre plat</option>
+<option value="creux">Verre creux</option>
+</select>
+</div>
+<div class="field"><input id="verre" type="number" min="0" step="0.01" placeholder="0"><div class="unit">kg</div></div>
+</div>
+
+<!-- S3-B15 Aluminium -->
+<div class="question" data-q="S3-B15">
+<div class="eyebrow">Scope 3 · Matériaux</div>
+<h2>Quelle quantité <span>d'aluminium</span> a été utilisée ?</h2>
+<div class="field"><input id="aluminium" type="number" min="0" step="0.01" placeholder="0"><div class="unit">kg</div></div>
+<div class="note">Le facteur d'émission sera intégré après validation de la source méthodologique retenue.</div>
+</div>
+
+<!-- S3-B16 Isolation -->
+<div class="question" data-q="S3-B16">
+<div class="eyebrow">Scope 3 · Isolation</div>
+<h2>Quel <span>matériau d'isolation</span> a été utilisé ?</h2>
+<div class="field">
+<select id="type_isolation">
+<option value="">Sélectionner</option>
+<option value="laine_verre">Laine de verre</option>
+<option value="laine_roche">Laine de roche</option>
+<option value="eps">EPS</option>
+<option value="xps">XPS</option>
+<option value="pur_pir">PU / PIR</option>
+</select>
+</div>
+<div class="field"><input id="isolation" type="number" min="0" step="0.01" placeholder="0"><div class="unit">kg</div></div>
+</div>
+
+<div class="nav">
+<button class="back" type="button" id="back" onclick="previousQuestion()">Retour</button>
+<button class="next" type="button" id="next" onclick="nextQuestion()">Continuer →</button>
+</div>
+
+<div class="footer">Tunicarbone · Bilan carbone d'un bâtiment existant</div>
+</main>
+
+<script>
+const order=[
+"S3-B01","S3-B02","S3-B03","S3-B04","S3-B05","S3-B06","S3-B07",
+"S3-B08","S3-B08A","S3-B09","S3-B10","S3-B11","S3-B12","S3-B13","S3-B14","S3-B15","S3-B16"
+];
+
+let index=0;
+const answers=JSON.parse(localStorage.getItem("carbono_batiment_scope3")||"{}");
+
+function showQuestion(i){
+index=i;
+document.querySelectorAll(".question").forEach(q=>q.classList.remove("active"));
+document.querySelector(`[data-q="${order[index]}"]`).classList.add("active");
+document.getElementById("counter").textContent=`${String(index+1).padStart(2,"0")} / ${String(order.length).padStart(2,"0")}`;
+document.getElementById("back").style.visibility=index===0?"hidden":"visible";
+document.getElementById("next").textContent=index===order.length-1?"Terminer le bâtiment →":"Continuer →";
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function val(id){return Number(document.getElementById(id).value||0)}
+
+function saveCurrent(){
+const id=order[index];
+
+if(id==="S3-B01") answers.consommation_eau=val("consommation_eau");
+if(id==="S3-B02") answers.dechets_total=val("dechets_total");
+
+if(id==="S3-B03"){
+answers.dechets={
+menagers:val("dechets_menagers"),
+papier_carton:val("dechets_papier"),
+plastique:val("dechets_plastique"),
+verre:val("dechets_verre"),
+metaux:val("dechets_metaux"),
+organiques:val("dechets_organiques")
+};
+}
+
+if(id==="S3-B04"){
+answers.domicile_travail={
+voiture:val("domicile_voiture"),
+bus:val("domicile_bus"),
+train:val("domicile_train")
+};
+}
+
+if(id==="S3-B05"){
+answers.deplacements_professionnels={
+voiture:val("pro_voiture"),
+train:val("pro_train"),
+avion:val("pro_avion")
+};
+}
+
+if(id==="S3-B06") answers.mobilier_kg=val("mobilier");
+
+if(id==="S3-B07"){
+answers.informatique={
+ordinateurs:val("ordinateurs"),
+ecrans:val("ecrans"),
+imprimantes:val("imprimantes")
+};
+}
+
+if(id==="S3-B08"){
+answers.autres_equipements=[
+...document.querySelectorAll('.check-item input:checked')
+].map(x=>x.value);
+}
+
+if(id==="S3-B08A"){
+answers.quantites_autres_equipements={};
+(document.querySelectorAll("#equipement_quantites input")||[]).forEach(input=>{
+answers.quantites_autres_equipements[input.dataset.type]=Number(input.value||0);
+});
+}
+
+if(id==="S3-B09"){
+const s=document.querySelector('input[name="travaux"]:checked');
+if(!s){alert("Veuillez indiquer si des travaux ont été réalisés.");return false}
+answers.travaux=s.value;
+}
+
+if(id==="S3-B10") answers.beton_kg=val("beton");
+
+if(id==="S3-B11"){
+const type=document.getElementById("type_ciment").value;
+if(!type){alert("Veuillez sélectionner le type de ciment.");return false}
+answers.type_ciment=type;
+answers.ciment_kg=val("ciment");
+}
+
+if(id==="S3-B12") answers.acier_kg=val("acier");
+if(id==="S3-B13") answers.briques_kg=val("briques");
+
+if(id==="S3-B14"){
+const type=document.getElementById("type_verre").value;
+if(!type){alert("Veuillez sélectionner le type de verre.");return false}
+answers.type_verre=type;
+answers.verre_kg=val("verre");
+}
+
+if(id==="S3-B15") answers.aluminium_kg=val("aluminium");
+
+if(id==="S3-B16"){
+const type=document.getElementById("type_isolation").value;
+if(!type){alert("Veuillez sélectionner le matériau d'isolation.");return false}
+answers.type_isolation=type;
+answers.isolation_kg=val("isolation");
+}
+
+localStorage.setItem("carbono_batiment_scope3",JSON.stringify(answers));
+return true;
+}
+
+function buildEquipmentQuantityInputs(){
+const box=document.getElementById("equipement_quantites");
+const labels={
+photocopieur:"Photocopieur",
+videoprojecteur:"Vidéoprojecteur",
+reseau:"Équipement réseau / routeur",
+climatiseur:"Climatiseur",
+refrigerateur:"Réfrigérateur",
+television:"Téléviseur",
+eclairage:"Éclairage / luminaires",
+equipement_electrique:"Équipement électrique",
+batterie_onduleur:"Batterie / onduleur"
+};
+box.innerHTML="";
+const selected=answers.autres_equipements||[];
+
+selected.forEach(type=>{
+const div=document.createElement("div");
+div.className="field";
+div.innerHTML=`
+<label class="field-label" for="eq_${type}">${labels[type]||type}</label>
+<input id="eq_${type}" data-type="${type}" type="number" min="0" step="1" placeholder="0">
+<div class="unit">unités/an</div>`;
+box.appendChild(div);
+});
+}
+
+function nextQuestion(){
+if(!saveCurrent())return;
+
+const current=order[index];
+
+if(current==="S3-B08"){
+buildEquipmentQuantityInputs();
+}
+
+if(current==="S3-B09" && answers.travaux==="non"){
+
+localStorage.setItem(
+    "carbono_batiment_scope3",
+    JSON.stringify(answers)
+);
+
+fetch("/calcul-scope3-batiment", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(answers)
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error("Erreur HTTP " + response.status);
+    }
+    return response.json();
+})
+.then(data => {
+
+    localStorage.setItem(
+        "resultat_scope3_batiment",
+        JSON.stringify(data.resultat || {})
+    );
+
+    window.location.href="/resultat_batiment";
+})
+.catch(error => {
+
+    console.error(
+        "Erreur calcul Scope 3 Bâtiment :",
+        error
+    );
+
+    alert(
+        "Erreur lors du calcul du Scope 3 du bâtiment."
+    );
+});
+
+return;
+}
+
+if(index===order.length-1){
+
+localStorage.setItem(
+    "carbono_batiment_scope3",
+    JSON.stringify(answers)
+);
+
+fetch("/calcul-scope3-batiment", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(answers)
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error("Erreur HTTP " + response.status);
+    }
+    return response.json();
+})
+.then(data => {
+
+    console.log(
+        "Résultat Scope 3 Bâtiment :",
+        data
+    );
+
+    localStorage.setItem(
+        "resultat_scope3_batiment",
+        JSON.stringify(data.resultat || {})
+    );
+
+    window.location.href="/resultat_batiment";
+})
+.catch(error => {
+
+    console.error(
+        "Erreur calcul Scope 3 Bâtiment :",
+        error
+    );
+
+    alert(
+        "Erreur lors du calcul du Scope 3 du bâtiment."
+    );
+});
+
+return;
+}
+
+showQuestion(index+1);
+}
+
+function previousQuestion(){
+if(index>0){
+showQuestion(index-1);
+}else{
+window.location.href="/scope2_batiment";
+}
+}
+
+showQuestion(0);
+</script>
+
+</body>
+</html>  
+ 

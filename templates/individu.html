@@ -1,21 +1,325 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <title>Bilan Carbone - Individu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Individu — Tunicarbone</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 </head>
 
-<body>
 
-    <h1>👤 Bilan Carbone - Individu</h1>
+<body class="individual-page">
 
-    <p>Bienvenue dans le calcul de votre empreinte carbone.</p>
 
-    <h2>Les 3 scopes</h2>
+    <!-- NAVIGATION -->
 
-    <button>Scope 1</button>
-    <button>Scope 2</button>
-    <button>Scope 3</button>
+    <nav class="navbar">
+
+        <a href="/" class="logo">
+            <span>●</span> Tunicarbone 
+        </a>
+
+        <div class="menu">
+            <a href="/">Accueil</a>
+            <a href="/#choix">Calculer</a>
+            <a href="#">À propos</a>
+        </div>
+
+    </nav>
+
+
+    <!-- CONTENU PRINCIPAL -->
+
+    <main class="individual-main">
+
+
+        <!-- EN-TÊTE -->
+
+        <section class="individual-header">
+
+            <a href="/" class="back-link">
+                ← Retour
+            </a>
+
+            <div class="individual-title">
+
+                <span class="eyebrow">
+                    BILAN CARBONE · INDIVIDU
+                </span>
+
+                <h1>
+                    Votre empreinte
+                    <span>personnelle.</span>
+                </h1>
+
+                <p>
+                    Nous allons analyser vos principales sources
+                    d'émissions afin d'estimer votre empreinte carbone
+                    annuelle.
+                </p>
+
+            </div>
+
+
+            <!-- PROGRESSION -->
+
+            <div class="progress-area">
+
+                <div class="progress-info">
+
+                    <span>Votre progression</span>
+
+                    <strong>0%</strong>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div class="progress-fill"></div>
+
+                </div>
+
+                <div class="progress-labels">
+
+                    <span>Début</span>
+                    <span>3 étapes</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- CHOIX DES SCOPES -->
+
+        <section class="scope-section">
+
+
+            <div class="scope-heading">
+
+                <div>
+
+                    <span class="eyebrow">
+                        ÉTAPE 01
+                    </span>
+
+                    <h2>
+                        Commençons par vos émissions
+                    </h2>
+
+                </div>
+
+                <p>
+                    Sélectionnez une catégorie<br>
+                    pour commencer.
+                </p>
+
+            </div>
+
+
+
+            <div class="scope-grid">
+
+
+                <!-- SCOPE 1 -->
+                    <a href="/scope1" class="scope-card">
+
+                    <div class="scope-number">
+                        01
+                    </div>
+
+                    <div class="scope-icon">
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.7">
+
+                            <path d="M12 3v18"/>
+                            <path d="M5 8h14"/>
+                            <path d="M7 8v8"/>
+                            <path d="M17 8v8"/>
+                            <path d="M4 16h6"/>
+                            <path d="M14 16h6"/>
+
+                        </svg>
+                    </div>
+
+                    <div class="scope-content">
+
+                        <span class="scope-label">
+                            ÉMISSIONS DIRECTES
+                        </span>
+
+                        <h3>
+                            Scope 1
+                        </h3>
+
+                        <p>
+                            Les émissions provenant directement
+                            de vos activités et combustibles.
+                        </p>
+
+                    </div>
+
+                    <div class="scope-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+
+                <!-- SCOPE 2 -->
+
+                <a href="#" class="scope-card">
+
+                    <div class="scope-number">
+                        02
+                    </div>
+
+                    <div class="scope-icon">
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.7">
+
+                            <path d="M13 2L4 14h7l-1 8 9-12h-7z"/>
+
+                        </svg>
+                    </div>
+
+                    <div class="scope-content">
+
+                        <span class="scope-label">
+                            ÉNERGIE ACHETÉE
+                        </span>
+
+                        <h3>
+                            Scope 2
+                        </h3>
+
+                        <p>
+                            Les émissions indirectes liées à
+                            l'électricité et à l'énergie achetée.
+                        </p>
+
+                    </div>
+
+                    <div class="scope-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+
+                <!-- SCOPE 3 -->
+
+                <a href="#" class="scope-card">
+
+                    <div class="scope-number">
+                        03
+                    </div>
+
+                    <div class="scope-icon">
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.7">
+
+                            <circle cx="12"
+                                    cy="12"
+                                    r="9"/>
+
+                            <path d="M3 12h18"/>
+                            <path d="M12 3c3 3 3 15 0 18"/>
+                            <path d="M12 3c-3 3-3 15 0 18"/>
+
+                        </svg>
+                    </div>
+
+                    <div class="scope-content">
+
+                        <span class="scope-label">
+                            ÉMISSIONS INDIRECTES
+                        </span>
+
+                        <h3>
+                            Scope 3
+                        </h3>
+
+                        <p>
+                            Les autres émissions liées à votre
+                            mobilité, alimentation, achats et déchets.
+                        </p>
+
+                    </div>
+
+                    <div class="scope-arrow">
+                        →
+                    </div>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- INFORMATION -->
+
+        <section class="info-card">
+
+            <div class="info-icon">
+
+                <svg viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="1.7">
+
+                    <circle cx="12"
+                            cy="12"
+                            r="9"/>
+
+                    <path d="M12 11v5"/>
+                    <path d="M12 8h.01"/>
+
+                </svg>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    Comment fonctionne le calcul ?
+                </h3>
+
+                <p>
+                    Vos données sont combinées avec des facteurs
+                    d'émission afin d'estimer la quantité de CO₂
+                    équivalent émise chaque année.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
 
 </body>
-</html>
+
+</html> 

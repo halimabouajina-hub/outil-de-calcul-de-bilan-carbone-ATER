@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scope 3 — Individu | Tunicarbone </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap"
+          rel="stylesheet">
+</head>
+
+
+<body class="carbon-page">
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="carbon-nav">
+
+    <a href="/individu" class="carbon-logo">
+        <span class="logo-dot"></span>
+        Tunicarbone 
+    </a>
+
+    <div class="nav-right">
+        <span>Scope 3</span>
+        <span class="nav-separator">·</span>
+        <span id="questionCounter">01 / 26</span>
+    </div>
+
+</nav>
+
+
+<main class="carbon-main">
+
+
+    <!-- PROGRESSION -->
+
+    <div class="progress-area">
+
+        <div class="progress-line">
+
+            <div class="progress-active"
+                 id="progressActive">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="question-layout">
+
+
+        <!-- =================================================
+             QUESTIONS
+        ================================================= -->
+
+        <section class="question-side">
+
+
+            <!-- ================================
+                 ALIMENTATION
+            ================================= -->
+
+            <div class="question-screen active"
+                 data-question="S3-01">
+
+                <div class="question-category">
+                    ALIMENTATION · VIANDE ROUGE
+                </div>
+
+                <h1>
+                    Combien de repas contenant de la
+                    <span>viande rouge</span>
+                    mangez-vous par semaine ?
+                </h1>
+
+                <p class="question-description">
+                    Indiquez une moyenne approximative.
+                </p>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="viandeRouge"
+                               min="0"
+                               step="1"
+                               placeholder="2">
+
+                        <span>repas / semaine</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-02">
+
+                <div class="question-category">
+                    ALIMENTATION · POULET
+                </div>
+
+                <h1>
+                    Combien de repas contenant du
+                    <span>poulet</span>
+                    mangez-vous par semaine ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="poulet"
+                               min="0"
+                               step="1"
+                               placeholder="2">
+
+                        <span>repas / semaine</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-03">
+
+                <div class="question-category">
+                    ALIMENTATION · POISSON
+                </div>
+
+                <h1>
+                    Combien de repas contenant du
+                    <span>poisson</span>
+                    mangez-vous par semaine ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="poisson"
+                               min="0"
+                               step="1"
+                               placeholder="1">
+
+                        <span>repas / semaine</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-04">
+
+                <div class="question-category">
+                    ALIMENTATION · PRODUITS LAITIERS
+                </div>
+
+                <h1>
+                    Combien de
+                    <span>portions de produits laitiers</span>
+                    consommez-vous par semaine ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="laitiers"
+                               min="0"
+                               step="1"
+                               placeholder="7">
+
+                        <span>portions / semaine</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 BUS
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S3-05">
+
+                <div class="question-category">
+                    TRANSPORT · BUS
+                </div>
+
+                <h1>
+                    Utilisez-vous le
+                    <span>bus</span>
+                    pour vos déplacements ?
+                </h1>
+
+                <div class="answers">
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('bus', 'oui', this)">
+
+                        <span class="answer-letter">A</span>
+
+                        <span class="answer-text">
+
+                            <strong>Oui</strong>
+
+                            <small>
+                                J'utilise le bus
+                            </small>
+
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('bus', 'non', this)">
+
+                        <span class="answer-letter">B</span>
+
+                        <span class="answer-text">
+
+                            <strong>Non</strong>
+
+                            <small>
+                                Je n'utilise pas le bus
+                            </small>
+
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-06">
+
+                <div class="question-category">
+                    TRANSPORT · BUS
+                </div>
+
+                <h1>
+                    Combien de
+                    <span>jours par semaine</span>
+                    utilisez-vous le bus ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="joursBus"
+                               min="0"
+                               max="7"
+                               step="1"
+                               placeholder="5">
+
+                        <span>jours / semaine</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-07">
+
+                <div class="question-category">
+                    TRANSPORT · BUS
+                </div>
+
+                <h1>
+                    Quelle distance parcourez-vous
+                    pour un trajet en
+                    <span>bus</span> ?
+                </h1>
+
+                <p class="question-description">
+                    Indiquez la distance d'un trajet simple,
+                    sans compter le retour.
+                </p>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="distanceBus"
+                               min="0"
+                               step="0.1"
+                               placeholder="10">
+
+                        <span>km / trajet</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 TRAIN
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S3-08">
+
+                <div class="question-category">
+                    TRANSPORT · TRAIN
+                </div>
+
+                <h1>
+                    Utilisez-vous le
+                    <span>train</span>
+                    pour vos déplacements ?
+                </h1>
+
+                <div class="answers">
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('train', 'oui', this)">
+
+                        <span class="answer-letter">A</span>
+
+                        <span class="answer-text">
+                            <strong>Oui</strong>
+                            <small>J'utilise le train</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('train', 'non', this)">
+
+                        <span class="answer-letter">B</span>
+
+                        <span class="answer-text">
+                            <strong>Non</strong>
+                            <small>Je n'utilise pas le train</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-09">
+
+                <div class="question-category">
+                    TRANSPORT · TRAIN
+                </div>
+
+                <h1>
+                    Combien de
+                    <span>trajets en train</span>
+                    effectuez-vous par semaine ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="trajetsTrain"
+                               min="0"
+                               step="1"
+                               placeholder="2">
+
+                        <span>trajets / semaine</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-10">
+
+                <div class="question-category">
+                    TRANSPORT · TRAIN
+                </div>
+
+                <h1>
+                    Quelle est la distance moyenne
+                    d'un trajet en
+                    <span>train</span> ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="distanceTrain"
+                               min="0"
+                               step="1"
+                               placeholder="50">
+
+                        <span>km / trajet</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 TAXI
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S3-11">
+
+                <div class="question-category">
+                    TRANSPORT · TAXI
+                </div>
+
+                <h1>
+                    Utilisez-vous régulièrement
+                    un
+                    <span>taxi</span> ?
+                </h1>
+
+                <div class="answers">
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('taxi', 'oui', this)">
+
+                        <span class="answer-letter">A</span>
+
+                        <span class="answer-text">
+                            <strong>Oui</strong>
+                            <small>J'utilise régulièrement un taxi</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('taxi', 'non', this)">
+
+                        <span class="answer-letter">B</span>
+
+                        <span class="answer-text">
+                            <strong>Non</strong>
+                            <small>Je n'utilise pas régulièrement un taxi</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-12">
+
+                <div class="question-category">
+                    TRANSPORT · TAXI
+                </div>
+
+                <h1>
+                    Combien de
+                    <span>trajets en taxi</span>
+                    effectuez-vous par semaine ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="trajetsTaxi"
+                               min="0"
+                               step="1"
+                               placeholder="2">
+
+                        <span>trajets / semaine</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-13">
+
+                <div class="question-category">
+                    TRANSPORT · TAXI
+                </div>
+
+                <h1>
+                    Quelle est la distance moyenne
+                    d'un trajet en
+                    <span>taxi</span> ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="distanceTaxi"
+                               min="0"
+                               step="0.1"
+                               placeholder="8">
+
+                        <span>km / trajet</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 AVION
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S3-14">
+
+                <div class="question-category">
+                    TRANSPORT · AVION
+                </div>
+
+                <h1>
+                    Combien de voyages en
+                    <span>avion</span>
+                    avez-vous effectués durant les
+                    12 derniers mois ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="voyagesAvion"
+                               min="0"
+                               step="1"
+                               placeholder="1">
+
+                        <span>voyage(s) / an</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-15">
+
+                <div class="question-category">
+                    TRANSPORT · AVION
+                </div>
+
+                <h1>
+                    Quel était le
+                    <span>type de vol</span>
+                    effectué ?
+                </h1>
+
+                <div class="answers">
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('avion_type', 'court', this)">
+
+                        <span class="answer-letter">A</span>
+
+                        <span class="answer-text">
+                            <strong>Court-courrier</strong>
+                            <small>Vol de courte distance</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('avion_type', 'moyen', this)">
+
+                        <span class="answer-letter">B</span>
+
+                        <span class="answer-text">
+                            <strong>Moyen-courrier</strong>
+                            <small>Vol de moyenne distance</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('avion_type', 'long', this)">
+
+                        <span class="answer-letter">C</span>
+
+                        <span class="answer-text">
+                            <strong>Long-courrier</strong>
+                            <small>Vol de longue distance</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 VÊTEMENTS
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S3-16">
+
+                <div class="question-category">
+                    ACHATS · VÊTEMENTS
+                </div>
+
+                <h1>
+                    Combien de
+                    <span>vêtements</span>
+                    achetez-vous en moyenne par an ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="vetements"
+                               min="0"
+                               step="1"
+                               placeholder="20">
+
+                        <span>vêtements / an</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-17">
+
+                <div class="question-category">
+                    ACHATS · CHAUSSURES
+                </div>
+
+                <h1>
+                    Combien de paires de
+                    <span>chaussures</span>
+                    achetez-vous par an ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="chaussures"
+                               min="0"
+                               step="1"
+                               placeholder="3">
+
+                        <span>paires / an</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 ÉLECTRONIQUE
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S3-18">
+
+                <div class="question-category">
+                    ÉLECTRONIQUE · SMARTPHONE
+                </div>
+
+                <h1>
+                    Combien de
+                    <span>smartphones</span>
+                    avez-vous achetés durant les
+                    12 derniers mois ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="smartphones"
+                               min="0"
+                               step="1"
+                               placeholder="1">
+
+                        <span>smartphone(s) / an</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-19">
+
+                <div class="question-category">
+                    ÉLECTRONIQUE · ORDINATEUR
+                </div>
+
+                <h1>
+                    Combien
+                    <span>d'ordinateurs</span>
+                    avez-vous achetés durant les
+                    12 derniers mois ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="ordinateurs"
+                               min="0"
+                               step="1"
+                               placeholder="0">
+
+                        <span>ordinateur(s) / an</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-20">
+
+                <div class="question-category">
+                    ÉLECTRONIQUE · TÉLÉVISION
+                </div>
+
+                <h1>
+                    Combien de
+                    <span>télévisions</span>
+                    avez-vous achetées durant les
+                    12 derniers mois ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="televisions"
+                               min="0"
+                               step="1"
+                               placeholder="0">
+
+                        <span>télévision(s) / an</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 EAU
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S3-21">
+
+                <div class="question-category">
+                    LOGEMENT · EAU
+                </div>
+
+                <h1>
+                    Connaissez-vous votre
+                    <span>consommation annuelle d'eau</span> ?
+                </h1>
+
+                <div class="answers">
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('connait_eau', 'oui', this)">
+
+                        <span class="answer-letter">A</span>
+
+                        <span class="answer-text">
+                            <strong>Oui</strong>
+                            <small>Je connais ma consommation</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('connait_eau', 'non', this)">
+
+                        <span class="answer-letter">B</span>
+
+                        <span class="answer-text">
+                            <strong>Non</strong>
+                            <small>Je ne connais pas ma consommation</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-22">
+
+                <div class="question-category">
+                    LOGEMENT · EAU
+                </div>
+
+                <h1>
+                    Indiquez votre
+                    <span>consommation annuelle d'eau</span>.
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="consommationEau"
+                               min="0"
+                               step="0.1"
+                               placeholder="120">
+
+                        <span>m³ / an</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-23">
+
+                <div class="question-category">
+                    LOGEMENT · SONEDE
+                </div>
+
+                <h1>
+                    Quel est le montant moyen de votre
+                    <span>facture SONEDE</span>
+                    par mois ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="factureEau"
+                               min="0"
+                               step="0.01"
+                               placeholder="25">
+
+                        <span>TND / mois</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 DÉCHETS
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S3-24">
+
+                <div class="question-category">
+                    DÉCHETS · LOGEMENT
+                </div>
+
+                <h1>
+                    Combien de personnes vivent
+                    dans votre
+                    <span>logement</span> ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="habitants"
+                               min="1"
+                               step="1"
+                               placeholder="4">
+
+                        <span>personnes</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-25">
+
+                <div class="question-category">
+                    DÉCHETS · RECYCLAGE
+                </div>
+
+                <h1>
+                    Triez-vous vos déchets pour le
+                    <span>recyclage</span> ?
+                </h1>
+
+                <div class="answers">
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('tri', 'oui', this)">
+
+                        <span class="answer-letter">A</span>
+
+                        <span class="answer-text">
+                            <strong>Oui</strong>
+                            <small>Je trie mes déchets</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('tri', 'non', this)">
+
+                        <span class="answer-letter">B</span>
+
+                        <span class="answer-text">
+                            <strong>Non</strong>
+                            <small>Je ne trie pas mes déchets</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="question-screen"
+                 data-question="S3-26">
+
+                <div class="question-category">
+                    DÉCHETS · GESTION
+                </div>
+
+                <h1>
+                    Comment gérez-vous principalement
+                    vos
+                    <span>déchets</span> ?
+                </h1>
+
+                <div class="answers">
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('gestion_dechets', 'aucun_tri', this)">
+
+                        <span class="answer-letter">A</span>
+
+                        <span class="answer-text">
+                            <strong>Je ne trie pas</strong>
+                            <small>Déchets mélangés</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('gestion_dechets', 'partiel', this)">
+
+                        <span class="answer-letter">B</span>
+
+                        <span class="answer-text">
+                            <strong>Je trie une partie</strong>
+                            <small>Une partie des déchets est triée</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('gestion_dechets', 'regulier', this)">
+
+                        <span class="answer-letter">C</span>
+
+                        <span class="answer-text">
+                            <strong>Je trie régulièrement</strong>
+                            <small>Tri régulier des déchets</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('gestion_dechets', 'compost', this)">
+
+                        <span class="answer-letter">D</span>
+
+                        <span class="answer-text">
+                            <strong>Je composte</strong>
+                            <small>Je composte mes déchets organiques</small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             PANNEAU DROIT
+        ================================================= -->
+
+        <aside class="carbon-panel">
+
+            <div class="panel-label">
+                VOTRE BILAN
+            </div>
+
+            <div class="carbon-value">
+
+                <strong id="carbonValue">
+                    —
+                </strong>
+
+                <span>
+                    kg CO₂e
+                </span>
+
+            </div>
+
+            <div class="panel-message"
+                 id="panelMessage">
+
+                Votre bilan se construit
+                progressivement.
+
+            </div>
+
+            <div class="panel-divider"></div>
+
+            <div class="panel-item">
+
+                <span>
+                    Catégorie
+                </span>
+
+                <strong id="categoryStatus">
+                    Alimentation
+                </strong>
+
+            </div>
+
+            <div class="panel-divider"></div>
+
+            <div class="panel-small">
+
+                Les émissions seront calculées à partir
+                des réponses fournies et des facteurs
+                d'émission utilisés par l'application.
+
+            </div>
+
+        </aside>
+
+    </div>
+
+
+
+    <!-- =================================================
+         NAVIGATION
+    ================================================= -->
+
+    <div class="question-navigation">
+
+        <button type="button"
+                id="backButton"
+                class="back-button"
+                onclick="previousQuestion()">
+
+            ← Retour
+
+        </button>
+
+
+        <div class="navigation-counter"
+             id="navigationCounter">
+
+            01 / 26
+
+        </div>
+
+
+        <button type="button"
+                id="continueButton"
+                class="continue-button"
+                onclick="nextQuestion()"
+                disabled>
+
+            Continuer
+
+            <span>→</span>
+
+        </button>
+
+    </div>
+
+</main>
+
+
+
+<script>
+
+/* =====================================================
+   DONNÉES
+===================================================== */
+
+const answers = {};
+
+
+/* =====================================================
+   QUESTIONS
+===================================================== */
+
+const questionOrder = [
+
+    "S3-01",
+    "S3-02",
+    "S3-03",
+    "S3-04",
+
+    "S3-05",
+    "S3-06",
+    "S3-07",
+
+    "S3-08",
+    "S3-09",
+    "S3-10",
+
+    "S3-11",
+    "S3-12",
+    "S3-13",
+
+    "S3-14",
+    "S3-15",
+
+    "S3-16",
+    "S3-17",
+
+    "S3-18",
+    "S3-19",
+    "S3-20",
+
+    "S3-21",
+    "S3-22",
+    "S3-23",
+
+    "S3-24",
+    "S3-25",
+    "S3-26"
+
+];
+
+
+let currentIndex = 0;
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const screens =
+    document.querySelectorAll(".question-screen");
+
+const continueButton =
+    document.getElementById("continueButton");
+
+const backButton =
+    document.getElementById("backButton");
+
+const questionCounter =
+    document.getElementById("questionCounter");
+
+const navigationCounter =
+    document.getElementById("navigationCounter");
+
+const progressActive =
+    document.getElementById("progressActive");
+
+
+/* =====================================================
+   AFFICHER QUESTION
+===================================================== */
+
+function showQuestion(index) {
+
+    currentIndex = index;
+
+    screens.forEach(screen => {
+        screen.classList.remove("active");
+    });
+
+
+    const currentId =
+        questionOrder[currentIndex];
+
+    const currentScreen =
+        document.querySelector(
+            `[data-question="${currentId}"]`
+        );
+
+
+    if (currentScreen) {
+        currentScreen.classList.add("active");
+    }
+
+
+    const number =
+        String(currentIndex + 1).padStart(2, "0");
+
+
+    questionCounter.textContent =
+        `${number} / 26`;
+
+    navigationCounter.textContent =
+        `${number} / 26`;
+
+
+    const progress =
+        ((currentIndex + 1) /
+        questionOrder.length) * 100;
+
+
+    progressActive.style.width =
+        `${progress}%`;
+
+
+    backButton.disabled =
+        currentIndex === 0;
+
+
+    updateContinueButton();
+
+    updatePanel();
+
+}
+
+
+/* =====================================================
+   REPONSE CHOIX
+===================================================== */
+
+function selectChoice(variable, value, button) {
+
+    answers[variable] = value;
+
+
+    const parent =
+        button.closest(".answers");
+
+
+    if (parent) {
+
+        parent
+            .querySelectorAll(".answer")
+            .forEach(btn => {
+                btn.classList.remove("selected");
+            });
+
+    }
+
+
+    button.classList.add("selected");
+
+
+    updateContinueButton();
+
+    updatePanel();
+
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+const inputMap = {
+
+    viandeRouge: "viande_rouge",
+    poulet: "poulet",
+    poisson: "poisson",
+    laitiers: "produits_laitiers",
+
+    joursBus: "jours_bus",
+    distanceBus: "distance_bus",
+
+    trajetsTrain: "trajets_train",
+    distanceTrain: "distance_train",
+
+    trajetsTaxi: "trajets_taxi",
+    distanceTaxi: "distance_taxi",
+
+    voyagesAvion: "voyages_avion",
+
+    vetements: "vetements",
+    chaussures: "chaussures",
+
+    smartphones: "smartphones",
+    ordinateurs: "ordinateurs",
+    televisions: "televisions",
+
+    consommationEau: "consommation_eau",
+    factureEau: "facture_eau",
+
+    habitants: "habitants"
+
+};
+
+
+Object.keys(inputMap).forEach(id => {
+
+    const input =
+        document.getElementById(id);
+
+    if (!input) return;
+
+
+    input.addEventListener("input", function() {
+
+        answers[inputMap[id]] =
+            this.value === ""
+                ? null
+                : Number(this.value);
+
+
+        updateContinueButton();
+
+        updatePanel();
+
+    });
+
+});
+
+
+/* =====================================================
+   VALIDATION
+===================================================== */
+
+function isCurrentQuestionValid() {
+
+    const question =
+        questionOrder[currentIndex];
+
+
+    const requiredVariables = {
+
+        "S3-01": "viande_rouge",
+        "S3-02": "poulet",
+        "S3-03": "poisson",
+        "S3-04": "produits_laitiers",
+
+        "S3-05": "bus",
+        "S3-06": "jours_bus",
+        "S3-07": "distance_bus",
+
+        "S3-08": "train",
+        "S3-09": "trajets_train",
+        "S3-10": "distance_train",
+
+        "S3-11": "taxi",
+        "S3-12": "trajets_taxi",
+        "S3-13": "distance_taxi",
+
+        "S3-14": "voyages_avion",
+        "S3-15": "avion_type",
+
+        "S3-16": "vetements",
+        "S3-17": "chaussures",
+
+        "S3-18": "smartphones",
+        "S3-19": "ordinateurs",
+        "S3-20": "televisions",
+
+        "S3-21": "connait_eau",
+        "S3-22": "consommation_eau",
+        "S3-23": "facture_eau",
+
+        "S3-24": "habitants",
+        "S3-25": "tri",
+        "S3-26": "gestion_dechets"
+
+    };
+
+
+    const variable =
+        requiredVariables[question];
+
+
+    return (
+        answers[variable] !== undefined &&
+        answers[variable] !== null &&
+        answers[variable] !== ""
+    );
+
+}
+
+
+/* =====================================================
+   BOUTON CONTINUER
+===================================================== */
+
+function updateContinueButton() {
+
+    continueButton.disabled =
+        !isCurrentQuestionValid();
+
+}
+
+
+/* =====================================================
+   QUESTION SUIVANTE
+===================================================== */
+
+function nextQuestion() {
+
+    if (!isCurrentQuestionValid()) {
+        return;
+    }
+
+
+    /*
+       EAU :
+
+       Oui → consommation
+       Non → facture
+    */
+
+    if (
+        questionOrder[currentIndex] === "S3-21"
+    ) {
+
+        if (
+            answers.connait_eau === "oui"
+        ) {
+
+            showQuestion(
+                questionOrder.indexOf("S3-22")
+            );
+
+        } else {
+
+            showQuestion(
+                questionOrder.indexOf("S3-23")
+            );
+
+        }
+
+        return;
+    }
+
+
+    /*
+       Si on vient de la consommation d'eau,
+       aller directement aux déchets.
+    */
+
+    if (
+        questionOrder[currentIndex] === "S3-22" ||
+        questionOrder[currentIndex] === "S3-23"
+    ) {
+
+        showQuestion(
+            questionOrder.indexOf("S3-24")
+        );
+
+        return;
+    }
+
+
+    /*
+       TRANSPORT CONDITIONNEL
+    */
+
+    if (
+        questionOrder[currentIndex] === "S3-05"
+    ) {
+
+        if (answers.bus === "oui") {
+
+            showQuestion(
+                questionOrder.indexOf("S3-06")
+            );
+
+        } else {
+
+            showQuestion(
+                questionOrder.indexOf("S3-08")
+            );
+
+        }
+
+        return;
+    }
+
+
+    if (
+        questionOrder[currentIndex] === "S3-08"
+    ) {
+
+        if (answers.train === "oui") {
+
+            showQuestion(
+                questionOrder.indexOf("S3-09")
+            );
+
+        } else {
+
+            showQuestion(
+                questionOrder.indexOf("S3-11")
+            );
+
+        }
+
+        return;
+    }
+
+
+    if (
+        questionOrder[currentIndex] === "S3-11"
+    ) {
+
+        if (answers.taxi === "oui") {
+
+            showQuestion(
+                questionOrder.indexOf("S3-12")
+            );
+
+        } else {
+
+            showQuestion(
+                questionOrder.indexOf("S3-14")
+            );
+
+        }
+
+        return;
+    }
+
+
+    if (
+        questionOrder[currentIndex] === "S3-07"
+    ) {
+
+        showQuestion(
+            questionOrder.indexOf("S3-08")
+        );
+
+        return;
+    }
+
+
+    if (
+        questionOrder[currentIndex] === "S3-10"
+    ) {
+
+        showQuestion(
+            questionOrder.indexOf("S3-11")
+        );
+
+        return;
+    }
+
+
+      /*
+       AVION :
+       0 voyage → on saute le type de vol.
+       Plus de 0 → on demande le type de vol.
+    */
+
+    if (
+        questionOrder[currentIndex] === "S3-14"
+    ) {
+
+        if (answers.voyages_avion === 0) {
+
+            showQuestion(
+                questionOrder.indexOf("S3-16")
+            );
+
+        } else {
+
+            showQuestion(
+                questionOrder.indexOf("S3-15")
+            );
+
+        }
+
+        return;
+    }
+
+
+    /*
+       FIN DU SCOPE 3
+       Envoi des réponses au backend
+       puis affichage de la page Résultats.
+    */
+
+    if (
+        currentIndex === questionOrder.length - 1
+    ) {
+
+        localStorage.setItem(
+            "carbono_scope3",
+            JSON.stringify(answers)
+        );
+
+        fetch("/calcul-scope3", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(answers)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(
+                    "Erreur HTTP " + response.status
+                );
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(
+                "Résultat Scope 3 :",
+                data
+            );
+
+            localStorage.setItem(
+                "resultat_scope3",
+                JSON.stringify(data.resultat || {})
+            );
+
+            window.location.href = "/resultat";
+        })
+        .catch(error => {
+            console.error(
+                "Erreur lors du calcul du Scope 3 :",
+                error
+            );
+            alert(
+                "Une erreur est survenue lors du calcul du Scope 3."
+            );
+        });
+
+        return;
+    }
+
+
+    showQuestion(
+        currentIndex + 1
+    );
+
+}
+
+
+/* =====================================================
+   RETOUR
+===================================================== */
+
+function previousQuestion() {
+
+    if (currentIndex === 0) {
+        return;
+    }
+
+
+    /*
+       Retour depuis S3-22 / S3-23
+       vers S3-21
+    */
+
+    if (
+        questionOrder[currentIndex] === "S3-22" ||
+        questionOrder[currentIndex] === "S3-23"
+    ) {
+
+        showQuestion(
+            questionOrder.indexOf("S3-21")
+        );
+
+        return;
+    }
+
+
+    /*
+       Retour intelligent bus
+    */
+
+    if (
+        questionOrder[currentIndex] === "S3-08"
+    ) {
+
+        showQuestion(
+            questionOrder.indexOf("S3-05")
+        );
+
+        return;
+    }
+
+
+    /*
+       Retour train
+    */
+
+    if (
+        questionOrder[currentIndex] === "S3-11"
+    ) {
+
+        if (answers.train === "oui") {
+
+            showQuestion(
+                questionOrder.indexOf("S3-08")
+            );
+
+        } else {
+
+            showQuestion(
+                questionOrder.indexOf("S3-08")
+            );
+
+        }
+
+        return;
+    }
+
+
+    /*
+       Retour taxi / avion
+    */
+
+    if (
+        questionOrder[currentIndex] === "S3-14"
+    ) {
+
+        if (answers.taxi === "oui") {
+
+            showQuestion(
+                questionOrder.indexOf("S3-11")
+            );
+
+        } else {
+
+            showQuestion(
+                questionOrder.indexOf("S3-11")
+            );
+
+        }
+
+        return;
+    }
+
+
+    showQuestion(
+        currentIndex - 1
+    );
+
+}
+
+
+/* =====================================================
+   PANNEAU
+===================================================== */
+
+function updatePanel() {
+
+    const category =
+        document.getElementById(
+            "categoryStatus"
+        );
+
+    const message =
+        document.getElementById(
+            "panelMessage"
+        );
+
+
+    const question =
+        questionOrder[currentIndex];
+
+
+    if (question <= "S3-04") {
+
+        category.textContent =
+            "Alimentation";
+
+        message.textContent =
+            "Votre consommation alimentaire est prise en compte.";
+
+    }
+
+    else if (question <= "S3-15") {
+
+        category.textContent =
+            "Transport";
+
+        message.textContent =
+            "Vos déplacements sont progressivement intégrés.";
+
+    }
+
+    else if (question <= "S3-20") {
+
+        category.textContent =
+            "Achats";
+
+        message.textContent =
+            "Vos achats et équipements sont pris en compte.";
+
+    }
+
+    else if (question <= "S3-23") {
+
+        category.textContent =
+            "Eau";
+
+        message.textContent =
+            "Votre consommation d'eau est prise en compte.";
+
+    }
+
+    else {
+
+        category.textContent =
+            "Déchets";
+
+        message.textContent =
+            "Votre gestion des déchets complète le bilan.";
+
+    }
+
+}
+
+
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+showQuestion(0);
+
+</script>
+
+
+</body>
+</html>

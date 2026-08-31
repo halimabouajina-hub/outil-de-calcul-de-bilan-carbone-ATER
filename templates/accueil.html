@@ -1,21 +1,124 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <title>Bilan Carbone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tunicarbone — Bilan Carbone</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 </head>
 
 <body>
 
-    <h1>🌱 Bilan Carbone</h1>
+    <nav class="navbar">
+        <div class="logo"><span>●</span> Tunicarbone</div>
+        <div class="menu">
+            <a href="/">Accueil</a>
+            <a href="#choix">Calculer</a>
+            <a href="#">À propos</a>
+        </div>
+    </nav>
 
-    <p>Calculez votre empreinte carbone</p>
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">CALCULATEUR D'EMPREINTE CARBONE</div>
+            <h1>
+                Mesurez votre
+                <span>empreinte carbone.</span>
+            </h1>
+            <p>
+                La Tunisie est engagée dans une démarche de transition énergétique
+                et de décarbonation. Cet outil permet d’évaluer les émissions de
+                carbone afin de mieux les comprendre et de contribuer à leur réduction.
+            </p>
+            <a href="#choix" class="hero-button">
+                Commencer le calcul
+                <span>→</span>
+            </a>
+        </div>
 
-    <h2>Qui êtes-vous ?</h2>
+        <div class="hero-visual">
+            <div class="hero-card">
+                <img src="{{ url_for('static', filename='images/tunisian_flag.jpg') }}"
+                     alt="Architecture tunisienne">
+                <div class="hero-overlay">
+                    <div>
+                        <strong>Agir aujourd'hui</strong>
+                        <small>pour une Tunisie verte</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <button>👤 Individu</button>
-    <button>🏢 Entreprise</button>
-    <button>🏠 Bâtiment</button>
+    <section class="profiles" id="choix">
+        <div class="section-heading">
+            <span>COMMENCER</span>
+            <h2>
+                Quel type de bilan<br>
+                souhaitez-vous réaliser ?
+            </h2>
+            <p>Choisissez le profil correspondant à votre situation.</p>
+        </div>
+
+        <div class="profile-grid">
+
+            <a href="{{ url_for('individu') }}" class="profile-card">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/individu.jpg') }}"
+                         alt="Individu tunisien">
+                    <div class="number">01</div>
+                </div>
+                <div class="profile-content">
+                    <div>
+                        <h3>Individu</h3>
+                        <p>Calculez votre empreinte carbone personnelle.</p>
+                    </div>
+                    <div class="arrow">→</div>
+                </div>
+            </a>
+
+            <a href="{{ url_for('entreprise') }}" class="profile-card">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/entreprise.jpg') }}"
+                         alt="Entreprise">
+                    <div class="number">02</div>
+                </div>
+                <div class="profile-content">
+                    <div>
+                        <h3>Entreprise</h3>
+                        <p>Évaluez les émissions de votre organisation.</p>
+                    </div>
+                    <div class="arrow">→</div>
+                </div>
+            </a>
+
+            <a href="{{ url_for('batiment') }}" class="profile-card">
+                <div class="image-container">
+                    <img src="{{ url_for('static', filename='images/batiment.jpg') }}"
+                         alt="Bâtiment tunisien">
+                    <div class="number">03</div>
+                </div>
+                <div class="profile-content">
+                    <div>
+                        <h3>Bâtiment</h3>
+                        <p>Évaluez l'empreinte carbone de votre bâtiment.</p>
+                    </div>
+                    <div class="arrow">→</div>
+                </div>
+            </a>
+
+        </div>
+    </section>
 
 </body>
 </html> 

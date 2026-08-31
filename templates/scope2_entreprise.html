@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scope 2 — Entreprise | Tunicarbone</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap"
+          rel="stylesheet">
+</head>
+
+<body class="carbon-page">
+
+<nav class="carbon-nav">
+
+    <a href="/entreprise" class="carbon-logo">
+        <span class="logo-dot"></span>
+        Tunicarbone
+    </a>
+
+    <div class="nav-right">
+        <span>Entreprise · Scope 2</span>
+        <span class="nav-separator">·</span>
+        <span id="questionCounter">01 / 04</span>
+    </div>
+
+</nav>
+
+
+<main class="carbon-main">
+
+    <div class="progress-area">
+
+        <div class="progress-line">
+
+            <div class="progress-active"
+                 id="progressActive">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="question-layout">
+
+
+        <section class="question-side">
+
+
+            <!-- =========================================
+                 QUESTION 1 — CONSOMMATION
+            ========================================== -->
+
+            <div class="question-screen active"
+                 data-question="S2-E01">
+
+                <div class="question-category">
+                    SCOPE 2 · ÉLECTRICITÉ
+                </div>
+
+                <h1>
+                    Quelle est la
+                    <span>
+                        consommation annuelle d’électricité
+                    </span>
+                    de l’entreprise ?
+                </h1>
+
+                <p class="question-description">
+                    Indiquez la consommation annuelle totale
+                    figurant sur les factures ou relevés.
+                </p>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="consommation_electricite"
+                               min="0"
+                               step="0.1"
+                               placeholder="0">
+
+                        <span>
+                            kWh / an
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 QUESTION 2 — PHOTOVOLTAÏQUE
+            ========================================== -->
+
+            <div class="question-screen"
+                 data-question="S2-E02">
+
+                <div class="question-category">
+                    SCOPE 2 · PHOTOVOLTAÏQUE
+                </div>
+
+                <h1>
+                    L’entreprise dispose-t-elle d’une
+                    <span>
+                        installation photovoltaïque
+                    </span>
+                    ?
+                </h1>
+
+                <div class="answers">
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('photovoltaique','oui',this)">
+
+                        <span class="answer-letter">
+                            A
+                        </span>
+
+                        <span class="answer-text">
+
+                            <strong>
+                                Oui
+                            </strong>
+
+                            <small>
+                                L’entreprise possède une installation solaire.
+                            </small>
+
+                        </span>
+
+                        <span class="answer-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectChoice('photovoltaique','non',this)">
+
+                        <span class="answer-letter">
+                            B
+                        </span>
+
+                        <span class="answer-text">
+
+                            <strong>
+                                Non
+                            </strong>
+
+                            <small>
+                                Aucune installation photovoltaïque.
+                            </small>
+
+                        </span>
+
+                        <span class="answer-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 QUESTION 3 — PRODUCTION PV
+            ========================================== -->
+
+            <div class="question-screen"
+                 data-question="S2-E03">
+
+                <div class="question-category">
+                    SCOPE 2 · PHOTOVOLTAÏQUE
+                </div>
+
+                <h1>
+                    Quelle quantité d’électricité
+                    <span>
+                        photovoltaïque
+                    </span>
+                    est produite par an ?
+                </h1>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="production_photovoltaique"
+                               min="0"
+                               step="0.1"
+                               placeholder="0">
+
+                        <span>
+                            kWh / an
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 QUESTION 4 — AUTOCONSOMMATION
+            ========================================== -->
+
+            <div class="question-screen"
+                 data-question="S2-E04">
+
+                <div class="question-category">
+                    SCOPE 2 · PHOTOVOLTAÏQUE
+                </div>
+
+                <h1>
+                    Quelle partie de cette production est
+                    <span>
+                        autoconsommée
+                    </span>
+                    ?
+                </h1>
+
+                <p class="question-description">
+                    Indiquez la quantité d’électricité solaire
+                    consommée directement par l’entreprise.
+                </p>
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="autoconsommation_photovoltaique"
+                               min="0"
+                               step="0.1"
+                               placeholder="0">
+
+                        <span>
+                            kWh / an
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =========================================
+             PANNEAU DROIT
+        ========================================== -->
+
+        <aside class="carbon-panel">
+
+            <div class="panel-label">
+                VOTRE BILAN
+            </div>
+
+            <div class="carbon-value">
+
+                <strong id="carbonValue">
+                    —
+                </strong>
+
+                <span>
+                    kg CO₂e
+                </span>
+
+            </div>
+
+            <div class="panel-message"
+                 id="panelMessage">
+
+                Votre bilan se construit
+                progressivement.
+
+            </div>
+
+            <div class="panel-divider"></div>
+
+            <div class="panel-item">
+
+                <span>
+                    Catégorie
+                </span>
+
+                <strong id="categoryStatus">
+                    Électricité
+                </strong>
+
+            </div>
+
+            <div class="panel-divider"></div>
+
+            <div class="panel-small">
+
+                Les émissions du Scope 2 correspondent
+                à l’électricité consommée par l’entreprise.
+                La production photovoltaïque permet ensuite
+                de distinguer l’électricité autoproduite.
+
+            </div>
+
+        </aside>
+
+
+    </div>
+
+
+    <!-- =========================================
+         NAVIGATION
+    ========================================== -->
+
+    <div class="question-navigation">
+
+        <button type="button"
+                id="backButton"
+                class="back-button"
+                onclick="previousQuestion()">
+
+            ← Retour
+
+        </button>
+
+
+        <div class="navigation-counter"
+             id="navigationCounter">
+
+            01 / 04
+
+        </div>
+
+
+        <button type="button"
+                id="continueButton"
+                class="continue-button"
+                onclick="nextQuestion()"
+                disabled>
+
+            Continuer
+
+            <span>
+                →
+            </span>
+
+        </button>
+
+    </div>
+
+
+</main>
+
+
+<script>
+
+/* =====================================================
+   DONNÉES
+===================================================== */
+
+const answers = {};
+
+
+/* =====================================================
+   QUESTIONS
+===================================================== */
+
+const questionOrder = [
+
+    "S2-E01",
+    "S2-E02",
+    "S2-E03",
+    "S2-E04"
+
+];
+
+
+let currentIndex = 0;
+
+
+/* =====================================================
+   ÉLÉMENTS
+===================================================== */
+
+const screens =
+    document.querySelectorAll(".question-screen");
+
+const continueButton =
+    document.getElementById("continueButton");
+
+const backButton =
+    document.getElementById("backButton");
+
+const questionCounter =
+    document.getElementById("questionCounter");
+
+const navigationCounter =
+    document.getElementById("navigationCounter");
+
+const progressActive =
+    document.getElementById("progressActive");
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+const inputMap = {
+
+    consommation_electricite:
+        "consommation_electricite",
+
+    production_photovoltaique:
+        "production_photovoltaique",
+
+    autoconsommation_photovoltaique:
+        "autoconsommation_photovoltaique"
+
+};
+
+
+Object.keys(inputMap).forEach(id => {
+
+    const input =
+        document.getElementById(id);
+
+    if (!input) return;
+
+    input.addEventListener(
+        "input",
+        function () {
+
+            answers[inputMap[id]] =
+                this.value === ""
+                    ? null
+                    : Number(this.value);
+
+            updateContinueButton();
+
+        }
+    );
+
+});
+
+
+/* =====================================================
+   AFFICHER QUESTION
+===================================================== */
+
+function showQuestion(index) {
+
+    currentIndex = index;
+
+    screens.forEach(screen => {
+
+        screen.classList.remove("active");
+
+    });
+
+
+    const currentId =
+        questionOrder[currentIndex];
+
+
+    const currentScreen =
+        document.querySelector(
+            `[data-question="${currentId}"]`
+        );
+
+
+    if (currentScreen) {
+
+        currentScreen.classList.add("active");
+
+    }
+
+
+    const number =
+        String(currentIndex + 1)
+            .padStart(2, "0");
+
+
+    questionCounter.textContent =
+        `${number} / 04`;
+
+
+    navigationCounter.textContent =
+        `${number} / 04`;
+
+
+    progressActive.style.width =
+        `${((currentIndex + 1) /
+           questionOrder.length) * 100}%`;
+
+
+    backButton.disabled =
+        currentIndex === 0;
+
+
+    updateCategory();
+
+    updateContinueButton();
+
+}
+
+
+/* =====================================================
+   CHOIX
+===================================================== */
+
+function selectChoice(
+    variable,
+    value,
+    button
+) {
+
+    answers[variable] = value;
+
+
+    const parent =
+        button.closest(".answers");
+
+
+    if (parent) {
+
+        parent
+            .querySelectorAll(".answer")
+            .forEach(btn => {
+
+                btn.classList.remove(
+                    "selected"
+                );
+
+            });
+
+    }
+
+
+    button.classList.add(
+        "selected"
+    );
+
+
+    updateContinueButton();
+
+}
+
+
+/* =====================================================
+   VALIDATION
+===================================================== */
+
+function isCurrentQuestionValid() {
+
+    const question =
+        questionOrder[currentIndex];
+
+
+    const required = {
+
+        "S2-E01":
+            "consommation_electricite",
+
+        "S2-E02":
+            "photovoltaique",
+
+        "S2-E03":
+            "production_photovoltaique",
+
+        "S2-E04":
+            "autoconsommation_photovoltaique"
+
+    };
+
+
+    const variable =
+        required[question];
+
+
+    if (!variable) {
+
+        return true;
+
+    }
+
+
+    return (
+
+        answers[variable] !== undefined &&
+
+        answers[variable] !== null &&
+
+        answers[variable] !== ""
+
+    );
+
+}
+
+
+/* =====================================================
+   BOUTON CONTINUER
+===================================================== */
+
+function updateContinueButton() {
+
+    continueButton.disabled =
+        !isCurrentQuestionValid();
+
+}
+
+
+/* =====================================================
+   PANNEAU
+===================================================== */
+
+function updateCategory() {
+
+    const category =
+        document.getElementById(
+            "categoryStatus"
+        );
+
+    const message =
+        document.getElementById(
+            "panelMessage"
+        );
+
+
+    const question =
+        questionOrder[currentIndex];
+
+
+    if (question === "S2-E01") {
+
+        category.textContent =
+            "Consommation électrique";
+
+        message.textContent =
+            "La consommation électrique annuelle de l’entreprise est prise en compte.";
+
+    }
+
+    else {
+
+        category.textContent =
+            "Photovoltaïque";
+
+        message.textContent =
+            "La production solaire et l’autoconsommation sont prises en compte.";
+
+    }
+
+}
+
+
+/* =====================================================
+   QUESTION SUIVANTE
+===================================================== */
+
+function nextQuestion() {
+
+    if (!isCurrentQuestionValid()) {
+
+        return;
+
+    }
+
+
+    const question =
+        questionOrder[currentIndex];
+
+
+    if (question === "S2-E02") {
+
+        if (
+            answers.photovoltaique === "oui"
+        ) {
+
+            showQuestion(2);
+
+        }
+
+        else {
+
+            finishScope2Entreprise();
+
+        }
+
+        return;
+
+    }
+
+
+    if (question === "S2-E04") {
+
+        finishScope2Entreprise();
+
+        return;
+
+    }
+
+
+    if (
+        currentIndex <
+        questionOrder.length - 1
+    ) {
+
+        showQuestion(
+            currentIndex + 1
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   RETOUR
+===================================================== */
+
+function previousQuestion() {
+
+    if (currentIndex === 0) {
+
+        window.location.href =
+            "/scope1_entreprise";
+
+        return;
+
+    }
+
+
+    if (
+        questionOrder[currentIndex] ===
+            "S2-E03" ||
+
+        questionOrder[currentIndex] ===
+            "S2-E04"
+    ) {
+
+        showQuestion(1);
+
+        return;
+
+    }
+
+
+    showQuestion(
+        currentIndex - 1
+    );
+
+}
+
+
+/* =====================================================
+   FIN DU SCOPE 2
+===================================================== */
+
+function finishScope2Entreprise() {
+
+    localStorage.setItem(
+        "carbono_entreprise_scope2",
+        JSON.stringify(answers)
+    );
+
+
+    fetch(
+        "/calcul-scope2-entreprise",
+        {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "application/json"
+            },
+
+            body:
+                JSON.stringify(answers)
+
+        }
+    )
+
+    .then(response => {
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Erreur HTTP " +
+                response.status
+            );
+
+        }
+
+        return response.json();
+
+    })
+
+    .then(data => {
+
+        console.log(
+            "Résultat Scope 2 Entreprise :",
+            data
+        );
+
+
+        localStorage.setItem(
+            "resultat_scope2_entreprise",
+            JSON.stringify(
+                data.resultat || {}
+            )
+        );
+
+
+        window.location.href =
+            "/scope3_entreprise";
+
+    })
+
+    .catch(error => {
+
+        console.error(
+            "Erreur calcul Scope 2 Entreprise :",
+            error
+        );
+
+
+        alert(
+            "Une erreur est survenue lors du calcul du Scope 2."
+        );
+
+    });
+
+}
+
+
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+showQuestion(0);
+
+</script>
+
+</body>
+</html>

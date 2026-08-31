@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scope 1 — Individu | Tunicarbone </title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap"
+          rel="stylesheet">
+</head>
+
+
+<body class="carbon-page">
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav class="carbon-nav">
+
+    <a href="/individu" class="carbon-logo">
+        <span class="logo-dot"></span>
+        Tunicarbone 
+    </a>
+
+    <div class="nav-right">
+        <span>Scope 1</span>
+        <span class="nav-separator">·</span>
+        <span id="questionCounter">01 / 13</span>
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     CONTENU PRINCIPAL
+===================================================== -->
+
+<main class="carbon-main">
+
+
+    <!-- PROGRESSION -->
+
+    <div class="progress-area">
+
+        <div class="progress-line">
+
+            <div class="progress-active"
+                 id="progressActive">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         QUESTIONNAIRE
+    ================================================= -->
+
+    <div class="question-layout">
+
+
+        <!-- =================================================
+             PARTIE GAUCHE : QUESTIONS
+        ================================================= -->
+
+        <section class="question-side">
+
+
+            <!-- ================================
+                 S1-01
+            ================================= -->
+
+            <div class="question-screen active"
+                 data-question="S1-01">
+
+                <div class="question-category">
+                    TRANSPORT
+                </div>
+
+                <h1>
+                    Possédez-vous une
+                    <span>voiture personnelle ?</span>
+                </h1>
+
+                <p class="question-description">
+                    Cette information nous permettra de déterminer
+                    si les émissions liées à votre voiture doivent
+                    être prises en compte.
+                </p>
+
+
+                <div class="answers">
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectAnswer('voiture', 'oui', this)">
+
+                        <span class="answer-letter">A</span>
+
+                        <span class="answer-text">
+                            <strong>Oui</strong>
+                            <small>
+                                J'utilise une voiture personnelle
+                            </small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectAnswer('voiture', 'non', this)">
+
+                        <span class="answer-letter">B</span>
+
+                        <span class="answer-text">
+                            <strong>Non</strong>
+                            <small>
+                                Je ne possède pas de voiture
+                            </small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 S1-02
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S1-02">
+
+                <div class="question-category">
+                    TRANSPORT
+                </div>
+
+                <h1>
+                    Quel type de
+                    <span>carburant</span>
+                    utilisez-vous ?
+                </h1>
+
+                <p class="question-description">
+                    Sélectionnez le carburant utilisé par votre
+                    voiture personnelle.
+                </p>
+
+
+                <div class="answers answers-vertical">
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectAnswer('carburant', 'essence', this)">
+                        <span class="answer-letter">A</span>
+                        <span class="answer-text">
+                            <strong>Essence</strong>
+                        </span>
+                        <span class="answer-arrow">→</span>
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectAnswer('carburant', 'diesel', this)">
+                        <span class="answer-letter">B</span>
+                        <span class="answer-text">
+                            <strong>Diesel</strong>
+                        </span>
+                        <span class="answer-arrow">→</span>
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectAnswer('carburant', 'gpl', this)">
+                        <span class="answer-letter">C</span>
+                        <span class="answer-text">
+                            <strong>GPL</strong>
+                        </span>
+                        <span class="answer-arrow">→</span>
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectAnswer('carburant', 'hybride', this)">
+                        <span class="answer-letter">D</span>
+                        <span class="answer-text">
+                            <strong>Hybride</strong>
+                        </span>
+                        <span class="answer-arrow">→</span>
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectAnswer('carburant', 'electrique', this)">
+                        <span class="answer-letter">E</span>
+                        <span class="answer-text">
+                            <strong>Électrique</strong>
+                        </span>
+                        <span class="answer-arrow">→</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 S1-03
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S1-03">
+
+                <div class="question-category">
+                    TRANSPORT
+                </div>
+
+                <h1>
+                    Combien de kilomètres
+                    <span>parcourez-vous</span>
+                    chaque semaine ?
+                </h1>
+
+                <p class="question-description">
+                    Indiquez une moyenne approximative avec votre
+                    voiture personnelle.
+                </p>
+
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="kmInput"
+                               min="0"
+                               max="3000"
+                               step="10"
+                               placeholder="250">
+
+                        <span>km / semaine</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 S1-04
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S1-04">
+
+                <div class="question-category">
+                    TRANSPORT
+                </div>
+
+                <h1>
+                    Quelle est la
+                    <span>consommation moyenne</span>
+                    de votre voiture ?
+                </h1>
+
+                <p class="question-description">
+                    Vous pouvez indiquer la consommation affichée
+                    par votre véhicule.
+                </p>
+
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="consommationInput"
+                               min="0"
+                               max="30"
+                               step="0.1"
+                               placeholder="6.5">
+
+                        <span>L / 100 km</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 S1-05
+            ================================= -->
+
+            <div class="question-screen calculation-screen"
+                 data-question="S1-05">
+
+                <div class="question-category">
+                    TRANSPORT · RÉSULTAT
+                </div>
+
+                <h1>
+                    Votre voiture
+                    <span>est prise en compte.</span>
+                </h1>
+
+                <p class="question-description">
+                    Les données nécessaires à l'estimation des
+                    émissions de votre voiture ont été enregistrées.
+                </p>
+
+
+                <div class="calculation-preview">
+
+                    <span>DONNÉES ENREGISTRÉES</span>
+
+                    <div class="preview-row">
+                        <span>Carburant</span>
+                        <strong id="previewCarburant">—</strong>
+                    </div>
+
+                    <div class="preview-row">
+                        <span>Distance</span>
+                        <strong id="previewKm">—</strong>
+                    </div>
+
+                    <div class="preview-row">
+                        <span>Consommation</span>
+                        <strong id="previewConso">—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 S1-06
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S1-06">
+
+                <div class="question-category">
+                    LOGEMENT
+                </div>
+
+                <h1>
+                    Utilisez-vous du
+                    <span>gaz naturel</span>
+                    chez vous ?
+                </h1>
+
+                <p class="question-description">
+                    Pour cuisiner ou vous chauffer.
+                </p>
+
+
+                <div class="answers">
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectAnswer('gaz_naturel', 'oui', this)">
+
+                        <span class="answer-letter">A</span>
+
+                        <span class="answer-text">
+                            <strong>Oui</strong>
+                            <small>
+                                J'utilise du gaz naturel
+                            </small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectAnswer('gaz_naturel', 'non', this)">
+
+                        <span class="answer-letter">B</span>
+
+                        <span class="answer-text">
+                            <strong>Non</strong>
+                            <small>
+                                Je n'utilise pas de gaz naturel
+                            </small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+     S1-07
+================================= -->
+
+<div class="question-screen"
+     data-question="S1-07">
+
+    <div class="question-category">
+        LOGEMENT
+    </div>
+
+    <h1>
+        Connaissez-vous votre
+        <span>consommation de gaz naturel ?</span>
+    </h1>
+
+    <p class="question-description">
+        Si vous connaissez votre consommation, indiquez-la en m³.
+        Sinon, nous utiliserons votre facture STEG.
+    </p>
+
+    <div class="answers">
+
+        <button type="button"
+                class="answer"
+                onclick="selectAnswer('connait_gaz', 'oui', this)">
+
+            <span class="answer-letter">A</span>
+
+            <span class="answer-text">
+                <strong>Oui</strong>
+                <small>
+                    Je connais ma consommation en m³
+                </small>
+            </span>
+
+            <span class="answer-arrow">→</span>
+
+        </button>
+
+
+        <button type="button"
+                class="answer"
+                onclick="selectAnswer('connait_gaz', 'non', this)">
+
+            <span class="answer-letter">B</span>
+
+            <span class="answer-text">
+                <strong>Non</strong>
+                <small>
+                    Je connais seulement ma facture STEG
+                </small>
+            </span>
+
+            <span class="answer-arrow">→</span>
+
+        </button>
+
+    </div>
+
+</div>
+           <!-- ================================
+     S1-08
+================================= -->
+
+<div class="question-screen"
+     data-question="S1-08">
+
+    <div class="question-category">
+        LOGEMENT
+    </div>
+
+    <h1>
+        Quelle est votre
+        <span>consommation mensuelle</span>
+        de gaz naturel ?
+    </h1>
+
+    <p class="question-description">
+        Indiquez votre consommation moyenne en mètres
+        cubes par mois.
+    </p>
+
+    <div class="number-question">
+
+        <div class="big-input">
+
+            <input type="number"
+                   id="gazInput"
+                   min="0"
+                   step="0.1"
+                   placeholder="30">
+
+            <span>m³ / mois</span>
+
+        </div>
+
+    </div>
+
+</div>
+        <!-- ================================
+     S1-09
+================================= -->
+
+<div class="question-screen"
+     data-question="S1-09">
+
+    <div class="question-category">
+        LOGEMENT
+    </div>
+
+    <h1>
+        Quel est le montant moyen
+        de votre <span>facture STEG de gaz</span> ?
+    </h1>
+
+    <p class="question-description">
+        Indiquez votre facture moyenne de gaz naturel
+        par mois.
+    </p>
+
+    <div class="number-question">
+
+        <div class="big-input">
+
+            <input type="number"
+                   id="factureGazInput"
+                   min="0"
+                   step="0.01"
+                   placeholder="40">
+
+            <span>TND / mois</span>
+
+        </div>
+
+    </div>
+
+</div>
+            <!-- ================================
+                 S1-10
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S1-10">
+
+                <div class="question-category">
+                    LOGEMENT
+                </div>
+
+                <h1>
+                    Utilisez-vous des
+                    <span>bouteilles de GPL</span> ?
+                </h1>
+
+                <p class="question-description">
+                    Pour cuisiner ou pour un autre usage domestique.
+                </p>
+
+
+                <div class="answers">
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectAnswer('gpl', 'oui', this)">
+
+                        <span class="answer-letter">A</span>
+
+                        <span class="answer-text">
+                            <strong>Oui</strong>
+                            <small>
+                                J'utilise des bouteilles de GPL
+                            </small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+
+                    <button type="button"
+                            class="answer"
+                            onclick="selectAnswer('gpl', 'non', this)">
+
+                        <span class="answer-letter">B</span>
+
+                        <span class="answer-text">
+                            <strong>Non</strong>
+                            <small>
+                                Je n'en utilise pas
+                            </small>
+                        </span>
+
+                        <span class="answer-arrow">→</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 S1-11
+            ================================= -->
+
+            <div class="question-screen"
+                 data-question="S1-11">
+
+                <div class="question-category">
+                    LOGEMENT · GPL
+                </div>
+
+                <h1>
+                    Combien de bouteilles
+                    <span>utilisez-vous</span>
+                    chaque mois ?
+                </h1>
+
+                <p class="question-description">
+                    Indiquez le nombre moyen de bouteilles utilisées
+                    par votre logement chaque mois.
+                </p>
+
+
+                <div class="number-question">
+
+                    <div class="big-input">
+
+                        <input type="number"
+                               id="gplInput"
+                               min="0"
+                               max="20"
+                               step="1"
+                               placeholder="2">
+
+                        <span>bouteilles / mois</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 S1-12
+            ================================= -->
+
+            <div class="question-screen calculation-screen"
+                 data-question="S1-12">
+
+                <div class="question-category">
+                    LOGEMENT · GPL
+                </div>
+
+                <h1>
+                    Vos données de
+                    <span>GPL</span>
+                    sont enregistrées.
+                </h1>
+
+                <p class="question-description">
+                    Le poids de la bouteille et le facteur d'émission
+                    seront utilisés pour le calcul final.
+                </p>
+
+
+                <div class="calculation-preview">
+
+                    <span>DONNÉES ENREGISTRÉES</span>
+
+                    <div class="preview-row">
+                        <span>Bouteilles</span>
+                        <strong id="previewGpl">—</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================
+                 S1-13
+            ================================= -->
+
+            <div class="question-screen final-screen"
+                 data-question="S1-13">
+
+                <div class="question-category">
+                    SCOPE 1 · TERMINÉ
+                </div>
+
+                <h1>
+                    Votre Scope 1
+                    <span>est prêt.</span>
+                </h1>
+
+                <p class="question-description">
+                    Toutes les informations nécessaires ont été
+                    enregistrées. Le calcul final sera réalisé
+                    lorsque les facteurs d'émission seront intégrés.
+                </p>
+
+
+                <div class="final-summary">
+
+                    <div>
+                        <span>Transport</span>
+                        <strong id="summaryTransport">
+                            Données enregistrées
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Gaz naturel</span>
+                        <strong id="summaryGaz">
+                            Données enregistrées
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>GPL</span>
+                        <strong id="summaryGpl">
+                            Données enregistrées
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <button type="button"
+                        class="finish-button"
+                        onclick="finishScope1()">
+
+                    Continuer vers le Scope 2
+                    <span>→</span>
+
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             PANNEAU DROIT
+        ================================================= -->
+
+        <aside class="carbon-panel">
+
+            <div class="panel-label">
+                VOTRE BILAN
+            </div>
+
+
+            <div class="carbon-value">
+
+                <strong id="carbonValue">
+                    —
+                </strong>
+
+                <span>
+                    kg CO₂e
+                </span>
+
+            </div>
+
+
+            <div class="panel-message"
+                 id="panelMessage">
+
+                Votre bilan se construit
+                progressivement.
+
+            </div>
+
+
+            <div class="panel-divider"></div>
+
+
+            <div class="panel-item">
+
+                <span>🚗 Transport</span>
+
+                <strong id="transportStatus">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="panel-item">
+
+                <span>🔥 Gaz naturel</span>
+
+                <strong id="gasStatus">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="panel-item">
+
+                <span>GPL</span>
+
+                <strong id="gplStatus">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="panel-divider"></div>
+
+
+            <div class="panel-small">
+
+                Les émissions seront calculées
+                à partir des facteurs d'émission
+                validés pour votre application.
+
+            </div>
+
+        </aside>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         NAVIGATION BAS
+    ================================================= -->
+
+    <div class="question-navigation">
+
+        <button type="button"
+                id="backButton"
+                class="back-button"
+                onclick="previousQuestion()">
+
+            ← Retour
+
+        </button>
+
+
+        <div class="navigation-counter"
+             id="navigationCounter">
+
+            01 / 13
+
+        </div>
+
+
+        <button type="button"
+                id="continueButton"
+                class="continue-button"
+                onclick="nextQuestion()"
+                disabled>
+
+            Continuer
+            <span>→</span>
+
+        </button>
+
+    </div>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =====================================================
+   ÉTAT DU QUESTIONNAIRE
+===================================================== */
+
+const answers = {
+
+    voiture: null,
+
+    carburant: null,
+
+    km_semaine: null,
+
+    consommation: null,
+
+    gaz_naturel: null,
+
+    consommation_gaz: null,
+
+    facture_gaz: null,
+
+    gpl: null,
+
+    bouteilles_gpl: null
+
+};
+
+
+/*
+    Liste réelle des écrans.
+*/
+
+const questionOrder = [
+
+    "S1-01",
+    "S1-02",
+    "S1-03",
+    "S1-04",
+    "S1-05",
+    "S1-06",
+    "S1-07",
+    "S1-08",
+    "S1-09",
+    "S1-10",
+    "S1-11",
+    "S1-12",
+    "S1-13"
+
+];
+
+
+let currentIndex = 0;
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const screens =
+    document.querySelectorAll(".question-screen");
+
+const continueButton =
+    document.getElementById("continueButton");
+
+const backButton =
+    document.getElementById("backButton");
+
+const questionCounter =
+    document.getElementById("questionCounter");
+
+const navigationCounter =
+    document.getElementById("navigationCounter");
+
+const progressActive =
+    document.getElementById("progressActive");
+
+
+
+/* =====================================================
+   AFFICHER UNE QUESTION
+===================================================== */
+
+function showQuestion(index) {
+
+    currentIndex = index;
+
+
+    screens.forEach(screen => {
+
+        screen.classList.remove("active");
+
+    });
+
+
+    const currentId =
+        questionOrder[currentIndex];
+
+
+    const currentScreen =
+        document.querySelector(
+            `[data-question="${currentId}"]`
+        );
+
+
+    if (currentScreen) {
+
+        currentScreen.classList.add("active");
+
+    }
+
+
+    /*
+        Numéro affiché
+    */
+
+    const number =
+        String(currentIndex + 1).padStart(2, "0");
+
+
+    questionCounter.textContent =
+        `${number} / 13`;
+
+    navigationCounter.textContent =
+        `${number} / 13`;
+
+
+    /*
+        Barre de progression
+    */
+
+    const progress =
+        ((currentIndex + 1) / questionOrder.length) * 100;
+
+    progressActive.style.width =
+        `${progress}%`;
+
+
+    /*
+        Bouton retour
+    */
+
+    backButton.disabled =
+        currentIndex === 0;
+
+
+    /*
+        Vérifier si une réponse existe déjà
+    */
+
+    updateContinueButton();
+
+}
+
+
+
+/* =====================================================
+   REPONSE A UNE QUESTION
+===================================================== */
+
+function selectAnswer(variable, value, button) {
+
+
+    /*
+        Enregistrer la réponse
+    */
+
+    answers[variable] = value;
+
+
+    /*
+        Retirer la sélection précédente
+    */
+
+    const parent =
+        button.closest(".answers");
+
+
+    if (parent) {
+
+        parent.querySelectorAll(".answer").forEach(btn => {
+
+            btn.classList.remove("selected");
+
+        });
+
+    }
+
+
+    /*
+        Sélection actuelle
+    */
+
+    button.classList.add("selected");
+
+
+    /*
+        Mise à jour du panneau
+    */
+
+    updatePanel();
+
+
+    /*
+        Activer Continuer
+    */
+
+    updateContinueButton();
+
+
+}
+
+
+
+/* =====================================================
+   INPUT NUMERIQUE
+===================================================== */
+
+function saveNumberInput(variable, inputId) {
+
+    const input =
+        document.getElementById(inputId);
+
+
+    if (!input) {
+        return;
+    }
+
+
+    input.addEventListener("input", function() {
+
+        if (this.value === "") {
+
+            answers[variable] = null;
+
+        } else {
+
+            answers[variable] =
+                Number(this.value);
+
+        }
+
+
+        updateContinueButton();
+
+    });
+
+}
+
+
+saveNumberInput(
+    "km_semaine",
+    "kmInput"
+);
+
+
+saveNumberInput(
+    "consommation",
+    "consommationInput"
+);
+
+
+saveNumberInput(
+    "consommation_gaz",
+    "gazInput"
+);
+
+
+saveNumberInput(
+    "facture_gaz",
+    "factureGazInput"
+);
+
+
+saveNumberInput(
+    "bouteilles_gpl",
+    "gplInput"
+);
+
+
+
+/* =====================================================
+   VERIFIER SI QUESTION VALIDEE
+===================================================== */
+
+function isCurrentQuestionValid() {
+
+    const question =
+        questionOrder[currentIndex];
+
+
+    switch (question) {
+
+
+        case "S1-01":
+
+            return answers.voiture !== null;
+
+
+        case "S1-02":
+
+            return answers.carburant !== null;
+
+
+        case "S1-03":
+
+            return (
+                answers.km_semaine !== null &&
+                answers.km_semaine >= 0
+            );
+
+
+        case "S1-04":
+
+            return (
+                answers.consommation !== null &&
+                answers.consommation > 0
+            );
+
+
+        case "S1-05":
+
+            return true;
+
+
+        case "S1-06":
+
+            return answers.gaz_naturel !== null;
+
+        case "S1-07":
+
+            return answers.connait_gaz !== null;
+  
+
+        case "S1-08":
+
+            return (
+            answers.connait_gaz === "oui" &&
+            answers.consommation_gaz !== null &&
+            answers.consommation_gaz >= 0
+    );
+
+
+        case "S1-09":
+
+    return (
+        answers.connait_gaz === "non" &&
+        answers.facture_gaz !== null &&
+        answers.facture_gaz >= 0
+    );
+
+        case "S1-10":
+
+            return answers.gpl !== null;
+
+
+        case "S1-11":
+
+            return (
+                answers.gpl === "non" ||
+                (
+                    answers.bouteilles_gpl !== null &&
+                    answers.bouteilles_gpl >= 0
+                )
+            );
+
+
+        case "S1-12":
+
+            return true;
+
+
+        case "S1-13":
+
+            return true;
+
+
+        default:
+
+            return false;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   BOUTON CONTINUER
+===================================================== */
+
+function updateContinueButton() {
+
+    continueButton.disabled =
+        !isCurrentQuestionValid();
+
+}
+
+
+
+/* =====================================================
+   QUESTION SUIVANTE
+===================================================== */
+
+function nextQuestion() {
+
+
+    if (!isCurrentQuestionValid()) {
+
+        return;
+
+    }
+
+
+    /*
+        S1-01 :
+        Si pas de voiture, on saute
+        directement à S1-06.
+    */
+
+    if (
+        questionOrder[currentIndex] === "S1-01" &&
+        answers.voiture === "non"
+    ) {
+
+        currentIndex =
+            questionOrder.indexOf("S1-06");
+
+        showQuestion(currentIndex);
+
+        return;
+
+    }
+
+
+    /*
+        S1-06 :
+        Si pas de gaz naturel,
+        on saute S1-07, S1-08 et S1-09.
+    */
+
+    if (
+        questionOrder[currentIndex] === "S1-06" &&
+        answers.gaz_naturel === "non"
+    ) {
+
+        currentIndex =
+            questionOrder.indexOf("S1-10");
+
+        showQuestion(currentIndex);
+
+        return;
+
+    }
+
+
+    /*
+        S1-07 :
+        On regarde si l'utilisateur connaît
+        sa consommation de gaz.
+    */
+
+    if (
+        questionOrder[currentIndex] === "S1-07"
+    ) {
+
+        if (
+            answers.connait_gaz === "oui"
+        ) {
+
+            /*
+                Il connaît sa consommation :
+                on affiche S1-08.
+            */
+
+            currentIndex =
+                questionOrder.indexOf("S1-08");
+
+        } else {
+
+            /*
+                Il ne connaît pas sa consommation :
+                on saute S1-08 et on affiche S1-09
+                pour demander la facture STEG.
+            */
+
+            currentIndex =
+                questionOrder.indexOf("S1-09");
+
+        }
+
+        showQuestion(currentIndex);
+
+        return;
+
+    }
+
+
+    /*
+        S1-08 :
+        La consommation est connue.
+        On saute S1-09 et on va directement
+        au GPL (S1-10).
+    */
+
+    if (
+        questionOrder[currentIndex] === "S1-08"
+    ) {
+
+        currentIndex =
+            questionOrder.indexOf("S1-10");
+
+        showQuestion(currentIndex);
+
+        return;
+
+    }
+
+
+    /*
+        S1-10 :
+        Si pas de GPL,
+        on saute S1-11 et S1-12.
+    */
+
+    if (
+        questionOrder[currentIndex] === "S1-10" &&
+        answers.gpl === "non"
+    ) {
+
+        currentIndex =
+            questionOrder.indexOf("S1-13");
+
+        showQuestion(currentIndex);
+
+        return;
+
+    }
+
+
+    /*
+        Passage normal
+    */
+
+    if (
+        currentIndex <
+        questionOrder.length - 1
+    ) {
+
+        showQuestion(
+            currentIndex + 1
+        );
+
+    }
+
+}
+
+/* =====================================================
+   QUESTION PRECEDENTE
+===================================================== */
+
+function previousQuestion() {
+
+
+    if (currentIndex === 0) {
+
+        return;
+
+    }
+
+
+    /*
+        Retour intelligent.
+
+        Si voiture = non,
+        depuis S1-06 on retourne à S1-01.
+    */
+
+    if (
+        questionOrder[currentIndex] === "S1-06" &&
+        answers.voiture === "non"
+    ) {
+
+        currentIndex =
+            questionOrder.indexOf("S1-01");
+
+        showQuestion(currentIndex);
+
+        return;
+
+    }
+
+
+    /*
+        Si gaz = non,
+        depuis S1-10 on retourne à S1-06.
+    */
+
+    if (
+        questionOrder[currentIndex] === "S1-10" &&
+        answers.gaz_naturel === "non"
+    ) {
+
+        currentIndex =
+            questionOrder.indexOf("S1-06");
+
+        showQuestion(currentIndex);
+
+        return;
+
+    }
+
+
+    /*
+        Si on est sur S1-08,
+        le retour normal nous ramène à S1-07.
+    */
+
+    if (
+        questionOrder[currentIndex] === "S1-08"
+    ) {
+
+        currentIndex =
+            questionOrder.indexOf("S1-07");
+
+        showQuestion(currentIndex);
+
+        return;
+
+    }
+
+
+    /*
+        Si on est sur S1-09,
+        le retour doit également aller à S1-07.
+    */
+
+    if (
+        questionOrder[currentIndex] === "S1-09"
+    ) {
+
+        currentIndex =
+            questionOrder.indexOf("S1-07");
+
+        showQuestion(currentIndex);
+
+        return;
+
+    }
+
+
+    /*
+        Si GPL = non,
+        depuis S1-13 on retourne à S1-10.
+    */
+
+    if (
+        questionOrder[currentIndex] === "S1-13" &&
+        answers.gpl === "non"
+    ) {
+
+        currentIndex =
+            questionOrder.indexOf("S1-10");
+
+        showQuestion(currentIndex);
+
+        return;
+
+    }
+
+
+    /*
+        Retour normal
+    */
+
+    showQuestion(
+        currentIndex - 1
+    );
+
+}
+
+
+/* =====================================================
+   PANNEAU DROIT
+===================================================== */
+
+function updatePanel() {
+
+
+    const transportStatus =
+        document.getElementById(
+            "transportStatus"
+        );
+
+
+    const gasStatus =
+        document.getElementById(
+            "gasStatus"
+        );
+
+
+    const gplStatus =
+        document.getElementById(
+            "gplStatus"
+        );
+
+
+    const panelMessage =
+        document.getElementById(
+            "panelMessage"
+        );
+
+
+    /*
+        TRANSPORT
+    */
+
+    if (answers.voiture === "oui") {
+
+        transportStatus.textContent =
+            "En cours";
+
+        transportStatus.classList.add(
+            "active"
+        );
+
+    }
+
+    else if (answers.voiture === "non") {
+
+        transportStatus.textContent =
+            "Non concerné";
+
+    }
+
+
+    /*
+        GAZ
+    */
+
+    if (answers.gaz_naturel === "oui") {
+
+        gasStatus.textContent =
+            "En cours";
+
+        gasStatus.classList.add(
+            "active"
+        );
+
+    }
+
+    else if (answers.gaz_naturel === "non") {
+
+        gasStatus.textContent =
+            "Non concerné";
+
+    }
+
+
+    /*
+        GPL
+    */
+
+    if (answers.gpl === "oui") {
+
+        gplStatus.textContent =
+            "En cours";
+
+        gplStatus.classList.add(
+            "active"
+        );
+
+    }
+
+    else if (answers.gpl === "non") {
+
+        gplStatus.textContent =
+            "Non concerné";
+
+    }
+
+
+    /*
+        Message général
+    */
+
+    const completed =
+        Object.values(answers)
+        .filter(value =>
+            value !== null
+        ).length;
+
+
+    if (completed === 0) {
+
+        panelMessage.textContent =
+            "Votre bilan se construit progressivement.";
+
+    }
+
+    else {
+
+        panelMessage.textContent =
+            `${completed} donnée(s) enregistrée(s). Votre bilan se précise progressivement.`;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   AFFICHER LES DONNEES DE CALCUL
+===================================================== */
+
+function updateCalculationPreviews() {
+
+
+    const carburant =
+        document.getElementById(
+            "previewCarburant"
+        );
+
+
+    const km =
+        document.getElementById(
+            "previewKm"
+        );
+
+
+    const conso =
+        document.getElementById(
+            "previewConso"
+        );
+
+
+    if (carburant && answers.carburant) {
+
+        carburant.textContent =
+            answers.carburant;
+
+    }
+
+
+    if (km && answers.km_semaine !== null) {
+
+        km.textContent =
+            `${answers.km_semaine} km/semaine`;
+
+    }
+
+
+    if (conso && answers.consommation !== null) {
+
+        conso.textContent =
+            `${answers.consommation} L/100 km`;
+
+    }
+
+
+    const gaz =
+        document.getElementById(
+            "previewGaz"
+        );
+
+
+    const facture =
+        document.getElementById(
+            "previewFacture"
+        );
+
+
+    if (gaz && answers.consommation_gaz !== null) {
+
+        gaz.textContent =
+            `${answers.consommation_gaz} m³/mois`;
+
+    }
+
+
+    if (facture && answers.facture_gaz !== null) {
+
+        facture.textContent =
+            `${answers.facture_gaz} TND/mois`;
+
+    }
+
+
+    const gpl =
+        document.getElementById(
+            "previewGpl"
+        );
+
+
+    if (
+        gpl &&
+        answers.bouteilles_gpl !== null
+    ) {
+
+        gpl.textContent =
+            `${answers.bouteilles_gpl} bouteille(s)/mois`;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   AVANT CHAQUE QUESTION
+===================================================== */
+
+const originalShowQuestion =
+    showQuestion;
+
+
+/*
+    On met à jour les aperçus
+    lorsque l'utilisateur arrive
+    sur une question de résultat.
+*/
+
+function refreshInterface() {
+
+    updateCalculationPreviews();
+
+    updatePanel();
+
+    updateContinueButton();
+
+}
+
+
+
+/* =====================================================
+   CLAVIER
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+
+        if (
+            event.key === "Enter" &&
+            !continueButton.disabled
+        ) {
+
+            /*
+                Ne pas déclencher si l'utilisateur
+                est en train d'écrire dans un champ.
+            */
+
+            if (
+                event.target.tagName !== "INPUT"
+            ) {
+
+                nextQuestion();
+
+            }
+
+        }
+
+
+        if (event.key === "Escape") {
+
+            previousQuestion();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   FIN DU SCOPE 1
+===================================================== */
+
+function finishScope1() {
+
+    const donnees = answers;
+
+    fetch("/calcul-scope1", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(donnees)
+
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        console.log(
+            "Résultat Scope 1 :",
+            data
+        );
+
+        // Sauvegarder les réponses
+        localStorage.setItem(
+            "carbono_scope1",
+            JSON.stringify(answers)
+        );
+
+        // Sauvegarder le résultat calculé
+        localStorage.setItem(
+            "resultat_scope1",
+            JSON.stringify(data.resultat)
+        );
+
+        // Aller au Scope 2
+        window.location.href =
+            "/scope2individu";
+
+    })
+
+    .catch(error => {
+
+        console.error(
+            "Erreur lors de l'envoi du Scope 1 :",
+            error
+        );
+
+        alert(
+            "Une erreur est survenue lors de l'envoi des données."
+        );
+
+    });
+
+}
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+showQuestion(0);
+
+updatePanel();
+
+</script>
+
+
+</body>
+</html>
