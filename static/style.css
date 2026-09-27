@@ -2975,3 +2975,38 @@ body {
     }
 
 }
+
+/* =====================================================
+   CORRECTION PAGE RESULTATS INDIVIDU
+   ===================================================== */
+
+.result-page .hero-card {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    position: relative;
+}
+
+.result-page .actions {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
+    visibility: visible;
+    opacity: 1;
+}
+
+.result-page .result-btn {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.result-page .details-grid {
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+ 

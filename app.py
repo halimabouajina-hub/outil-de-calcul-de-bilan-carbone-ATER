@@ -1,5 +1,15 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib.enums import TA_CENTER
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 
+from excel_export import (
+    build_individu_excel,
+    build_batiment_excel,
+    build_entreprise_excel,
+)
 app = Flask(__name__)
 
 
@@ -1425,7 +1435,218 @@ def calcul_scope3_entreprise():
 def resultat():
     return render_template("resultat.html")
 
-if __name__ == "__main__":
-    app.run(debug=True) 
 
-    
+# ==========================================
+# TÉLÉCHARGEMENT EXCEL / PDF
+# ==========================================
+
+def _export_scope_payload():
+    """Récupère les résultats des trois scopes envoyés par les pages de résultats."""
+    donnees = request.get_json(silent=True) or {}
+
+    return {
+        "scope1": donnees.get("scope1") or {},
+        "scope2": donnees.get("scope2") or {},
+        "scope3": donnees.get("scope3") or {},
+    }
+
+
+
+def _build_pdf(profile, scope1, scope2, scope3):
+    output = __import__("io").BytesIO()
+    doc = SimpleDocTemplate(
+        output,
+        pagesize=A4,
+        rightMargin=40,
+        leftMargin=40,
+        topMargin=40,
+        bottomMargin=40,
+        title=f"Tunicarbone — Bilan {profile}",
+        author="Tunicarbone",
+    )
+    styles = getSampleStyleSheet()
+    title_style = ParagraphStyle("CarbonTitle", parent=styles["Title"], fontSize=20, leading=24, textColor=colors.HexColor("#2c8062"), alignment=TA_CENTER, spaceAfter=14)
+    h_style = ParagraphStyle("CarbonH", parent=styles["Heading2"], fontSize=13, leading=16, textColor=colors.HexColor("#2c8062"), spaceBefore=10, spaceAfter=8)
+    normal = styles["BodyText"]
+
+    n = lambda v: _num_pdf(v)
+    s1 = n(scope1.get("total_scope1"))
+    s2 = n(scope2.get("total_scope2"))
+    s3 = n(scope3.get("total_scope3"))
+    total = s1 + s2 + s3
+
+    detail_map = {
+        "Individu": [
+            ("Scope 1 — Transport", scope1.get("transport")),
+            ("Scope 1 — Gaz naturel", scope1.get("gaz_naturel")),
+            ("Scope 1 — GPL", scope1.get("gpl")),
+            ("Scope 2 — Électricité", scope2.get("electricite")),
+            ("Scope 3 — Alimentation", scope3.get("alimentation")),
+            ("Scope 3 — Transport", scope3.get("transport")),
+            ("Scope 3 — Achats", scope3.get("achats")),
+            ("Scope 3 — Eau", scope3.get("eau")),
+            ("Scope 3 — Déchets", scope3.get("dechets")),
+        ],
+        "Bâtiment": [
+            ("Scope 1 — Gaz naturel", scope1.get("gaz_naturel")),
+            ("Scope 1 — GPL", scope1.get("gpl")),
+            ("Scope 1 — Fioul", scope1.get("fioul")),
+            ("Scope 1 — Diesel", scope1.get("diesel")),
+            ("Scope 1 — Autres combustibles", scope1.get("autres_combustibles")),
+            ("Scope 1 — Réfrigérants", scope1.get("refrigerants")),
+            ("Scope 2 — Électricité", scope2.get("electricite")),
+            ("Scope 3 — Eau", scope3.get("eau")),
+            ("Scope 3 — Déchets", scope3.get("dechets")),
+            ("Scope 3 — Déplacements", scope3.get("deplacements")),
+            ("Scope 3 — Achats", scope3.get("achats")),
+            ("Scope 3 — Travaux", scope3.get("travaux")),
+        ],
+        "Entreprise": [
+            ("Scope 1 — Essence", scope1.get("essence")),
+            ("Scope 1 — Diesel", scope1.get("diesel")),
+            ("Scope 1 — GPL", scope1.get("gpl")),
+            ("Scope 1 — Gaz naturel", scope1.get("gaz_naturel")),
+            ("Scope 1 — Fioul", scope1.get("fioul")),
+            ("Scope 1 — Diesel site", scope1.get("diesel_site")),
+            ("Scope 1 — Réfrigérants", scope1.get("refrigerants")),
+            ("Scope 2 — Électricité", scope2.get("electricite")),
+            ("Scope 3 — Vêtements & EPI", scope3.get("vetements_epi")),
+            ("Scope 3 — Équipements", scope3.get("equipements")),
+            ("Scope 3 — Domicile → travail", scope3.get("domicile_travail")),
+            ("Scope 3 — Déplacements professionnels", scope3.get("deplacements_professionnels")),
+            ("Scope 3 — Marchandises amont", scope3.get("marchandises_amont")),
+            ("Scope 3 — Marchandises aval", scope3.get("marchandises_aval")),
+            ("Scope 3 — Déchets", scope3.get("dechets")),
+            ("Scope 3 — Eau", scope3.get("eau")),
+            ("Scope 3 — Voyages professionnels", scope3.get("voyages_avion")),
+        ],
+    }
+
+    story = [
+        Paragraph(f"Tunicarbone — Bilan {profile}", title_style),
+        Paragraph("Synthèse du bilan carbone", h_style),
+    ]
+    summary = [
+        ["Indicateur", "kg CO₂e / an"],
+        ["Scope 1", f"{s1:,.2f}"],
+        ["Scope 2", f"{s2:,.2f}"],
+        ["Scope 3", f"{s3:,.2f}"],
+        ["Total", f"{total:,.2f}"],
+    ]
+    t = Table(summary, colWidths=[290, 160])
+    t.setStyle(TableStyle([
+        ("BACKGROUND", (0,0), (-1,0), colors.HexColor("#2c8062")),
+        ("TEXTCOLOR", (0,0), (-1,0), colors.white),
+        ("FONTNAME", (0,0), (-1,0), "Helvetica-Bold"),
+        ("FONTNAME", (0,-1), (-1,-1), "Helvetica-Bold"),
+        ("BACKGROUND", (0,-1), (-1,-1), colors.HexColor("#d9ead3")),
+        ("GRID", (0,0), (-1,-1), 0.6, colors.HexColor("#cfcfcf")),
+        ("VALIGN", (0,0), (-1,-1), "MIDDLE"),
+        ("ALIGN", (1,1), (1,-1), "RIGHT"),
+        ("TOPPADDING", (0,0), (-1,-1), 7), ("BOTTOMPADDING", (0,0), (-1,-1), 7),
+    ]))
+    story += [t, Spacer(1, 16), Paragraph("Détail des émissions", h_style)]
+    rows = [["Poste", "kg CO₂e / an"]]
+    # Reuse the same detail definitions as Excel, with a safe fallback.
+    detail_rows = detail_map.get(profile, [])
+    for name, value in detail_rows:
+        rows.append([name, f"{n(value):,.2f}"])
+    dt = Table(rows, colWidths=[360, 90], repeatRows=1)
+    dt.setStyle(TableStyle([
+        ("BACKGROUND", (0,0), (-1,0), colors.HexColor("#e7eee9")),
+        ("FONTNAME", (0,0), (-1,0), "Helvetica-Bold"),
+        ("GRID", (0,0), (-1,-1), 0.45, colors.HexColor("#d0d0d0")),
+        ("ALIGN", (1,1), (1,-1), "RIGHT"),
+        ("VALIGN", (0,0), (-1,-1), "MIDDLE"),
+        ("TOPPADDING", (0,0), (-1,-1), 5), ("BOTTOMPADDING", (0,0), (-1,-1), 5),
+    ]))
+    story += [dt, Spacer(1, 12), Paragraph("Document généré automatiquement par Tunicarbone.", normal)]
+    doc.build(story)
+    output.seek(0)
+    return output
+
+
+def _num_pdf(value):
+    try:
+        return float(value or 0)
+    except (TypeError, ValueError):
+        return 0.0
+
+
+@app.route("/telecharger-excel-individu", methods=["POST"])
+def telecharger_excel_individu():
+    donnees = _export_scope_payload()
+
+    fichier = build_individu_excel(
+        donnees["scope1"],
+        donnees["scope2"],
+        donnees["scope3"],
+    )
+
+    return send_file(
+        fichier,
+        as_attachment=True,
+        download_name="Tunicarbone_Individu.xlsx",
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    )
+
+
+@app.route("/telecharger-excel-batiment", methods=["POST"])
+def telecharger_excel_batiment():
+    donnees = _export_scope_payload()
+
+    fichier = build_batiment_excel(
+        donnees["scope1"],
+        donnees["scope2"],
+        donnees["scope3"],
+    )
+
+    return send_file(
+        fichier,
+        as_attachment=True,
+        download_name="Tunicarbone_Batiment.xlsx",
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    )
+
+
+@app.route("/telecharger-excel-entreprise", methods=["POST"])
+def telecharger_excel_entreprise():
+    donnees = _export_scope_payload()
+
+    fichier = build_entreprise_excel(
+        donnees["scope1"],
+        donnees["scope2"],
+        donnees["scope3"],
+    )
+
+    return send_file(
+        fichier,
+        as_attachment=True,
+        download_name="Tunicarbone_Entreprise.xlsx",
+        mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    )
+
+
+@app.route("/telecharger-pdf-individu", methods=["POST"])
+def telecharger_pdf_individu():
+    donnees = _export_scope_payload()
+    fichier = _build_pdf("Individu", donnees["scope1"], donnees["scope2"], donnees["scope3"])
+    return send_file(fichier, as_attachment=True, download_name="Tunicarbone_Individu.pdf", mimetype="application/pdf")
+
+
+@app.route("/telecharger-pdf-batiment", methods=["POST"])
+def telecharger_pdf_batiment():
+    donnees = _export_scope_payload()
+    fichier = _build_pdf("Bâtiment", donnees["scope1"], donnees["scope2"], donnees["scope3"])
+    return send_file(fichier, as_attachment=True, download_name="Tunicarbone_Batiment.pdf", mimetype="application/pdf")
+
+
+@app.route("/telecharger-pdf-entreprise", methods=["POST"])
+def telecharger_pdf_entreprise():
+    donnees = _export_scope_payload()
+    fichier = _build_pdf("Entreprise", donnees["scope1"], donnees["scope2"], donnees["scope3"])
+    return send_file(fichier, as_attachment=True, download_name="Tunicarbone_Entreprise.pdf", mimetype="application/pdf")
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

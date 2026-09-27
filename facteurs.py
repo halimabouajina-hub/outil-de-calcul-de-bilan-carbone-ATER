@@ -766,3 +766,4 @@ def calcul_co2_entreprise_marchandises(distance_km):
         * FACTEUR_ENTREPRISE_CAMIONNETTE_ESSENCE_KM
     )
 
+ 

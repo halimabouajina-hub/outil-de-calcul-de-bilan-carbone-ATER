@@ -1,461 +1,1348 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Résultats — Entreprise | Tunicarbone</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<style>
-:root{
-    --ink:#17201b;
-    --muted:#6f786f;
-    --paper:#f6f5f0;
-    --card:#ffffff;
-    --line:#e4e5df;
-    --soft:#eef1e9;
-}
-*{box-sizing:border-box}
-body.result-page{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:"DM Sans",Arial,sans-serif;
-}
-.result-wrap{
-    max-width:1180px;
-    margin:0 auto;
-    padding:42px 24px 70px;
-}
-.result-top{
-    display:flex;
-    align-items:flex-end;
-    justify-content:space-between;
-    gap:24px;
-    margin-bottom:30px;
-}
-.result-kicker{
-    font-size:12px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--muted);
-    margin-bottom:8px;
-}
-.result-title{
-    margin:0;
-    font-family:"Playfair Display",Georgia,serif;
-    font-size:48px;
-    line-height:1.05;
-    font-weight:600;
-}
-.result-subtitle{
-    margin:12px 0 0;
-    color:var(--muted);
-    font-size:16px;
-}
-.actions{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
-.action-btn{
-    border:1px solid var(--line);
-    background:#fff;
-    color:var(--ink);
-    padding:13px 18px;
-    border-radius:14px;
-    font:600 14px "DM Sans",sans-serif;
-    cursor:pointer;
-    text-decoration:none;
-    transition:.2s ease;
-}
-.action-btn.primary{
-    background:var(--ink);
-    color:#fff;
-    border-color:var(--ink);
-}
-.action-btn:hover{transform:translateY(-1px)}
-.hero{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:28px;
-    padding:34px;
-    display:grid;
-    grid-template-columns:1.1fr .9fr;
-    gap:28px;
-    box-shadow:0 16px 45px rgba(26,33,28,.05);
-}
-.total-block{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    min-height:280px;
-}
-.total-label{
-    font-size:13px;
-    text-transform:uppercase;
-    letter-spacing:.13em;
-    color:var(--muted);
-}
-.total-value{
-    margin-top:10px;
-    font-size:64px;
-    line-height:1;
-    font-weight:700;
-    letter-spacing:-.04em;
-}
-.total-unit{
-    margin-top:10px;
-    color:var(--muted);
-    font-size:15px;
-}
-.total-note{
-    margin-top:26px;
-    max-width:600px;
-    line-height:1.6;
-    color:var(--muted);
-}
-.donut-wrap{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-.donut{
-    width:250px;
-    height:250px;
-    border-radius:50%;
-    position:relative;
-    background:conic-gradient(#23372d 0deg,#23372d 120deg,#66786c 120deg,#66786c 240deg,#aeb7aa 240deg,#aeb7aa 360deg);
-}
-.donut::after{
-    content:"";
-    position:absolute;
-    inset:30px;
-    background:var(--card);
-    border-radius:50%;
-}
-.donut-center{
-    position:absolute;
-    inset:0;
-    z-index:2;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-}
-.donut-center strong{font-size:21px}
-.donut-center span{font-size:12px;color:var(--muted);margin-top:4px}
-.section-title{
-    margin:42px 0 16px;
-    font-family:"Playfair Display",Georgia,serif;
-    font-size:30px;
-}
-.scope-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
-}
-.scope-card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:22px;
-    padding:22px;
-}
-.scope-card .eyebrow{
-    font-size:12px;
-    text-transform:uppercase;
-    letter-spacing:.12em;
-    color:var(--muted);
-}
-.scope-card h3{margin:10px 0 8px;font-size:19px}
-.scope-value{font-size:30px;font-weight:700}
-.scope-bar{
-    height:8px;
-    border-radius:999px;
-    background:var(--soft);
-    margin-top:18px;
-    overflow:hidden;
-}
-.scope-bar i{
-    display:block;
-    height:100%;
-    width:0;
-    border-radius:inherit;
-    background:var(--ink);
-}
-.detail-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:16px;
-}
-.detail-card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:22px;
-    padding:22px;
-}
-.detail-row{
-    display:flex;
-    justify-content:space-between;
-    gap:20px;
-    padding:13px 0;
-    border-bottom:1px solid var(--line);
-}
-.detail-row:last-child{border-bottom:0}
-.detail-row span{color:var(--muted)}
-.detail-row strong{font-weight:600;text-align:right}
-.legend{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin-top:16px;
-}
-.legend div{
-    display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px
-}
-.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
-.dot.s1{background:#23372d}.dot.s2{background:#66786c}.dot.s3{background:#aeb7aa}
-.note-box{
-    margin-top:28px;
-    background:#eef1e9;
-    border-radius:20px;
-    padding:18px 20px;
-    color:#59625a;
-    line-height:1.55;
-    font-size:13px;
-}
-@media(max-width:860px){
-    .hero{grid-template-columns:1fr}
-    .scope-grid{grid-template-columns:1fr}
-    .detail-grid{grid-template-columns:1fr}
-    .result-top{align-items:flex-start;flex-direction:column}
-    .result-title{font-size:38px}
-}
-@media print{
-    .actions{display:none!important}
-    .result-wrap{padding:20px}
-    .hero,.scope-card,.detail-card{box-shadow:none}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Résultats — Entreprise | Tunicarbone</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+
+        :root{
+            --ink:#17201b;
+            --muted:#6f786f;
+            --paper:#f6f5f0;
+            --card:#ffffff;
+            --line:#e4e5df;
+            --soft:#eef1e9;
+        }
+
+        *{
+            box-sizing:border-box;
+        }
+
+        body.result-page{
+            margin:0;
+            background:var(--paper);
+            color:var(--ink);
+            font-family:"DM Sans",Arial,sans-serif;
+        }
+
+        .result-wrap{
+            max-width:1180px;
+            margin:0 auto;
+            padding:42px 24px 70px;
+        }
+
+        .result-top{
+            display:flex;
+            align-items:flex-end;
+            justify-content:space-between;
+            gap:24px;
+            margin-bottom:30px;
+        }
+
+        .result-kicker{
+            font-size:12px;
+            letter-spacing:.14em;
+            text-transform:uppercase;
+            color:var(--muted);
+            margin-bottom:8px;
+        }
+
+        .result-title{
+            margin:0;
+            font-family:"Playfair Display",Georgia,serif;
+            font-size:48px;
+            line-height:1.05;
+            font-weight:600;
+        }
+
+        .result-subtitle{
+            margin:12px 0 0;
+            color:var(--muted);
+            font-size:16px;
+        }
+
+        .actions{
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+        }
+
+        .action-btn{
+            border:1px solid var(--line);
+            background:#fff;
+            color:var(--ink);
+            padding:13px 18px;
+            border-radius:14px;
+            font:600 14px "DM Sans",sans-serif;
+            cursor:pointer;
+            text-decoration:none;
+            transition:.2s ease;
+        }
+
+        .action-btn.primary{
+            background:var(--ink);
+            color:#fff;
+            border-color:var(--ink);
+        }
+
+        .action-btn:hover{
+            transform:translateY(-1px);
+        }
+
+        .action-btn:disabled{
+            opacity:.6;
+            cursor:wait;
+            transform:none;
+        }
+
+        .hero{
+            background:var(--card);
+            border:1px solid var(--line);
+            border-radius:28px;
+            padding:34px;
+            display:grid;
+            grid-template-columns:1.1fr .9fr;
+            gap:28px;
+            box-shadow:0 16px 45px rgba(26,33,28,.05);
+        }
+
+        .total-block{
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            min-height:280px;
+        }
+
+        .total-label{
+            font-size:13px;
+            text-transform:uppercase;
+            letter-spacing:.13em;
+            color:var(--muted);
+        }
+
+        .total-value{
+            margin-top:10px;
+            font-size:64px;
+            line-height:1;
+            font-weight:700;
+            letter-spacing:-.04em;
+        }
+
+        .total-unit{
+            margin-top:10px;
+            color:var(--muted);
+            font-size:15px;
+        }
+
+        .total-note{
+            margin-top:26px;
+            max-width:600px;
+            line-height:1.6;
+            color:var(--muted);
+        }
+
+        .donut-wrap{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .donut{
+            width:250px;
+            height:250px;
+            border-radius:50%;
+            position:relative;
+            background:
+                conic-gradient(
+                    #23372d 0deg,
+                    #23372d 120deg,
+                    #66786c 120deg,
+                    #66786c 240deg,
+                    #aeb7aa 240deg,
+                    #aeb7aa 360deg
+                );
+        }
+
+        .donut::after{
+            content:"";
+            position:absolute;
+            inset:30px;
+            background:var(--card);
+            border-radius:50%;
+        }
+
+        .donut-center{
+            position:absolute;
+            inset:0;
+            z-index:2;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+        }
+
+        .donut-center strong{
+            font-size:21px;
+        }
+
+        .donut-center span{
+            font-size:12px;
+            color:var(--muted);
+            margin-top:4px;
+        }
+
+        .section-title{
+            margin:42px 0 16px;
+            font-family:"Playfair Display",Georgia,serif;
+            font-size:30px;
+        }
+
+        .scope-grid{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:16px;
+        }
+
+        .scope-card{
+            background:var(--card);
+            border:1px solid var(--line);
+            border-radius:22px;
+            padding:22px;
+        }
+
+        .scope-card .eyebrow{
+            font-size:12px;
+            text-transform:uppercase;
+            letter-spacing:.12em;
+            color:var(--muted);
+        }
+
+        .scope-card h3{
+            margin:10px 0 8px;
+            font-size:19px;
+        }
+
+        .scope-value{
+            font-size:30px;
+            font-weight:700;
+        }
+
+        .scope-bar{
+            height:8px;
+            border-radius:999px;
+            background:var(--soft);
+            margin-top:18px;
+            overflow:hidden;
+        }
+
+        .scope-bar i{
+            display:block;
+            height:100%;
+            width:0;
+            border-radius:inherit;
+            background:var(--ink);
+        }
+
+        .detail-grid{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:16px;
+        }
+
+        .detail-card{
+            background:var(--card);
+            border:1px solid var(--line);
+            border-radius:22px;
+            padding:22px;
+        }
+
+        .detail-row{
+            display:flex;
+            justify-content:space-between;
+            gap:20px;
+            padding:13px 0;
+            border-bottom:1px solid var(--line);
+        }
+
+        .detail-row:last-child{
+            border-bottom:0;
+        }
+
+        .detail-row span{
+            color:var(--muted);
+        }
+
+        .detail-row strong{
+            font-weight:600;
+            text-align:right;
+        }
+
+        .legend{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:10px;
+            margin-top:16px;
+        }
+
+        .legend div{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            color:var(--muted);
+            font-size:13px;
+        }
+
+        .dot{
+            width:10px;
+            height:10px;
+            border-radius:50%;
+            display:inline-block;
+        }
+
+        .dot.s1{
+            background:#23372d;
+        }
+
+        .dot.s2{
+            background:#66786c;
+        }
+
+        .dot.s3{
+            background:#aeb7aa;
+        }
+
+        .note-box{
+            margin-top:28px;
+            background:#eef1e9;
+            border-radius:20px;
+            padding:18px 20px;
+            color:#59625a;
+            line-height:1.55;
+            font-size:13px;
+        }
+
+        .status-message{
+            display:none;
+            margin-top:15px;
+            padding:12px 15px;
+            border-radius:12px;
+            background:#eef1e9;
+            color:#59625a;
+            font-size:13px;
+        }
+
+        @media(max-width:860px){
+
+            .hero{
+                grid-template-columns:1fr;
+            }
+
+            .scope-grid{
+                grid-template-columns:1fr;
+            }
+
+            .detail-grid{
+                grid-template-columns:1fr;
+            }
+
+            .result-top{
+                align-items:flex-start;
+                flex-direction:column;
+            }
+
+            .result-title{
+                font-size:38px;
+            }
+
+            .legend{
+                grid-template-columns:1fr;
+            }
+        }
+
+        @media print{
+
+            .actions,
+            .status-message{
+                display:none!important;
+            }
+
+            .result-wrap{
+                padding:20px;
+            }
+
+            .hero,
+            .scope-card,
+            .detail-card{
+                box-shadow:none;
+            }
+        }
+
+    </style>
+
 </head>
+
 
 <body class="result-page">
 
+
 <nav class="carbon-nav">
+
     <a href="/entreprise" class="carbon-logo">
-        <span class="logo-dot"></span>Tunicarbone
+        <span class="logo-dot"></span>
+        Tunicarbone
     </a>
-    <div class="nav-right">Entreprise · Résultats</div>
+
+    <div class="nav-right">
+        Entreprise · Résultats
+    </div>
+
 </nav>
+
 
 <main class="result-wrap" id="report">
 
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
     <div class="result-top">
+
         <div>
-            <div class="result-kicker">Bilan carbone · entreprise</div>
-            <h1 class="result-title">Votre empreinte carbone.</h1>
-            <p class="result-subtitle">Synthèse annuelle des émissions calculées par Tunicarbone.</p>
+
+            <div class="result-kicker">
+                Bilan carbone · entreprise
+            </div>
+
+            <h1 class="result-title">
+                Votre empreinte carbone.
+            </h1>
+
+            <p class="result-subtitle">
+                Synthèse annuelle des émissions calculées par Tunicarbone.
+            </p>
+
         </div>
+
+
+        <!-- =================================================
+             ACTIONS
+        ================================================== -->
 
         <div class="actions">
-            <button class="action-btn primary" onclick="downloadPDF()">↓ Télécharger le PDF</button>
-            <button class="action-btn" onclick="window.print()">Imprimer</button>
-            <a class="action-btn" href="/entreprise">Nouveau bilan</a>
+
+            <button
+                id="pdfButton"
+                class="action-btn primary"
+                type="button"
+                onclick="downloadPDF()">
+
+                📄 Télécharger le PDF
+
+            </button>
+
+
+            <button
+                id="excelButton"
+                class="action-btn primary"
+                type="button"
+                onclick="downloadExcel()">
+
+                📊 Télécharger l'Excel
+
+            </button>
+
+
+            <button
+                class="action-btn"
+                type="button"
+                onclick="window.print()">
+
+                🖨️ Imprimer
+
+            </button>
+
+
+            <a
+                class="action-btn"
+                href="/entreprise">
+
+                ↻ Nouveau bilan
+
+            </a>
+
         </div>
+
     </div>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
     <section class="hero">
+
+
         <div class="total-block">
-            <div class="total-label">Empreinte totale</div>
-            <div class="total-value" id="grandTotal">0</div>
-            <div class="total-unit">kg CO₂e / an</div>
-            <div class="total-note">
-                Le total correspond à la somme des trois scopes calculés
-                pour l’entreprise.
+
+            <div class="total-label">
+                Empreinte totale
             </div>
+
+
+            <div
+                class="total-value"
+                id="grandTotal">
+
+                0,00
+
+            </div>
+
+
+            <div class="total-unit">
+                kg CO₂e / an
+            </div>
+
+
+            <div class="total-note">
+
+                Le total correspond à la somme des trois scopes
+                calculés pour l’entreprise.
+
+            </div>
+
         </div>
+
 
         <div class="donut-wrap">
-            <div class="donut" id="donut">
+
+            <div
+                class="donut"
+                id="donut">
+
                 <div class="donut-center">
-                    <strong>Scopes 1–3</strong>
-                    <span>répartition des émissions</span>
+
+                    <strong>
+                        Scopes 1–3
+                    </strong>
+
+                    <span>
+                        répartition des émissions
+                    </span>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
+
+
+    <!-- =====================================================
+         LEGENDE
+    ====================================================== -->
 
     <div class="legend">
-        <div><i class="dot s1"></i> Scope 1</div>
-        <div><i class="dot s2"></i> Scope 2</div>
-        <div><i class="dot s3"></i> Scope 3</div>
+
+        <div>
+            <i class="dot s1"></i>
+            Scope 1
+        </div>
+
+        <div>
+            <i class="dot s2"></i>
+            Scope 2
+        </div>
+
+        <div>
+            <i class="dot s3"></i>
+            Scope 3
+        </div>
+
     </div>
 
-    <h2 class="section-title">Répartition par scope</h2>
+
+    <!-- =====================================================
+         SCOPES
+    ====================================================== -->
+
+    <h2 class="section-title">
+        Répartition par scope
+    </h2>
+
 
     <section class="scope-grid">
-        <article class="scope-card">
-            <div class="eyebrow">Scope 1</div>
-            <h3>Émissions directes</h3>
-            <div class="scope-value" id="scope1Value">0 kg</div>
-            <div class="scope-bar"><i id="scope1Bar"></i></div>
-        </article>
+
 
         <article class="scope-card">
-            <div class="eyebrow">Scope 2</div>
-            <h3>Électricité achetée</h3>
-            <div class="scope-value" id="scope2Value">0 kg</div>
-            <div class="scope-bar"><i id="scope2Bar"></i></div>
+
+            <div class="eyebrow">
+                Scope 1
+            </div>
+
+            <h3>
+                Émissions directes
+            </h3>
+
+            <div
+                class="scope-value"
+                id="scope1Value">
+
+                0,00 kg
+
+            </div>
+
+            <div class="scope-bar">
+                <i id="scope1Bar"></i>
+            </div>
+
         </article>
 
+
         <article class="scope-card">
-            <div class="eyebrow">Scope 3</div>
-            <h3>Émissions indirectes</h3>
-            <div class="scope-value" id="scope3Value">0 kg</div>
-            <div class="scope-bar"><i id="scope3Bar"></i></div>
+
+            <div class="eyebrow">
+                Scope 2
+            </div>
+
+            <h3>
+                Électricité achetée
+            </h3>
+
+            <div
+                class="scope-value"
+                id="scope2Value">
+
+                0,00 kg
+
+            </div>
+
+            <div class="scope-bar">
+                <i id="scope2Bar"></i>
+            </div>
+
         </article>
+
+
+        <article class="scope-card">
+
+            <div class="eyebrow">
+                Scope 3
+            </div>
+
+            <h3>
+                Émissions indirectes
+            </h3>
+
+            <div
+                class="scope-value"
+                id="scope3Value">
+
+                0,00 kg
+
+            </div>
+
+            <div class="scope-bar">
+                <i id="scope3Bar"></i>
+            </div>
+
+        </article>
+
+
     </section>
 
-    <h2 class="section-title">Détail du Scope 3</h2>
+
+    <!-- =====================================================
+         DETAIL SCOPE 3
+    ====================================================== -->
+
+    <h2 class="section-title">
+        Détail du Scope 3
+    </h2>
+
 
     <section class="detail-grid">
-        <article class="detail-card">
-            <div class="detail-row"><span>Vêtements & EPI</span><strong id="rVetements">0 kg CO₂e</strong></div>
-            <div class="detail-row"><span>Équipements / immobilisations</span><strong id="rEquipements">0 kg CO₂e</strong></div>
-            <div class="detail-row"><span>Domicile → travail</span><strong id="rDomicile">0 kg CO₂e</strong></div>
-            <div class="detail-row"><span>Déplacements professionnels</span><strong id="rPro">0 kg CO₂e</strong></div>
-        </article>
+
 
         <article class="detail-card">
-            <div class="detail-row"><span>Marchandises amont</span><strong id="rAmont">0 kg CO₂e</strong></div>
-            <div class="detail-row"><span>Marchandises aval</span><strong id="rAval">0 kg CO₂e</strong></div>
-            <div class="detail-row"><span>Déchets</span><strong id="rDechets">0 kg CO₂e</strong></div>
-            <div class="detail-row"><span>Eau</span><strong id="rEau">0 kg CO₂e</strong></div>
-            <div class="detail-row"><span>Voyages professionnels</span><strong id="rAvion">0 kg CO₂e</strong></div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Vêtements & EPI
+                </span>
+
+                <strong id="rVetements">
+                    0,00 kg CO₂e
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Équipements / immobilisations
+                </span>
+
+                <strong id="rEquipements">
+                    0,00 kg CO₂e
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Domicile → travail
+                </span>
+
+                <strong id="rDomicile">
+                    0,00 kg CO₂e
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Déplacements professionnels
+                </span>
+
+                <strong id="rPro">
+                    0,00 kg CO₂e
+                </strong>
+
+            </div>
+
+
         </article>
+
+
+        <article class="detail-card">
+
+
+            <div class="detail-row">
+
+                <span>
+                    Marchandises amont
+                </span>
+
+                <strong id="rAmont">
+                    0,00 kg CO₂e
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Marchandises aval
+                </span>
+
+                <strong id="rAval">
+                    0,00 kg CO₂e
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Déchets
+                </span>
+
+                <strong id="rDechets">
+                    0,00 kg CO₂e
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Eau
+                </span>
+
+                <strong id="rEau">
+                    0,00 kg CO₂e
+                </strong>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>
+                    Voyages professionnels
+                </span>
+
+                <strong id="rAvion">
+                    0,00 kg CO₂e
+                </strong>
+
+            </div>
+
+
+        </article>
+
+
     </section>
 
-    <div class="note-box">
-        Les résultats présentés correspondent aux facteurs et hypothèses
-        configurés dans votre application Tunicarbone. Le PDF reprend la
-        même synthèse que cette page.
+
+    <!-- =====================================================
+         MESSAGE
+    ====================================================== -->
+
+    <div
+        id="statusMessage"
+        class="status-message">
     </div>
+
+
+    <!-- =====================================================
+         NOTE
+    ====================================================== -->
+
+    <div class="note-box">
+
+        Les résultats présentés correspondent aux facteurs et
+        hypothèses configurés dans votre application Tunicarbone.
+
+        Le PDF et le fichier Excel utilisent les mêmes résultats
+        des trois scopes enregistrés pendant le questionnaire.
+
+    </div>
+
 
 </main>
 
+
 <script>
-const readJSON = key => {
-    try { return JSON.parse(localStorage.getItem(key) || "{}"); }
-    catch(e) { return {}; }
-};
 
-const s1 = readJSON("resultat_scope1_entreprise");
-const s2 = readJSON("resultat_scope2_entreprise");
-const s3 = readJSON("resultat_scope3_entreprise");
+/* =========================================================
+   LECTURE LOCALSTORAGE
+========================================================= */
 
-const n = value => Number(value || 0);
-const fmt = value => n(value).toLocaleString("fr-FR", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-});
+function readJSON(key) {
 
-const v1 = n(s1.total_scope1);
-const v2 = n(s2.total_scope2);
-const v3 = n(s3.total_scope3);
-const total = v1 + v2 + v3;
+    try {
 
-document.getElementById("grandTotal").textContent = fmt(total);
-document.getElementById("scope1Value").textContent = fmt(v1) + " kg";
-document.getElementById("scope2Value").textContent = fmt(v2) + " kg";
-document.getElementById("scope3Value").textContent = fmt(v3) + " kg";
+        return JSON.parse(
+            localStorage.getItem(key) || "{}"
+        );
 
-const p1 = total ? (v1 / total * 100) : 0;
-const p2 = total ? (v2 / total * 100) : 0;
-const p3 = total ? (v3 / total * 100) : 0;
+    } catch(error) {
 
-document.getElementById("scope1Bar").style.width = p1 + "%";
-document.getElementById("scope2Bar").style.width = p2 + "%";
-document.getElementById("scope3Bar").style.width = p3 + "%";
+        console.error(
+            "Erreur lecture localStorage :",
+            key,
+            error
+        );
 
-const d1 = p1 * 3.6;
-const d2 = d1 + p2 * 3.6;
-document.getElementById("donut").style.background =
+        return {};
+
+    }
+
+}
+
+
+/* =========================================================
+   OUTILS
+========================================================= */
+
+function n(value) {
+
+    const number = Number(value);
+
+    return Number.isFinite(number)
+        ? number
+        : 0;
+
+}
+
+
+function fmt(value) {
+
+    return n(value).toLocaleString(
+        "fr-FR",
+        {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }
+    );
+
+}
+
+
+function showStatus(message) {
+
+    const element =
+        document.getElementById("statusMessage");
+
+    element.textContent = message;
+
+    element.style.display = "block";
+
+}
+
+
+function hideStatus() {
+
+    const element =
+        document.getElementById("statusMessage");
+
+    element.style.display = "none";
+
+}
+
+
+/* =========================================================
+   RECUPERATION DES RESULTATS
+========================================================= */
+
+const s1 =
+    readJSON("resultat_scope1_entreprise");
+
+const s2 =
+    readJSON("resultat_scope2_entreprise");
+
+const s3 =
+    readJSON("resultat_scope3_entreprise");
+
+
+/* =========================================================
+   CALCUL DES TOTAUX
+========================================================= */
+
+const v1 =
+    n(s1.total_scope1);
+
+const v2 =
+    n(s2.total_scope2);
+
+const v3 =
+    n(s3.total_scope3);
+
+
+const total =
+    v1 + v2 + v3;
+
+
+/* =========================================================
+   AFFICHAGE TOTAL
+========================================================= */
+
+document.getElementById(
+    "grandTotal"
+).textContent = fmt(total);
+
+
+document.getElementById(
+    "scope1Value"
+).textContent =
+    fmt(v1) + " kg";
+
+
+document.getElementById(
+    "scope2Value"
+).textContent =
+    fmt(v2) + " kg";
+
+
+document.getElementById(
+    "scope3Value"
+).textContent =
+    fmt(v3) + " kg";
+
+
+/* =========================================================
+   POURCENTAGES
+========================================================= */
+
+const p1 =
+    total > 0
+        ? (v1 / total) * 100
+        : 0;
+
+
+const p2 =
+    total > 0
+        ? (v2 / total) * 100
+        : 0;
+
+
+const p3 =
+    total > 0
+        ? (v3 / total) * 100
+        : 0;
+
+
+/* =========================================================
+   BARRES
+========================================================= */
+
+document.getElementById(
+    "scope1Bar"
+).style.width =
+    p1 + "%";
+
+
+document.getElementById(
+    "scope2Bar"
+).style.width =
+    p2 + "%";
+
+
+document.getElementById(
+    "scope3Bar"
+).style.width =
+    p3 + "%";
+
+
+/* =========================================================
+   DONUT
+========================================================= */
+
+const d1 =
+    p1 * 3.6;
+
+
+const d2 =
+    d1 + p2 * 3.6;
+
+
+document.getElementById(
+    "donut"
+).style.background =
     `conic-gradient(
         #23372d 0deg ${d1}deg,
         #66786c ${d1}deg ${d2}deg,
         #aeb7aa ${d2}deg 360deg
     )`;
 
-document.getElementById("rVetements").textContent = fmt(s3.vetements_epi) + " kg CO₂e";
-document.getElementById("rEquipements").textContent = fmt(s3.equipements) + " kg CO₂e";
-document.getElementById("rDomicile").textContent = fmt(s3.domicile_travail) + " kg CO₂e";
-document.getElementById("rPro").textContent = fmt(s3.deplacements_professionnels) + " kg CO₂e";
-document.getElementById("rAmont").textContent = fmt(s3.marchandises_amont) + " kg CO₂e";
-document.getElementById("rAval").textContent = fmt(s3.marchandises_aval) + " kg CO₂e";
-document.getElementById("rDechets").textContent = fmt(s3.dechets) + " kg CO₂e";
-document.getElementById("rEau").textContent = fmt(s3.eau) + " kg CO₂e";
-document.getElementById("rAvion").textContent = fmt(s3.voyages_avion) + " kg CO₂e";
 
-async function downloadPDF(){
-    const button = document.querySelector(".action-btn.primary");
-    const oldText = button.textContent;
+/* =========================================================
+   DETAIL SCOPE 3
+========================================================= */
+
+document.getElementById(
+    "rVetements"
+).textContent =
+    fmt(s3.vetements_epi)
+    + " kg CO₂e";
+
+
+document.getElementById(
+    "rEquipements"
+).textContent =
+    fmt(s3.equipements)
+    + " kg CO₂e";
+
+
+document.getElementById(
+    "rDomicile"
+).textContent =
+    fmt(s3.domicile_travail)
+    + " kg CO₂e";
+
+
+document.getElementById(
+    "rPro"
+).textContent =
+    fmt(s3.deplacements_professionnels)
+    + " kg CO₂e";
+
+
+document.getElementById(
+    "rAmont"
+).textContent =
+    fmt(s3.marchandises_amont)
+    + " kg CO₂e";
+
+
+document.getElementById(
+    "rAval"
+).textContent =
+    fmt(s3.marchandises_aval)
+    + " kg CO₂e";
+
+
+document.getElementById(
+    "rDechets"
+).textContent =
+    fmt(s3.dechets)
+    + " kg CO₂e";
+
+
+document.getElementById(
+    "rEau"
+).textContent =
+    fmt(s3.eau)
+    + " kg CO₂e";
+
+
+document.getElementById(
+    "rAvion"
+).textContent =
+    fmt(s3.voyages_avion)
+    + " kg CO₂e";
+
+
+/* =========================================================
+   TELECHARGEMENT PDF
+========================================================= */
+
+async function downloadPDF() {
+
+    const button =
+        document.getElementById("pdfButton");
+
+    const oldText =
+        button.textContent;
+
+
     button.disabled = true;
-    button.textContent = "Génération…";
 
-    try{
-        const canvas = await html2canvas(document.getElementById("report"), {
-            scale: 2,
-            backgroundColor: "#f6f5f0",
-            useCORS: true
-        });
+    button.textContent =
+        "Génération du PDF…";
 
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF("p", "mm", "a4");
 
-        const pageW = 210;
-        const pageH = 297;
-        const margin = 10;
-        const imgW = pageW - margin * 2;
-        const imgH = canvas.height * imgW / canvas.width;
+    hideStatus();
 
-        let y = margin;
-        let remaining = imgH;
 
-        pdf.addImage(
-            canvas.toDataURL("image/png"),
-            "PNG",
-            margin,
-            y,
-            imgW,
-            imgH
-        );
+    const payload = {
 
-        while(remaining > pageH - margin * 2){
-            y -= (pageH - margin * 2);
-            remaining -= (pageH - margin * 2);
-            pdf.addPage();
-            pdf.addImage(
-                canvas.toDataURL("image/png"),
-                "PNG",
-                margin,
-                y,
-                imgW,
-                imgH
+        scope1: s1,
+
+        scope2: s2,
+
+        scope3: s3
+
+    };
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/telecharger-pdf-entreprise",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(payload)
+                }
             );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Erreur HTTP "
+                + response.status
+            );
+
         }
 
-        pdf.save("bilan_carbone_entreprise.pdf");
-    }catch(error){
-        console.error(error);
-        alert("Impossible de générer le PDF. Vous pouvez utiliser le bouton Imprimer puis choisir « Enregistrer en PDF ».");
-    }finally{
+
+        const blob =
+            await response.blob();
+
+
+        const url =
+            URL.createObjectURL(blob);
+
+
+        const link =
+            document.createElement("a");
+
+
+        link.href = url;
+
+        link.download =
+            "Tunicarbone_Entreprise.pdf";
+
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+
+        URL.revokeObjectURL(url);
+
+
+    } catch(error) {
+
+        console.error(
+            "Erreur PDF :",
+            error
+        );
+
+        showStatus(
+            "Impossible de générer le PDF."
+        );
+
+
+    } finally {
+
         button.disabled = false;
-        button.textContent = oldText;
+
+        button.textContent =
+            oldText;
+
     }
+
 }
+
+
+/* =========================================================
+   TELECHARGEMENT EXCEL
+========================================================= */
+
+async function downloadExcel() {
+
+    const button =
+        document.getElementById("excelButton");
+
+    const oldText =
+        button.textContent;
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Génération de l'Excel…";
+
+
+    hideStatus();
+
+
+    /*
+     * IMPORTANT :
+     * On utilise exactement les mêmes objets
+     * que ceux utilisés pour afficher cette page.
+     */
+
+    const payload = {
+
+        scope1: s1,
+
+        scope2: s2,
+
+        scope3: s3
+
+    };
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/telecharger-excel-entreprise",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(payload)
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Erreur HTTP "
+                + response.status
+            );
+
+        }
+
+
+        const blob =
+            await response.blob();
+
+
+        const url =
+            URL.createObjectURL(blob);
+
+
+        const link =
+            document.createElement("a");
+
+
+        link.href = url;
+
+
+        link.download =
+            "Tunicarbone_Entreprise.xlsx";
+
+
+        document.body.appendChild(link);
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        URL.revokeObjectURL(url);
+
+
+    } catch(error) {
+
+        console.error(
+            "Erreur Excel :",
+            error
+        );
+
+        showStatus(
+            "Impossible de générer le fichier Excel."
+        );
+
+
+    } finally {
+
+        button.disabled = false;
+
+        button.textContent =
+            oldText;
+
+    }
+
+}
+
 </script>
 
+
 </body>
-</html>
+
+</html>  
