@@ -3009,4 +3009,82 @@ body {
     visibility: visible !important;
     opacity: 1 !important;
 }
- 
+ /* =========================
+   LOGO ATER
+========================= */
+
+.ater-logo {
+    display: flex;
+    align-items: center;
+    margin-left: 25px;
+}
+
+.ater-logo img {
+    width: 115px;
+    height: auto;
+    display: block;
+}
+
+
+/* =========================
+   FOOTER ATER
+========================= */
+
+.ater-footer {
+    padding: 55px 7% 45px;
+    background: #f5f7f2;
+    border-top: 1px solid #e8ece6;
+    text-align: center;
+}
+
+.ater-footer img {
+    width: 145px;
+    height: auto;
+    margin-bottom: 18px;
+}
+
+.ater-footer p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: #7a837d;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   ATER - MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+    .ater-logo img {
+        width: 95px;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .navbar {
+        padding: 0 5%;
+    }
+
+    .ater-logo {
+        margin-left: 10px;
+    }
+
+    .ater-logo img {
+        width: 80px;
+    }
+
+    .ater-footer {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .ater-footer img {
+        width: 125px;
+    }
+
+}
